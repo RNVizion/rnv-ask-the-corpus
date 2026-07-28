@@ -14,14 +14,21 @@ Run from the repo root (app.py uses a relative chroma/ path):
     python eval/evaluate.py                # gate on thresholds, exit 1 on fail
     python eval/evaluate.py --report-only  # never fail; just write the report
     python eval/evaluate.py --limit 10     # sample the first N cases
+    python eval/evaluate.py --tag baseline # label the run in the report header
 
 Needs ANTHROPIC_API_KEY in the environment (same key the Space uses).
 Writes eval/report.md and eval/results.json.
+
+Every report carries a provenance line: timestamp, commit, model, corpus
+fingerprint, and thresholds. Two reports of the same run are otherwise
+indistinguishable, and an undated table is weak evidence.
 """
 import argparse
+import datetime
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -145,13 +152,59 @@ def run(limit=None):
     return metrics, rows
 
 
-def write_report(metrics, rows):
-    RESULTS_JSON.write_text(json.dumps({"metrics": metrics, "rows": rows}, indent=2), encoding="utf-8")
+def _git(*args):
+    """Best-effort git read; never let a missing git break a run."""
+    try:
+        out = subprocess.run(
+            ["git", *args], capture_output=True, text=True, cwd=REPO_ROOT, timeout=5
+        )
+        return out.stdout.strip()
+    except Exception:
+        return ""
+
+
+def provenance(tag=None):
+    """What makes a report self-identifying: when, from which commit, against
+    which corpus, with which model and bars. Without this, two runs a month
+    apart are indistinguishable tables."""
+    sha = _git("rev-parse", "--short", "HEAD") or "unknown"
+    if _git("status", "--porcelain"):
+        sha += "-dirty"
+    return {
+        "generated_at": datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
+        "commit": sha,
+        "tag": tag,
+        "model": getattr(app, "MODEL", "unknown"),
+        "top_k": getattr(app, "TOP_K", None),
+        "source_count": len(LIVE_SOURCE_IDS),
+        "sources": sorted(LIVE_SOURCE_IDS),
+        "thresholds": dict(THRESHOLDS),
+    }
+
+
+def write_report(metrics, rows, tag=None):
+    prov = provenance(tag)
+    RESULTS_JSON.write_text(
+        json.dumps({"provenance": prov, "metrics": metrics, "rows": rows}, indent=2),
+        encoding="utf-8",
+    )
 
     def b(v):
         return "✅" if v else "❌"
 
+    label = f" · **{prov['tag']}**" if prov.get("tag") else ""
     lines = ["# Ask the Corpus — Eval Report", ""]
+    lines += [
+        f"_{prov['generated_at']} · commit `{prov['commit']}`{label}_",
+        "",
+        f"_{prov['source_count']} sources · {metrics['total_cases']} cases · "
+        f"model `{prov['model']}` · top-k {prov['top_k']}_",
+        "",
+        f"_Gates: retrieval ≥ {THRESHOLDS['retrieval_accuracy']}% · "
+        f"out-of-corpus refusal ≥ {THRESHOLDS['ooc_refusal_accuracy']}% · "
+        f"false refusal ≤ {THRESHOLDS['false_refusal_rate']}%_",
+        "",
+    ]
     lines += [
         "| Metric | Value |",
         "| --- | --- |",
@@ -173,6 +226,8 @@ def write_report(metrics, rows):
     lines += ["", "## Out-of-corpus (should refuse)", "| id | refused? | pass |", "| --- | :---: | :---: |"]
     for r in [r for r in rows if r["kind"] == "out_of_corpus"]:
         lines.append(f"| {r['id']} | {b(r['refused'])} | {b(r['pass'])} |")
+
+    lines += ["", "## Corpus at run time", "", ", ".join(f"`{s}`" for s in prov["sources"]), ""]
 
     REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -214,10 +269,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report-only", action="store_true", help="write the report but never exit non-zero")
     ap.add_argument("--limit", type=int, default=None, help="run only the first N cases")
+    ap.add_argument("--tag", default=None, help="label this run in the report header (e.g. 'baseline')")
     args = ap.parse_args()
 
     metrics, rows = run(limit=args.limit)
-    write_report(metrics, rows)
+    write_report(metrics, rows, tag=args.tag)
 
     print(json.dumps(metrics, indent=2))
     print(f"\nReport: {REPORT_MD}")

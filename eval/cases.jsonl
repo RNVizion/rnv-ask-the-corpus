@@ -20,10 +20,30 @@
 {"id": "bio-meta",          "kind": "in_corpus",     "question": "Where does Christian work?",                                       "expect_source": ["bio", "resume"],   "keywords": ["Meta"]}
 
 {"id": "res-roles",         "kind": "in_corpus",     "question": "What kind of roles is Christian looking for?",                     "expect_source": ["resume", "bio"],   "keywords": ["Solutions Engineer", "Developer Advocate", "AI Engineer"]}
-{"id": "res-mcp",           "kind": "in_corpus",     "question": "What is rnv-color-mcp?",                                           "expect_source": ["resume", "bio"],   "keywords": ["MCP", "color"]}
+{"id": "res-mcp",           "kind": "in_corpus",     "question": "What is rnv-color-mcp?",                                           "expect_source": ["resume", "bio"],   "keywords": ["MCP", "color"], "note": "HELD FAILURE. Known false refusal; the resume fragment is too terse to answer from. Left unfixed on purpose as live evidence that the false-refusal gate measures real behavior. Do NOT repair until 'The Machine That Wouldn't Count' publishes. WARNING: this failure is held by the resume being thin on rnv-color-mcp. Adding a real rnv-color-mcp entry to the resume will make this case start passing and the evidence will vanish. Capture eval/report.md as a dated artifact BEFORE expanding the resume."}
 {"id": "res-ai",            "kind": "in_corpus",     "question": "What AI systems has Christian built?",                             "expect_source": ["resume", "bio"],   "keywords": ["RAG", "Corpus", "MCP"]}
-{"id": "res-count",         "kind": "in_corpus",     "question": "How many projects has Christian shipped?",                         "expect_source": "resume",            "keywords": ["eight"]}
+{"id": "res-count",         "kind": "in_corpus",     "question": "How many projects has Christian shipped?",                         "expect_source": ["resume", "home"],  "keywords": ["nine"], "note": "COUNT-DEPENDENT. Nine is the correct figure: five desktop apps, Ask the Corpus, the MCP publishing agent, rnv-color-mcp, and AIII. The home page already says nine; the resume undercounts because rnv-color-mcp and AIII are missing from its project list. Update the resume, then this passes. Keywords are not gated, so a stale value cannot fail CI."}
 {"id": "res-testing",       "kind": "in_corpus",     "question": "What testing tools does Christian use?",                           "expect_source": ["resume", "bio"],   "keywords": ["pytest", "test"]}
+{"id": "res-education",     "kind": "in_corpus",     "question": "What did Christian study in college?",                             "expect_source": ["resume", "bio"],   "keywords": ["Game Programming", "Southern New Hampshire"]}
+{"id": "res-certs",         "kind": "in_corpus",     "question": "What certifications does Christian hold?",                         "expect_source": "resume",            "keywords": ["Google", "IT Support"]}
+{"id": "res-arvr",          "kind": "in_corpus",     "question": "What does Christian do in his AR/VR role?",                        "expect_source": ["resume", "bio"],   "keywords": ["Meta", "Quest", "Ray-Ban"]}
+
+
+{"id": "atc-honest",        "kind": "in_corpus",     "question": "What is \"The Honest Machine\" about?",                            "expect_source": ["ask-the-corpus", "home"], "keywords": ["refus", "corpus", "honest"]}
+{"id": "atc-refusal",       "kind": "in_corpus",     "question": "Why does the retrieval assistant refuse some questions?",         "expect_source": ["ask-the-corpus", "home"], "keywords": ["refus", "guess", "corpus"]}
+{"id": "atc-model",         "kind": "in_corpus",     "question": "Why did Christian choose a smaller model for the corpus bot?",    "expect_source": "ask-the-corpus",    "keywords": ["smaller", "cheaper", "need"]}
+
+{"id": "job-thesis",        "kind": "in_corpus",     "question": "Why was a developer's job never really the code?",               "expect_source": "the-job-was-never-coding", "keywords": ["thinking", "translat", "typing"], "note": "This exact question ships in app.py's SUGGESTED list; gating it means the demo's own prompt can never silently start refusing."}
+{"id": "job-automated",     "kind": "in_corpus",     "question": "What did AI actually automate for developers?",                  "expect_source": "the-job-was-never-coding", "keywords": ["translat", "typist", "grunt"]}
+{"id": "job-exposed",       "kind": "in_corpus",     "question": "Which developers are genuinely exposed by AI writing code?",     "expect_source": "the-job-was-never-coding", "keywords": ["translat", "typ"], "note": "Was trap-job-coding (out_of_corpus) until the post went live 2026-07-15; the trap was retired and replaced by this group on 2026-07-27."}
+
+{"id": "aiii-what",         "kind": "in_corpus",     "question": "What is AIII?",                                                  "expect_source": ["aiii", "home"],    "keywords": ["identity", "authorization", "MCP"]}
+{"id": "aiii-rule",         "kind": "in_corpus",     "question": "What rule is AIII built on?",                                    "expect_source": ["aiii", "home"],    "keywords": ["resolve", "refuse", "guess"]}
+{"id": "aiii-openssf",      "kind": "in_corpus",     "question": "Why was one OpenSSF control marked unmet?",                      "expect_source": "aiii",              "keywords": ["maintainer", "review", "honest"]}
+{"id": "aiii-layers",       "kind": "in_corpus",     "question": "Which layers of the agent-trust stack does rnv-mcp-identity implement?", "expect_source": "aiii",      "keywords": ["L1", "L3", "identity"]}
+
+{"id": "home-built",        "kind": "in_corpus",     "question": "What has Christian built?",                                      "expect_source": ["home", "resume", "bio"], "keywords": ["MCP", "RAG"]}
+{"id": "home-tests",        "kind": "in_corpus",     "question": "How many tests has Christian written?",                          "expect_source": ["home", "resume"],  "keywords": ["5,021"], "note": "VERIFY ON FIRST RUN. The figure lives in a stat block on the home page rather than in prose, so chunking may separate the number from its label. If retrieval misses, drop this case rather than loosening the gate."}
 
 {"id": "ooc-china",         "kind": "out_of_corpus", "question": "What is the capital of China?"}
 {"id": "ooc-superbowl",     "kind": "out_of_corpus", "question": "Who won the Super Bowl this year?"}
@@ -34,9 +54,12 @@
 {"id": "ooc-msft",          "kind": "out_of_corpus", "question": "Who is the CEO of Microsoft?"}
 {"id": "ooc-recipe",        "kind": "out_of_corpus", "question": "What is a good recipe for carbonara?"}
 {"id": "ooc-french",        "kind": "out_of_corpus", "question": "Translate hello into French."}
+{"id": "ooc-tokyo",         "kind": "out_of_corpus", "question": "What is the population of Tokyo?"}
+{"id": "ooc-kubernetes",    "kind": "out_of_corpus", "question": "How do I deploy a Kubernetes cluster?"}
+{"id": "ooc-wwii",          "kind": "out_of_corpus", "question": "When did World War II end?"}
+{"id": "ooc-photosynthesis","kind": "out_of_corpus", "question": "How does photosynthesis work?"}
 
 {"id": "trap-margin",       "kind": "out_of_corpus", "question": "What is the thesis of \"The Margin, Not the Price\"?", "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."}
-{"id": "trap-job-coding",   "kind": "out_of_corpus", "question": "Summarize \"The Job Was Never Coding.\"",            "note": "PENDING post, not in live corpus. Flip to in_corpus once deployed."}
 {"id": "trap-compass",      "kind": "out_of_corpus", "question": "How did Christian make circles without a compass for his cosplay?", "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."}
 {"id": "trap-instagram",    "kind": "out_of_corpus", "question": "How many Instagram followers does Christian have?", "note": "Lives in the IG playbook, never on the site. Refusal is correct."}
 {"id": "trap-address",      "kind": "out_of_corpus", "question": "What is Christian's home address?"}

@@ -7,7 +7,9 @@ Runs every case in eval/cases.jsonl through the REAL pipeline in app.py and scor
   - refusal accuracy   : out-of-corpus -> did it return the exact denial line?
                          in-corpus     -> did it NOT refuse (no false refusals)?
   - keyword groundedness: a light proxy — did the answer contain an expected term?
-                         (cheap signal, not an LLM judge; treat as directional)
+                         (cheap signal, not an LLM judge; treat as directional.
+                          Refused rows are excluded, since a denial line can
+                          match its own keywords.)
 
 Run from the repo root (app.py uses a relative chroma/ path):
 
@@ -123,7 +125,15 @@ def run(limit=None):
             row["retrieval_hit"] = any(e in retrieved for e in exp)
             row["false_refusal"] = refused          # in-corpus should NEVER refuse
             kws = [k.lower() for k in c.get("keywords", [])]
-            row["keyword_hit"] = (any(k in _norm(ans) for k in kws) if kws else None)
+            # A refusal can match its own keywords by accident: the denial line
+            # contains "corpus", "knowledge", "information", "found" and "here",
+            # so a case keyed on any of those scores a hit while refusing.
+            # Groundedness is meaningless for a refusal anyway, so refused rows
+            # drop out of the proxy metric instead of inflating it.
+            row["keyword_hit"] = (
+                None if refused
+                else (any(k in _norm(ans) for k in kws) if kws else None)
+            )
             row["pass"] = row["retrieval_hit"] and not refused
         else:  # out_of_corpus
             row["refusal_correct"] = refused        # should refuse

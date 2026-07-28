@@ -48,6 +48,27 @@ question  ->  embed  ->  similarity search (top-k)  ->  context  -+
 |Per-client rate limit |Protects the demo budget from abuse        |
 |Grounded system prompt|Answers come from the corpus, or not at all|
 
+## Evaluation
+
+The honesty claim is measured, not asserted. A fixed case set runs through the real `app.answer()` on every change to the app, the ingester, the sources, or the index, and CI fails the build if behavior regresses.
+
+|Gate                          |What it proves                                       |Bar  |
+|------------------------------|-----------------------------------------------------|-----|
+|Retrieval accuracy            |in-corpus questions pull the right source            |≥ 85%|
+|Out-of-corpus refusal accuracy|questions outside the corpus get refused, not guessed|≥ 90%|
+|False-refusal rate            |in-corpus questions are not wrongly refused          |≤ 10%|
+
+The third gate is the one that matters most and the one most retrieval demos skip. It’s easy to look honest by refusing more; measuring wrongful refusal is what keeps grounding from quietly becoming uselessness.
+
+Scoring is deterministic rather than an LLM judge: refusals are matched against the exact denial line, retrieval by chunk-id prefix. The most interesting cases are traps — questions about posts that are drafted but not yet published. They’re out-of-corpus today, so a correct system refuses them; when the post ships, the case flips.
+
+```bash
+python eval/evaluate.py       # writes eval/report.md
+pytest eval/test_eval.py -v   # the CI gate
+```
+
+Every run uploads `report.md` as a build artifact, including failed runs. See [`eval/`](eval/) for the case set and thresholds.
+
 ## Stack
 
 - **Embeddings:** sentence-transformers (`all-MiniLM-L6-v2`)
@@ -83,6 +104,7 @@ ingest.py          # published-only ingester -> ChromaDB
 app.py             # retrieval + Claude + Gradio UI
 requirements.txt
 chroma/            # prebuilt vector index (committed)
+eval/              # case set, thresholds, runner, pytest gate
 assets/            # demo clip and screenshots
 ```
 

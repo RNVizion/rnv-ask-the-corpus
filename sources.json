@@ -39,12 +39,8 @@
       "url": "https://rnvizion.dev/blog/the-job-was-never-coding/"
     }
   ],
-  "_comment": "Only live, published URLs belong in 'sources'. The ingester ignores everything below. When a pending page is deployed and returns 200, move its entry up into 'sources'.",
+  "_comment": "Only live, published URLs belong in 'sources'. The ingester ignores everything below. When a pending page is deployed and returns 200, MOVE its entry up into 'sources' and delete it from the pending list; leaving it in both is what happened to the-job-was-never-coding (deployed 2026-07-15, removed from pending 2026-07-27). Adding a source here does not gate it: eval/cases.jsonl needs its own cases, and any trap case about a now-published page must flip from out_of_corpus to in_corpus in the same change.",
   "_pending_not_yet_deployed": [
-    {
-      "id": "the-job-was-never-coding",
-      "url": "https://rnvizion.dev/blog/the-job-was-never-coding/"
-    },
     {
       "id": "the-margin",
       "url": "https://rnvizion.dev/blog/the-margin/"

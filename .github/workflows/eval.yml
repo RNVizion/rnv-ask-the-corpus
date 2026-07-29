@@ -35,6 +35,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
+      
+      - name: Check index covers the cases
+        run: python eval/check_index_coverage.py
 
       - name: Run eval report
         env:

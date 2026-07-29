@@ -1,6 +1,6 @@
 # Ask the Corpus — Eval Report
 
-_2026-07-28T22:11:36+00:00 · commit `eaa468c-dirty` · **after-reingest**_
+_2026-07-29T10:50:00+00:00 · commit `f54b766-dirty`_
 
 _9 sources · 58 cases · model `claude-haiku-4-5` · top-k 5_
 
@@ -8,11 +8,11 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 
 | Metric | Value |
 | --- | --- |
-| Retrieval accuracy (in-corpus) | 97.3% |
-| Out-of-corpus refusal accuracy | 100.0% |
-| False-refusal rate (in-corpus) | 5.4% |
-| Keyword groundedness (proxy) | 97.2% |
-| Overall pass rate | 94.8% |
+| Retrieval accuracy (in-corpus) | 100.0% |
+| Out-of-corpus refusal accuracy | 95.2% |
+| False-refusal rate (in-corpus) | 0.0% |
+| Keyword groundedness (proxy) | 100.0% |
+| Overall pass rate | 98.3% |
 | Cases / Claude calls | 58 / 58 |
 
 ## In-corpus
@@ -22,7 +22,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | squish-origin | ✅ | — | ✅ | ✅ |
 | squish-mario | ✅ | — | ✅ | ✅ |
 | squish-ai | ✅ | — | ✅ | ✅ |
-| squish-loved | ❌ | — | ✅ | ❌ |
+| squish-loved | ✅ | — | ✅ | ✅ |
 | squish-hollow | ✅ | — | ✅ | ✅ |
 | sloth-leverage | ✅ | — | ✅ | ✅ |
 | sloth-two-kinds | ✅ | — | ✅ | ✅ |
@@ -44,8 +44,8 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | res-certs | ✅ | — | ✅ | ✅ |
 | res-arvr | ✅ | — | ✅ | ✅ |
 | atc-honest | ✅ | — | ✅ | ✅ |
-| atc-refusal | ✅ | ⚠️ | ✅ | ❌ |
-| atc-model | ✅ | ⚠️ | ❌ | ❌ |
+| atc-refusal | ✅ | — | ✅ | ✅ |
+| atc-model | ✅ | — | ✅ | ✅ |
 | job-thesis | ✅ | — | ✅ | ✅ |
 | job-automated | ✅ | — | ✅ | ✅ |
 | job-exposed | ✅ | — | ✅ | ✅ |
@@ -78,7 +78,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | trap-address | ✅ | ✅ |
 | trap-salary | ✅ | ✅ |
 | trap-gpa | ✅ | ✅ |
-| trap-dislike | ✅ | ✅ |
+| trap-dislike | ❌ | ❌ |
 | trap-manager | ✅ | ✅ |
 
 ## Corpus at run time

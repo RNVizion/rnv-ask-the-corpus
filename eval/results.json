@@ -1,8 +1,8 @@
 {
   "provenance": {
-    "generated_at": "2026-07-28T22:11:36+00:00",
-    "commit": "eaa468c-dirty",
-    "tag": "after-reingest",
+    "generated_at": "2026-07-29T10:50:00+00:00",
+    "commit": "f54b766-dirty",
+    "tag": null,
     "model": "claude-haiku-4-5",
     "top_k": 5,
     "source_count": 9,
@@ -26,11 +26,11 @@
   "metrics": {
     "total_cases": 58,
     "claude_calls": 58,
-    "retrieval_accuracy": 97.3,
-    "false_refusal_rate": 5.4,
-    "ooc_refusal_accuracy": 100.0,
-    "keyword_groundedness": 97.2,
-    "overall_pass_rate": 94.8
+    "retrieval_accuracy": 100.0,
+    "false_refusal_rate": 0.0,
+    "ooc_refusal_accuracy": 95.2,
+    "keyword_groundedness": 100.0,
+    "overall_pass_rate": 98.3
   },
   "rows": [
     {
@@ -45,7 +45,7 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "# what is squish according to [source: squish: the soul that speed can't generate], **squish is the feel of a thing**\u2014th",
+      "answer_preview": "from [source: squish: the soul that speed can't generate]: **squish is the feel of a thing.** it's the weight, the respo",
       "expect_source": [
         "squish"
       ],
@@ -66,7 +66,7 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian first learned the word \"squish\" in a college classroom from his game programming pro",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" christian first learned the word \"squish\" in a college classr",
       "expect_source": [
         "squish"
       ],
@@ -87,7 +87,7 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "# mario illustrates squish through its jump mechanics according to the article, mario demonstrates squish in how it hand",
+      "answer_preview": "# how mario illustrates squish according to \"squish: the soul that speed can't generate,\" mario illustrates squish throu",
       "expect_source": [
         "squish"
       ],
@@ -108,7 +108,7 @@
         "home"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" ai doesn't take squish away\u2014it actually makes room for it. ch",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" ai doesn't take squish away\u2014it creates room for it. christian",
       "expect_source": [
         "squish"
       ],
@@ -129,14 +129,16 @@
         "ask-the-corpus"
       ],
       "refused": false,
-      "answer_preview": "according to christian smith's essay \"squish,\" what turns software from working into loved is **the human decision to ma",
+      "answer_preview": "according to \"the job was never coding\" and \"squish,\" what turns software from merely working into software people love ",
       "expect_source": [
-        "squish"
+        "squish",
+        "ask-the-corpus",
+        "the-job-was-never-coding"
       ],
-      "retrieval_hit": false,
+      "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
-      "pass": false
+      "pass": true
     },
     {
       "id": "squish-hollow",
@@ -150,7 +152,7 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "based on the source material, christian defines \"hollow\" software in his essay \"squish: the soul that speed can't genera",
+      "answer_preview": "based on [source: squish: the soul that speed can't generate], christian uses \"hollow\" to describe software that is tech",
       "expect_source": [
         "squish"
       ],
@@ -171,7 +173,7 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, \"lazy in the right way is leverage\" means using laziness strategically to avoid repetitiv",
+      "answer_preview": "based on the sources, \"lazy in the right way is leverage\" means directing your laziness toward the future rather than th",
       "expect_source": [
         "sloth"
       ],
@@ -192,7 +194,7 @@
         "ask-the-corpus"
       ],
       "refused": false,
-      "answer_preview": "according to \"lazy in the right way is leverage,\" there are two ways to be lazy about a repetitive chore: 1. **present-f",
+      "answer_preview": "according to [source: lazy in the right way is leverage], the two ways to be lazy about a repetitive chore are: 1. **pre",
       "expect_source": [
         "sloth"
       ],
@@ -234,7 +236,7 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "based on \"lazy in the right way is leverage,\" aiming laziness at the future becomes leverage through automation that com",
+      "answer_preview": "according to [\"lazy in the right way is leverage\"](source), aiming laziness at the future becomes leverage by building t",
       "expect_source": [
         "sloth"
       ],
@@ -255,7 +257,7 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "based on the context, the upside of doing less on purpose is **leverage** \u2014 specifically, building something once that d",
+      "answer_preview": "based on the context provided, the upside of doing less on purpose is **leverage** \u2014 specifically, building systems that",
       "expect_source": [
         "sloth"
       ],
@@ -276,7 +278,7 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian clarifies this ap",
+      "answer_preview": "based on the source material, christian smith clarifies this apparent paradox in \"i lacked the tools, so i built them\": ",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -297,7 +299,7 @@
         "ask-the-corpus"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force from \"i lacked the tools, so i built them: how constraint creat",
+      "answer_preview": "based on the context provided, christian describes constraint as a creative force that drives clarity and intentionality",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -318,7 +320,7 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "# how christian built a software suite according to [\"i lacked the tools, so i built them: how constraint created a soft",
+      "answer_preview": "# how christian built a software suite according to \"i lacked the tools, so i built them: how constraint created a softw",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -339,7 +341,7 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian describes what being a \"renaissance man\" means to him in [source: i lacked the ",
+      "answer_preview": "based on the context, for christian, being a \"renaissance man\" means being someone who pursues multiple creative and int",
       "expect_source": [
         "bio",
         "i-lacked-the-tools"
@@ -361,7 +363,7 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "based on the context excerpts, christian works across these fields as a modern-day renaissance man: 1. **developer** - b",
+      "answer_preview": "# answer according to the context, christian smith works across these fields as a renaissance man: - **development** - p",
       "expect_source": [
         "bio"
       ],
@@ -382,7 +384,7 @@
         "home"
       ],
       "refused": false,
-      "answer_preview": "according to the provided sources, christian smith works at **meta** as a sales and support specialist in the best buy r",
+      "answer_preview": "based on the provided context, christian smith works at **meta** as a sales and support specialist in the best buy retai",
       "expect_source": [
         "bio",
         "resume"
@@ -404,7 +406,7 @@
         "home"
       ],
       "refused": false,
-      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: 1. **ai engineer** 2. **s",
+      "answer_preview": "according to the sources, christian smith is open to remote **ai engineer, solutions engineer, and developer advocate ro",
       "expect_source": [
         "resume",
         "bio"
@@ -426,7 +428,7 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, **rnv-color-mcp** is a color-computation server built on the model context protocol (fast",
+      "answer_preview": "according to the r\u00e9sum\u00e9, **rnv-color-mcp** is a color-computation server on the model context protocol (fastmcp), publis",
       "expect_source": [
         "resume",
         "bio"
@@ -448,7 +450,7 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian has built the following ai systems: 1. **ask the corpus** \u2014 a retrieval-augment",
+      "answer_preview": "based on the context provided, christian has built several ai systems: 1. **ask the corpus** \u2014 a retrieval-augmented cha",
       "expect_source": [
         "resume",
         "bio"
@@ -470,7 +472,7 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects** across his portfolio, which includes \"5,02",
+      "answer_preview": "according to the r\u00e9sum\u00e9 excerpt, christian smith has **shipped nine projects** across his portfolio, with 5,021 tests to",
       "expect_source": [
         "resume",
         "home"
@@ -492,7 +494,7 @@
         "resume"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 and profile sources, christian uses the following testing tools: - **pytest** \u2014 python testing frame",
+      "answer_preview": "according to the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-",
       "expect_source": [
         "resume",
         "bio"
@@ -514,7 +516,7 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith earned a **bachelor of science in game programming**.",
+      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has a **bachelor of science in game programming**.",
       "expect_source": [
         "resume",
         "bio"
@@ -536,7 +538,7 @@
         "resume"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 sources, christian smith holds the following certifications: 1. **google it support professional cer",
+      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith holds the following certifications: 1. **google it support professional certifi",
       "expect_source": [
         "resume"
       ],
@@ -557,7 +559,7 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "based on the context excerpts, christian works in ar/vr at meta as a sales and support specialist in the best buy retail",
+      "answer_preview": "based on the context provided, christian works in ar/vr at meta as a sales and support specialist in the best buy retail",
       "expect_source": [
         "resume",
         "bio"
@@ -579,7 +581,7 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, \"the honest machine\" is about an ai assistant that christian smith built to answer questi",
+      "answer_preview": "based on the context provided, \"the honest machine\" is about an ai assistant that christian smith built with a specific ",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -592,45 +594,46 @@
     {
       "id": "atc-refusal",
       "kind": "in_corpus",
-      "question": "Why does the retrieval assistant refuse some questions?",
+      "question": "What does Christian say made the refusal the design goal?",
       "retrieved": [
         "ask-the-corpus",
-        "home",
-        "ask-the-corpus",
+        "squish",
         "sloth",
-        "ask-the-corpus"
+        "the-job-was-never-coding",
+        "squish"
       ],
-      "refused": true,
-      "answer_preview": "according to \"the honest machine,\" the retrieval assistant refuses questions when the answer isn't found in christian sm",
+      "refused": false,
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the excerpts discuss christian's re",
       "expect_source": [
         "ask-the-corpus",
         "home"
       ],
       "retrieval_hit": true,
-      "false_refusal": true,
+      "false_refusal": false,
       "keyword_hit": true,
-      "pass": false
+      "pass": true
     },
     {
       "id": "atc-model",
       "kind": "in_corpus",
-      "question": "Why did Christian choose a smaller model for the corpus bot?",
+      "question": "Why did Christian pick the smaller model instead of the biggest one?",
       "retrieved": [
+        "ask-the-corpus",
+        "squish",
+        "sloth",
         "bio",
-        "home",
-        "the-job-was-never-coding",
-        "home",
         "ask-the-corpus"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "refused": false,
+      "answer_preview": "according to \"the honest machine,\" christian picked the smaller, cheaper model because \"the job didn't need a genius; it",
       "expect_source": [
-        "ask-the-corpus"
+        "ask-the-corpus",
+        "home"
       ],
       "retrieval_hit": true,
-      "false_refusal": true,
-      "keyword_hit": false,
-      "pass": false
+      "false_refusal": false,
+      "keyword_hit": true,
+      "pass": true
     },
     {
       "id": "job-thesis",
@@ -644,7 +647,7 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" a developer's job was never really the code because **the code was just the output ",
+      "answer_preview": "according to [\"the job was never coding\"], a developer's job was never really the code because **the code was the output",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -686,7 +689,7 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" the developers genuinely exposed by ai writing code are **the typists** \u2014 but c",
+      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code\u2014not develo",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -707,7 +710,7 @@
         "aiii"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, aiii (artificial intelligence identification initiative) is \"an apache-2.0 reference implement",
+      "answer_preview": "# aiii based on the context excerpts, **aiii (artificial intelligence identification initiative)** is: an apache-2.0 ref",
       "expect_source": [
         "aiii",
         "home"
@@ -729,7 +732,7 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, aiii is built on one principle: **resolve or refuse, never guess**. this rule appears consiste",
+      "answer_preview": "according to the sources, aiii is built on one principle: **resolve or refuse, never guess**. this rule is mentioned in ",
       "expect_source": [
         "aiii",
         "home"
@@ -772,7 +775,7 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, **rnv-mcp-identity implements an l1\u2013l3 identity and authorization layer for mcp servers**. the",
+      "answer_preview": "according to the sources, **rnv-mcp-identity implements an l1\u2013l3 identity-and-authorization layer for mcp servers**. the",
       "expect_source": [
         "aiii"
       ],
@@ -793,7 +796,7 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "# what christian smith has built based on the corpus, christian has built: **ai/llm systems:** - **ask the corpus** \u2014 a ",
+      "answer_preview": "# what christian has built based on the context provided, christian smith (rnvizion) has built: **ai/llm projects:** - *",
       "expect_source": [
         "home",
         "resume",
@@ -816,7 +819,7 @@
         "home"
       ],
       "refused": false,
-      "answer_preview": "according to the profile, christian has written **5,021 tests**. [source: christian smith, ai engineer & developer]",
+      "answer_preview": "according to the context, christian has written **5,021 tests**. [source: christian smith, ai engineer & developer]",
       "expect_source": [
         "home",
         "resume"
@@ -1046,7 +1049,7 @@
         "the-job-was-never-coding"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the excerpts provided don't include a sou",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts do not contain a pi",
       "refusal_correct": true,
       "pass": true,
       "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."
@@ -1144,10 +1147,10 @@
         "squish",
         "home"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided sources list the programming",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "trap-manager",

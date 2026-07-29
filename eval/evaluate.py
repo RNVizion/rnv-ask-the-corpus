@@ -54,8 +54,8 @@ app._rate_ok = lambda key=None: True
 
 DENIAL = "The corpus has knowledge, but the information you seek will not be found here."
 
-# A refusal is allowed to add a little framing after the denial line. Anything
-# longer than this left over means the denial was quoted inside a real answer.
+# A refusal that doesn't lead with the denial is still a refusal if it has little
+# else to say. Past this much left over, the denial was quoted inside a real answer.
 REFUSAL_REMAINDER_MAX = 200
 
 # Valid source ids (the prefix on every chunk id, e.g. "squish-3" -> "squish").
@@ -69,27 +69,37 @@ def _norm(text: str) -> str:
 
 
 def is_refusal(answer_text: str) -> bool:
-    """Is the denial line standing as the answer, rather than quoted inside one?
+    """Is the denial line the answer, or is it being quoted inside one?
 
-    Two real failure modes, both seen in live runs, pull in opposite directions:
+    Three real failure modes, seen in live runs within one week, pulling in
+    different directions:
 
       - A plain substring test over-fires. "The Honest Machine" reproduces the
-        denial verbatim, so a correct answer *about that post* contains the
-        string without being a refusal. That scored three in-corpus cases as
-        false refusals on a healthy system.
-      - A strict equality test, or a ratio test tuned too tight, under-fires. A
-        genuine refusal sometimes appends a sentence of context, which drags the
-        denial below any fixed share of the answer. That missed two real
-        out-of-corpus refusals and nearly failed the gate.
+        denial verbatim, so a correct answer *about that post* contained the
+        string and scored as a refusal. Three in-corpus cases failed on a
+        healthy system.
+      - A ratio test under-fires. A genuine refusal that appends context falls
+        below any fixed share of the answer; two real out-of-corpus refusals
+        went undetected and the gate passed by a single case.
+      - A remainder cap alone under-fires too. A refusal may add a helpful
+        "here's what the sources *do* cover" clause, which runs long without
+        making it any less of a refusal.
 
-    So judge the remainder instead of the proportion: remove the denial and see
-    what is left. A refusal has almost nothing else to say; an answer that quotes
-    the line has a whole paragraph around it. Absolute length is steadier here
-    than a ratio, because it doesn't move when the surrounding answer does.
+    So test structure rather than size. A refusal **leads** with the denial;
+    an answer that quotes the line has to set the quotation up first. The
+    remainder cap stays as a secondary path, for a refusal that opens with a
+    brief preamble and then says nothing else.
+
+    Residual risk, recorded rather than papered over: an answer that opens by
+    quoting the denial and then discusses it would be misread as a refusal. No
+    such answer has appeared; if one does, this needs a marker from app.py
+    rather than a fourth heuristic.
     """
     norm, denial = _norm(answer_text), _norm(DENIAL)
     if denial not in norm:
         return False
+    if norm.startswith(denial):
+        return True
     return len(norm.replace(denial, "").strip()) < REFUSAL_REMAINDER_MAX
 
 

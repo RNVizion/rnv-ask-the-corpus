@@ -54,6 +54,10 @@ app._rate_ok = lambda key=None: True
 
 DENIAL = "The corpus has knowledge, but the information you seek will not be found here."
 
+# A refusal is allowed to add a little framing after the denial line. Anything
+# longer than this left over means the denial was quoted inside a real answer.
+REFUSAL_REMAINDER_MAX = 200
+
 # Valid source ids (the prefix on every chunk id, e.g. "squish-3" -> "squish").
 LIVE_SOURCE_IDS = {
     s["id"] for s in json.loads((REPO_ROOT / "sources.json").read_text(encoding="utf-8")).get("sources", [])
@@ -65,14 +69,28 @@ def _norm(text: str) -> str:
 
 
 def is_refusal(answer_text: str) -> bool:
-    """A refusal is the denial line standing as the answer, not any answer that
-    happens to quote it. The Honest Machine reproduces the denial verbatim, so a
-    correct answer about that post contains the string without being a refusal."""
-    norm, d = _norm(answer_text), _norm(DENIAL)
-    if d not in norm:
-        return False
-    return len(d) / max(len(norm), 1) > 0.4
+    """Is the denial line standing as the answer, rather than quoted inside one?
 
+    Two real failure modes, both seen in live runs, pull in opposite directions:
+
+      - A plain substring test over-fires. "The Honest Machine" reproduces the
+        denial verbatim, so a correct answer *about that post* contains the
+        string without being a refusal. That scored three in-corpus cases as
+        false refusals on a healthy system.
+      - A strict equality test, or a ratio test tuned too tight, under-fires. A
+        genuine refusal sometimes appends a sentence of context, which drags the
+        denial below any fixed share of the answer. That missed two real
+        out-of-corpus refusals and nearly failed the gate.
+
+    So judge the remainder instead of the proportion: remove the denial and see
+    what is left. A refusal has almost nothing else to say; an answer that quotes
+    the line has a whole paragraph around it. Absolute length is steadier here
+    than a ratio, because it doesn't move when the surrounding answer does.
+    """
+    norm, denial = _norm(answer_text), _norm(DENIAL)
+    if denial not in norm:
+        return False
+    return len(norm.replace(denial, "").strip()) < REFUSAL_REMAINDER_MAX
 
 
 def retrieved_source_ids(question: str):

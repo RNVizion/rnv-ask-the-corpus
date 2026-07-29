@@ -65,7 +65,14 @@ def _norm(text: str) -> str:
 
 
 def is_refusal(answer_text: str) -> bool:
-    return _norm(DENIAL) in _norm(answer_text)
+    """A refusal is the denial line standing as the answer, not any answer that
+    happens to quote it. The Honest Machine reproduces the denial verbatim, so a
+    correct answer about that post contains the string without being a refusal."""
+    norm, d = _norm(answer_text), _norm(DENIAL)
+    if d not in norm:
+        return False
+    return len(d) / max(len(norm), 1) > 0.4
+
 
 
 def retrieved_source_ids(question: str):

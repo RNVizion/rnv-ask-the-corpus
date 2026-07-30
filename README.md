@@ -115,4 +115,4 @@ The ingester only reads pages that are live on rnvizion.dev. Drafts, private not
 ## Author
 
 Christian “RNVizion” Smith — Python developer, AR/VR specialist at Meta.
-[rnvizion.dev](https://rnvizion.dev) · [GitHub](https://github.com/RNVizion) · [LinkedIn](https://www.linkedin.com/in/christian-smith-40b957161/)
+[rnvizion.dev](https://rnvizion.dev) · [GitHub](https://github.com/RNVizion) · [LinkedIn](https://www.linkedin.com/in/rnvizion/)

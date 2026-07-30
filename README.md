@@ -80,7 +80,7 @@ Every run uploads `report.md` as a build artifact, including failed runs. See [`
 ## Run it locally
 
 ```bash
-git clone https://github.com/RNVizion/ask-the-corpus
+git clone https://github.com/RNVizion/rnv-ask-the-corpus
 cd ask-the-corpus
 pip install -r requirements.txt
 export ANTHROPIC_API_KEY=sk-ant-...   # your key

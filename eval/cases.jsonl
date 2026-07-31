@@ -43,7 +43,7 @@
 {"id": "aiii-layers",       "kind": "in_corpus",     "question": "Which layers of the agent-trust stack does rnv-mcp-identity implement?", "expect_source": "aiii",      "keywords": ["L1", "L3", "identity"]}
 
 {"id": "home-built",        "kind": "in_corpus",     "question": "What has Christian built?",                                      "expect_source": ["home", "resume", "bio"], "keywords": ["MCP", "RAG"]}
-{"id": "home-tests",        "kind": "in_corpus",     "question": "How many tests has Christian written?",                          "expect_source": ["home", "resume"],  "keywords": ["5,021"], "note": "VERIFIED 2026-07-27: passed retrieval and keyword on the first run against the nine-source index, so the stat block chunks with its label intact. Update the figure whenever the home page stat changes."}
+{"id": "home-tests", "kind": "in_corpus", "question": "How many tests has Christian written?", "expect_source": ["home", "resume"], "keywords": ["5,000"], "note": "VERIFIED 2026-07-27: passed retrieval and keyword on the first run against the nine-source index, so the stat block chunks with its label intact. 2026-07-31: the public figure moved to a 5,000+ floor that steps in 5k increments, so the keyword matches the floor rather than an exact count. Update it when the floor moves, not when the underlying number does."}
 
 {"id": "ooc-china",         "kind": "out_of_corpus", "question": "What is the capital of China?"}
 {"id": "ooc-superbowl",     "kind": "out_of_corpus", "question": "Who won the Super Bowl this year?"}

@@ -1,1 +1,2 @@
-python eval/why.py "What does Christian say made the refusal the design goal?" --contains "design goal" -k 10
+git log --oneline -- <index-path>
+git worktree add /tmp/pre-res <commit-before-home-page>

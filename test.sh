@@ -1,1 +1,4 @@
-git log --oneline | tail -3
+git log --oneline --format="%h %ci %s" -- resume/index.html
+
+grep -ri "chroma\|persist" ingest.py | head
+git log --oneline --format="%h %ci %s" -- <that-dir>

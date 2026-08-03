@@ -1,1 +1,4 @@
-grep res-mcp eval/cases.jsonl | python -m json.tool
+cat > check2.sh <<'EOF'
+python why.py "What is rnv-color-mcp?"
+EOF
+bash check2.sh

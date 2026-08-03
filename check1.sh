@@ -1,4 +1,4 @@
-cat > check2.sh <<'EOF'
-python eval/why.py "What is rnv-color-mcp?"
+cat > test.sh <<'EOF'
+git log --oneline --format="%h %ci %s" -- chroma | head -20
 EOF
-bash check2.sh
+bash test.sh

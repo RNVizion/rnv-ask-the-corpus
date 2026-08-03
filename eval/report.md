@@ -1,16 +1,16 @@
 # Ask the Corpus — Eval Report
 
-_2026-07-29T10:50:00+00:00 · commit `f54b766-dirty`_
+_2026-08-03T12:35:47+00:00 · commit `090adc1-dirty`_
 
-_9 sources · 58 cases · model `claude-haiku-4-5` · top-k 5_
+_10 sources · 58 cases · model `claude-haiku-4-5` · top-k 5_
 
 _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal ≤ 10.0%_
 
 | Metric | Value |
 | --- | --- |
 | Retrieval accuracy (in-corpus) | 100.0% |
-| Out-of-corpus refusal accuracy | 95.2% |
-| False-refusal rate (in-corpus) | 0.0% |
+| Out-of-corpus refusal accuracy | 100.0% |
+| False-refusal rate (in-corpus) | 2.7% |
 | Keyword groundedness (proxy) | 100.0% |
 | Overall pass rate | 98.3% |
 | Cases / Claude calls | 58 / 58 |
@@ -44,7 +44,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | res-certs | ✅ | — | ✅ | ✅ |
 | res-arvr | ✅ | — | ✅ | ✅ |
 | atc-honest | ✅ | — | ✅ | ✅ |
-| atc-refusal | ✅ | — | ✅ | ✅ |
+| atc-refusal | ✅ | ⚠️ | — | ❌ |
 | atc-model | ✅ | — | ✅ | ✅ |
 | job-thesis | ✅ | — | ✅ | ✅ |
 | job-automated | ✅ | — | ✅ | ✅ |
@@ -78,10 +78,10 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | trap-address | ✅ | ✅ |
 | trap-salary | ✅ | ✅ |
 | trap-gpa | ✅ | ✅ |
-| trap-dislike | ❌ | ❌ |
+| trap-dislike | ✅ | ✅ |
 | trap-manager | ✅ | ✅ |
 
 ## Corpus at run time
 
-`aiii`, `ask-the-corpus`, `bio`, `home`, `i-lacked-the-tools`, `resume`, `sloth`, `squish`, `the-job-was-never-coding`
+`aiii`, `ask-the-corpus`, `bio`, `fit-over-default`, `home`, `i-lacked-the-tools`, `resume`, `sloth`, `squish`, `the-job-was-never-coding`
 

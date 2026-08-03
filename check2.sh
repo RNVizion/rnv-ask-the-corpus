@@ -1,1 +1,2 @@
-QUESTION = sys.argv[1] if len(sys.argv) > 1 else QUESTION
+git log --oneline --follow -- <path/to/resume-source>
+git log -1 --format=%ci <that-commit>

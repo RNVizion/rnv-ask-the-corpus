@@ -122,12 +122,14 @@ One in-corpus case refuses: **`atc-refusal`** — *"What does Christian say made
 
 `res-mcp` was this suite's held false refusal: the bot retrieved the résumé and declined rather than answer from it.
 
-**Resolved 2026-07-27.** The long-recorded reason — that the résumé entry was thin — is **false**, established 2026-08-03 by reading the artifact: the June-era résumé carried the server in two places, a summary sentence and a full project entry enumerating nine tools. That text self-dates to before 2026-07-13, because it calls the awesome-mcp-servers listing an open pull request, and PR #8681 merged that day.
+**Cause, established 2026-08-04 from the committed index.** `c037b4f` holds four résumé chunks, 1,043 words, and **zero** `color-mcp` mentions — a snapshot fetched around June 21–22, three days before the term entered the page on June 25. The page was never thin. The corpus was, and only the corpus refused.
 
-Verified against committed indexes `c037b4f` (Jun 29, 5 sources) and `9cecd28` (Jul 28, 9 sources). Two readings remain, and `results.json` stores source ids rather than chunk ids, so it cannot choose between them: either retrieval served a résumé chunk lacking the mention, in which case the refusal was correct on what it saw; or it served the chunk that had the entry and refused with the material in hand. No index was committed on 2026-07-27, so the change that flipped it that day is also unrecoverable.
+**It resolved on the 2026-07-27 re-ingest** — the same event described under the maintenance rules, where one `ingest.py` moved the identical cases from 73% retrieval and 24.3% false refusal to 97.3% and 5.4%. `res-mcp` was one of the false refusals that re-ingest cured.
 
-**Related trap: chunk ids are positional and unstable across re-ingests.** The résumé went from 4 chunks to 5, so `resume-3` in the June index and `resume-3` today are different spans of text. A chunk id means nothing without the index that produced it.
+Two earlier explanations are retired. "The résumé entry was too thin" is false. "It began passing when the home page entered the corpus" credits one item for a batch: the home page arrived in the same re-ingest as a month of résumé updates, and `res-mcp` now answers from the résumé with no `home` chunk retrieved at all.
 
-The case now passes on the résumé alone — `home-3` has since fallen to rank 6, outside the five slots the app serves. **A green case can quietly change what it is testing.**
+**Related trap: verify the index, not the page.** `ingest.py` fetches live URLs, so a page's git history describes what was published, never what was ingested; a page commit and an index commit on the same day are different documents. Chunk ids compound this — they're positional, so `resume-3` in the June index and `resume-3` today are different spans.
+
+The case now passes on the résumé alone; `home-3` has since fallen to rank 6, outside the five slots the app serves. **A green case can quietly change what it is testing.**
 
 The dated refusal is preserved as `docs/eval-history/2026-06-29-baseline.{md,json}` (retrieval hit, refused, pass fail). It is historical evidence, not a live failure.

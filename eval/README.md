@@ -73,8 +73,24 @@ Four things will fail this suite on a system that's working perfectly. All four 
 3. **A new source needs its own cases.** Discovery fires the eval when it registers a source, but it runs the *existing* cases. New content is gated only in the sense that nothing else regressed; it isn't covered until it has cases of its own. The quickest audit is to diff the ids in `sources.json` against the `expect_source` values here.
 4. **Count-dependent cases go stale.** `res-count` asserts a project count that changes whenever a project ships. Keywords aren't gated, so a stale value only skews the directional metric, but fix it when you notice.
 
-## The held failure
+## The resolved failure
 
-`res-mcp` is a **known false refusal, left unfixed on purpose.** The résumé fragment about rnv-color-mcp is terse enough that the bot declines it. That case is live evidence the false-refusal gate measures real behavior instead of rubber-stamping the bot, and it's the anchor for the post "The Machine That Wouldn't Count."
+`res-mcp` was a held false refusal: the résumé's rnv-color-mcp entry was thin
+while the server was still in production, and the bot retrieved the résumé and
+declined rather than answer from it. The refusal was correct.
 
-It survives CI because the gate is a rate, not zero. **Do not repair it until that post publishes**, then record the date and the fix.
+**Resolved 2026-07-27.** Two changes landed between the June baseline and the
+first post-resolution index: the home page entered the corpus carrying a full
+project card, and the résumé was rewritten with a full rnv-color-mcp entry.
+Verified 2026-08-03 against committed indexes `c037b4f` (Jun 29, 5 sources) and
+`9cecd28` (Jul 28, 9 sources): June served a bare project list at rank 1 with
+nothing that could answer; July 28 served the rewritten résumé at rank 1 and the
+home card at rank 2. No index was committed on 2026-07-27, so which change
+flipped the case that day is not recoverable from the record.
+
+The case now passes on the résumé alone — `home-3` has since fallen to rank 6,
+outside the five slots the app serves. A green case can quietly change what it
+is testing.
+
+The dated refusal is preserved under `docs/eval-history/` (retrieval hit,
+refused, pass fail). It is historical evidence, not a live failure.

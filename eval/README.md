@@ -75,22 +75,13 @@ Four things will fail this suite on a system that's working perfectly. All four 
 
 ## The resolved failure
 
-`res-mcp` was a held false refusal: the résumé's rnv-color-mcp entry was thin
-while the server was still in production, and the bot retrieved the résumé and
-declined rather than answer from it. The refusal was correct.
-
-**Resolved 2026-07-27.** Two changes landed between the June baseline and the
-first post-resolution index: the home page entered the corpus carrying a full
-project card, and the résumé was rewritten with a full rnv-color-mcp entry.
-Verified 2026-08-03 against committed indexes `c037b4f` (Jun 29, 5 sources) and
-`9cecd28` (Jul 28, 9 sources): June served a bare project list at rank 1 with
-nothing that could answer; July 28 served the rewritten résumé at rank 1 and the
-home card at rank 2. No index was committed on 2026-07-27, so which change
-flipped the case that day is not recoverable from the record.
-
-The case now passes on the résumé alone — `home-3` has since fallen to rank 6,
-outside the five slots the app serves. A green case can quietly change what it
-is testing.
-
-The dated refusal is preserved under `docs/eval-history/` (retrieval hit,
-refused, pass fail). It is historical evidence, not a live failure.
+**Resolved 2026-07-27.** The bot retrieved the résumé and declined anyway. The
+long-recorded reason — that the résumé entry was thin — is false: the June-era
+résumé carried the server in a summary sentence and a full project entry
+enumerating nine tools. Verified 2026-08-03 against committed indexes `c037b4f`
+(Jun 29, 5 sources) and `9cecd28` (Jul 28, 9 sources). Two readings remain, and
+`results.json` stores source ids rather than chunk ids, so it cannot choose
+between them: either retrieval served a résumé chunk lacking the mention, in
+which case the refusal was correct on what it saw; or it served the chunk that
+had the entry and refused with the material in hand. No index was committed on
+2026-07-27, so the change that flipped it that day is also unrecoverable.

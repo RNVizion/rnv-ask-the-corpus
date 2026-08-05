@@ -281,7 +281,17 @@ def provenance(tag=None):
     which corpus, with which model and bars. Without this, two runs a month
     apart are indistinguishable tables."""
     sha = _git("rev-parse", "--short", "HEAD") or "unknown"
-    dirty = bool(_git("status", "--porcelain"))
+    # Dirtiness that matters is dirtiness in the things that determine the result:
+    # the pipeline, the cases, and the bars. The old check was unscoped, so a CI
+    # run marked itself -dirty simply because a previous step had already written
+    # report.md, and Chroma's sqlite journal can do the same to chroma/. A flag
+    # that fires on a clean checkout tells you nothing.
+    dirty = bool(_git(
+        "status", "--porcelain", "--",
+        "app.py", "ingest.py", "sources.json",
+        "eval/evaluate.py", "eval/cases.jsonl", "eval/thresholds.json",
+        "eval/test_eval.py", "eval/check_index_coverage.py",
+    ))
     if dirty:
         sha += "-dirty"
     indexed, chunk_count = index_fingerprint()

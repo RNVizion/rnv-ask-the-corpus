@@ -11,7 +11,21 @@ MODEL = "claude-haiku-4-5"      # cheap + fast; the whole cost story
 MAX_INPUT = 500                 # reject longer questions (bounds cost per call)
 TOP_K = 5                       # chunks retrieved per question
 MAX_TOKENS = 400                # caps answer length, so each call's cost is bounded
+TEMPERATURE = 0                 # see below; determinism is a feature here
 RATE = {"per_min": 6, "per_day": 60}
+
+# TEMPERATURE = 0 is a deliberate choice, not a default.
+#
+# The API default is 1.0, which means the same question over the same context can
+# be answered once and refused the next time. For a bot whose entire product claim
+# is "it refuses when it should," a refusal that depends on sampling is a claim
+# that cannot be measured: the eval gate asserts thresholds on numbers that move
+# under it, and two runs of the same commit can disagree. Determinism in a gate
+# outranks variety in phrasing, and a grounded question-answering assistant has
+# nothing to gain from variety anyway.
+#
+# This is product surface. Changing it changes live answers, so it belongs in the
+# decision log alongside a system-prompt change, not in a quiet commit.
 
 SYSTEM = (
     "You answer questions about the published work of Christian 'RNVizion' Smith: his "
@@ -20,6 +34,17 @@ SYSTEM = (
     "knowledge, but the information you seek will not be found here.\" Never use outside "
     "knowledge or guess. When you do answer, keep it concise, and name the source(s) your "
     "answer draws from."
+)
+
+DENIAL = "The corpus has knowledge, but the information you seek will not be found here."
+
+# The friendly failure a visitor sees. It is NOT the denial line, and that
+# distinction is the whole point of answer_with_status below: to a scorer reading
+# only the text, this string is indistinguishable from a real answer, so an API
+# outage during an eval run would score as 58 successful answers and the gate
+# would pass on a run that measured nothing.
+ERROR_MESSAGE = (
+    "The demo hit a snag on that one. Try again in a moment, or pick a suggested question."
 )
 
 
@@ -47,15 +72,33 @@ def _rate_ok(key):
     dq.append(now)
     return True
 
-def answer(question, request: gr.Request = None):
+
+def answer_with_status(question, request: gr.Request = None):
+    """The real pipeline. Returns (text, error).
+
+    `error` is None when the pipeline ran, and a short reason string when it did
+    not. It is returned rather than stored on the module so that two concurrent
+    visitors cannot read each other's status; a global would race, and the eval
+    would eventually read a status belonging to a different question.
+
+    The two failure paths are separated deliberately. A Chroma failure and an
+    Anthropic failure produce the same message for a visitor and should never
+    produce the same diagnosis for a maintainer: one means the index is broken,
+    the other means the API is. Collapsing them into a single `except` is how an
+    index problem spends a week being investigated as a model problem.
+    """
     question = (question or "").strip()
     if not question:
-        return "Ask me something about Christian's work."
+        return "Ask me something about Christian's work.", None
     if len(question) > MAX_INPUT:
-        return f"Please keep your question under {MAX_INPUT} characters."
+        return f"Please keep your question under {MAX_INPUT} characters.", None
     key = request.client.host if request and request.client else "local"
     if not _rate_ok(key):
-        return "You've hit the demo's rate limit for now — give it a minute, or try a suggested question."
+        return (
+            "You've hit the demo's rate limit for now — give it a minute, "
+            "or try a suggested question."
+        ), None
+
     try:
         res = col.query(
             query_embeddings=embedder.encode([question]).tolist(),
@@ -63,19 +106,33 @@ def answer(question, request: gr.Request = None):
             include=["documents", "metadatas"],
         )
         docs, metas = res["documents"][0], res["metadatas"][0]
-        if not docs:
-            return "The corpus has knowledge, but the information you seek will not be found here."
+    except Exception as exc:
+        return ERROR_MESSAGE, f"retrieval: {type(exc).__name__}: {exc}"
 
-        context = "\n\n".join(f"[Source: {m.get('title', '?')}]\n{d}" for d, m in zip(docs, metas))
+    if not docs:
+        # An empty index is not an error path; it is an honest "nothing here."
+        return DENIAL, None
+
+    context = "\n\n".join(f"[Source: {m.get('title', '?')}]\n{d}" for d, m in zip(docs, metas))
+    try:
         resp = llm.messages.create(
             model=MODEL,
             max_tokens=MAX_TOKENS,
+            temperature=TEMPERATURE,
             system=[{"type": "text", "text": SYSTEM, "cache_control": {"type": "ephemeral"}}],
             messages=[{"role": "user", "content": f"Context excerpts:\n\n{context}\n\nQuestion: {question}"}],
         )
-        return "".join(b.text for b in resp.content if b.type == "text")
-    except Exception:
-        return "The demo hit a snag on that one. Try again in a moment, or pick a suggested question."
+    except Exception as exc:
+        return ERROR_MESSAGE, f"model: {type(exc).__name__}: {exc}"
+
+    return "".join(b.text for b in resp.content if b.type == "text"), None
+
+
+def answer(question, request: gr.Request = None):
+    """What Gradio calls. Same behaviour as before; the status is dropped."""
+    text, _err = answer_with_status(question, request)
+    return text
+
 
 CSS = """
 .gradio-container {

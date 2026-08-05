@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-03T12:35:47+00:00",
-    "commit": "090adc1-dirty",
+    "generated_at": "2026-08-05T15:10:04+00:00",
+    "commit": "9bba1b0-dirty",
     "tag": null,
     "model": "claude-haiku-4-5",
     "top_k": 5,
@@ -28,10 +28,10 @@
     "total_cases": 58,
     "claude_calls": 58,
     "retrieval_accuracy": 100.0,
-    "false_refusal_rate": 2.7,
-    "ooc_refusal_accuracy": 100.0,
-    "keyword_groundedness": 100.0,
-    "overall_pass_rate": 98.3
+    "false_refusal_rate": 0.0,
+    "ooc_refusal_accuracy": 0.0,
+    "keyword_groundedness": 2.8,
+    "overall_pass_rate": 63.8
   },
   "rows": [
     {
@@ -46,13 +46,13 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "according to [\"squish: the soul that speed can't generate\"]: **squish is the feel of a thing.** it's the weight, the res",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "squish"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -67,13 +67,13 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "according to [source: squish: the soul that speed can't generate], christian first learned the word \"squish\" in a colleg",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "squish"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -88,13 +88,13 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" mario illustrates squish through the detailed mechanics of hi",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "squish"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -109,13 +109,13 @@
         "home"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" ai does **not** take squish away\u2014rather, it makes room for it",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "squish"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -130,7 +130,7 @@
         "ask-the-corpus"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" what turns software from working into loved is **the human decision to make it ",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -138,7 +138,7 @@
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -153,13 +153,13 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" christian describes software as hollow when it lacks identity",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "squish"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -174,13 +174,13 @@
         "fit-over-default"
       ],
       "refused": false,
-      "answer_preview": "based on the sources, \"lazy in the right way is leverage\" means directing your laziness\u2014your drive to do less work\u2014towar",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "sloth"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -195,13 +195,13 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "according to \"lazy in the right way is leverage,\" the two ways to be lazy about a repetitive chore are: 1. **present-foc",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "sloth"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -216,13 +216,13 @@
         "fit-over-default"
       ],
       "refused": false,
-      "answer_preview": "according to the source \"lazy in the right way is leverage,\" when christian sent a post to his publishing machine that w",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "sloth"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -237,13 +237,13 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "according to [\"lazy in the right way is leverage\"], aiming laziness at the future becomes leverage by building systems t",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "sloth"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -258,7 +258,7 @@
         "fit-over-default"
       ],
       "refused": false,
-      "answer_preview": "from [\"lazy in the right way is leverage\"], the upside of doing less on purpose\u2014specifically \"doing less\" aimed at the f",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "sloth"
       ],
@@ -279,13 +279,13 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "according to the essay \"i lacked the tools, so i built them: how constraint created a software suite,\" christian explain",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "i-lacked-the-tools"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -300,13 +300,13 @@
         "fit-over-default"
       ],
       "refused": false,
-      "answer_preview": "based on the context excerpts, christian describes constraint as a creative force in several ways: **constraint forces c",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "i-lacked-the-tools"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -321,13 +321,13 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "# how christian built a software suite according to \"i lacked the tools, so i built them: how constraint created a softw",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "i-lacked-the-tools"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -342,14 +342,14 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone \"who's never been content to",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "bio",
         "i-lacked-the-tools"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -364,13 +364,13 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian works across these fields as a renaissance man: - **developer** (python, ai systems)",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "bio"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -385,14 +385,14 @@
         "fit-over-default"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith works at **meta** as a sales and support specialist in the best buy retai",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "bio",
         "resume"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -407,14 +407,14 @@
         "home"
       ],
       "refused": false,
-      "answer_preview": "based on the sources provided, christian is looking for **remote ai engineer, solutions engineer, and developer advocate",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "resume",
         "bio"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -429,14 +429,14 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 excerpt, **rnv-color-mcp** is a color-computation server built on the model context protocol (fastmc",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "resume",
         "bio"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -451,14 +451,14 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian has built several ai systems: 1. **ask the corpus** - a retrieval-augmented cha",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "resume",
         "bio"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -473,14 +473,14 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has **nine shipped projects** across his portfolio. the r\u00e9sum\u00e9 states: \"",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "resume",
         "home"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -495,14 +495,14 @@
         "resume"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 and profile sources, christian uses the following testing tools: - **pytest** \u2014 python testing frame",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "resume",
         "bio"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -517,14 +517,14 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "based on the provided context, christian smith has a **bachelor of science in game programming** (from his r\u00e9sum\u00e9). addi",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "resume",
         "bio"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -539,13 +539,13 @@
         "resume"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 sources, christian smith holds the following certifications: 1. **google it support professional",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "resume"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -560,7 +560,7 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, christian works at meta as an ar/vr sales and support specialist in the best buy retail progra",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "resume",
         "bio"
@@ -582,14 +582,14 @@
         "squish"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, \"the honest machine\" is about a question-answering system that christian smith built arou",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "ask-the-corpus",
         "home"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -603,16 +603,16 @@
         "fit-over-default",
         "the-job-was-never-coding"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the context excerpts discuss the re",
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "ask-the-corpus",
         "home"
       ],
       "retrieval_hit": true,
-      "false_refusal": true,
-      "keyword_hit": null,
-      "pass": false
+      "false_refusal": false,
+      "keyword_hit": false,
+      "pass": true
     },
     {
       "id": "atc-model",
@@ -626,14 +626,14 @@
         "fit-over-default"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "ask-the-corpus",
         "home"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -648,13 +648,13 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was just the out",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "the-job-was-never-coding"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -669,13 +669,13 @@
         "the-job-was-never-coding"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" ai automated **the translation and grunt work inside the job**, not the develop",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "the-job-was-never-coding"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -690,13 +690,13 @@
         "resume"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith distinguishes between two groups: **the developers who are not fini",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "the-job-was-never-coding"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -711,14 +711,14 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, **aiii (artificial intelligence identification initiative)** is an apache-2.0 reference implem",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "aiii",
         "home"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -733,14 +733,14 @@
         "home"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, aiii (artificial intelligence identification initiative) is built on one principle: **resolve ",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "aiii",
         "home"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -755,13 +755,13 @@
         "aiii"
       ],
       "refused": false,
-      "answer_preview": "according to the aiii source, control qa-07.01 was marked unmet because it requires non-author human review before every",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "aiii"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -776,13 +776,13 @@
         "bio"
       ],
       "refused": false,
-      "answer_preview": "according to the context, **rnv-mcp-identity implements an l1\u2013l3 identity-and-authorization layer for mcp servers**. the",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "aiii"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -797,7 +797,7 @@
         "i-lacked-the-tools"
       ],
       "refused": false,
-      "answer_preview": "# what christian has built based on the sources, christian (rnvizion) has built several production systems and tools: **",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "home",
         "resume",
@@ -805,7 +805,7 @@
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -820,14 +820,14 @@
         "home"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian has written **5,000+ tests** (listed under his statistics on his profile). additiona",
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
       "expect_source": [
         "home",
         "resume"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
-      "keyword_hit": true,
+      "keyword_hit": false,
       "pass": true
     },
     {
@@ -841,10 +841,10 @@
         "home",
         "i-lacked-the-tools"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-superbowl",
@@ -857,10 +857,10 @@
         "ask-the-corpus",
         "aiii"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-python",
@@ -873,10 +873,10 @@
         "home",
         "home"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-weather",
@@ -889,10 +889,10 @@
         "resume",
         "bio"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-haiku",
@@ -905,10 +905,10 @@
         "i-lacked-the-tools",
         "fit-over-default"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-boiling",
@@ -921,10 +921,10 @@
         "ask-the-corpus",
         "the-job-was-never-coding"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-msft",
@@ -937,10 +937,10 @@
         "the-job-was-never-coding",
         "aiii"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-recipe",
@@ -953,10 +953,10 @@
         "home",
         "i-lacked-the-tools"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-french",
@@ -969,10 +969,10 @@
         "home",
         "bio"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-tokyo",
@@ -985,10 +985,10 @@
         "squish",
         "the-job-was-never-coding"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-kubernetes",
@@ -1001,10 +1001,10 @@
         "resume",
         "i-lacked-the-tools"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-wwii",
@@ -1017,10 +1017,10 @@
         "fit-over-default",
         "bio"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "ooc-photosynthesis",
@@ -1033,10 +1033,10 @@
         "the-job-was-never-coding",
         "fit-over-default"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "trap-margin",
@@ -1049,10 +1049,10 @@
         "squish",
         "fit-over-default"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true,
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false,
       "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."
     },
     {
@@ -1066,10 +1066,10 @@
         "home",
         "squish"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true,
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false,
       "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."
     },
     {
@@ -1083,10 +1083,10 @@
         "resume",
         "resume"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true,
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false,
       "note": "Lives in the IG playbook, never on the site. Refusal is correct."
     },
     {
@@ -1100,10 +1100,10 @@
         "aiii",
         "resume"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "trap-salary",
@@ -1116,10 +1116,10 @@
         "home",
         "resume"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "trap-gpa",
@@ -1132,10 +1132,10 @@
         "resume",
         "aiii"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "trap-dislike",
@@ -1148,10 +1148,10 @@
         "squish",
         "home"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     },
     {
       "id": "trap-manager",
@@ -1164,10 +1164,10 @@
         "home",
         "resume"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
-      "refusal_correct": true,
-      "pass": true
+      "refused": false,
+      "answer_preview": "the demo hit a snag on that one. try again in a moment, or pick a suggested question.",
+      "refusal_correct": false,
+      "pass": false
     }
   ]
 }

@@ -19,6 +19,7 @@ on:
     branches: [main]
     paths:
       - "app.py"
+      - "ingest.py"
       - "sources.json"
       - "chroma/**"
       - "eval/evaluate.py"
@@ -26,10 +27,12 @@ on:
       - "eval/thresholds.json"
       - "eval/test_eval.py"
       - "eval/check_index_coverage.py"
+      - "eval/why.py"
       - ".github/workflows/eval.yml"
   pull_request:
     paths:
       - "app.py"
+      - "ingest.py"
       - "sources.json"
       - "chroma/**"
       - "eval/evaluate.py"
@@ -37,6 +40,7 @@ on:
       - "eval/thresholds.json"
       - "eval/test_eval.py"
       - "eval/check_index_coverage.py"
+      - "eval/why.py"
   workflow_dispatch:
 
 # Only the commit-back needs write. Declared explicitly so this job gains exactly
@@ -106,8 +110,18 @@ jobs:
       # origin now holds, and the outputs are written over the top. The report's
       # provenance block names the commit it actually describes, so a report
       # landing on a newer tip is self-identifying rather than confusing.
+      # Gated on who can trigger, not on which trusted event fired. A
+      # pull_request run holds EVAL_KEY and can be started by a stranger opening
+      # a PR, so it must never gain write-back. workflow_dispatch requires repo
+      # write permission, so anyone who can trigger it can already commit; a
+      # manual re-run should refresh the record like any other. Drawn as
+      # "push only" this skipped every dispatch run silently, which reads as a
+      # broken commit-back rather than a declined one.
       - name: Commit the report back
-        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: >-
+          always()
+          && github.ref == 'refs/heads/main'
+          && github.event_name != 'pull_request'
         continue-on-error: true      # bookkeeping; it must not red a passing gate
         run: |
           set -uo pipefail

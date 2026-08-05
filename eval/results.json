@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-05T18:02:40+00:00",
-    "commit": "e463ac5",
+    "generated_at": "2026-08-05T22:12:29+00:00",
+    "commit": "a26810c",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -214,7 +214,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on [source: squish: the soul that speed can't generate], christian describes hollow software as the result of spee",
+      "answer_preview": "based on the source material, christian describes software as \"hollow\" when it functions correctly but lacks identity an",
       "expect_source": [
         "squish"
       ],
@@ -298,7 +298,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"lazy in the right way is leverage,\" when christian sent a broken post to his publishing machine, it refuse",
+      "answer_preview": "according to \"lazy in the right way is leverage,\" when christian sent a post to his publishing machine that was missing ",
       "expect_source": [
         "sloth"
       ],
@@ -580,7 +580,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: 1. **ai engineer** 2. **s",
+      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: - **ai engineer** - **sol",
       "expect_source": [
         "resume",
         "bio"
@@ -869,7 +869,7 @@
         "fit-over-default-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian picked the smaller model (haiku) for ask the corpus for several reasons: 1. **the job's ",
+      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
       "expect_source": [
         "ask-the-corpus",
         "home",
@@ -1097,7 +1097,7 @@
         "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "# what christian has built based on the sources, christian has built several projects: **ai/llm systems:** - **ask the c",
+      "answer_preview": "# what christian has built based on the sources, christian smith (rnvizion) has built: **ai/llm systems:** - **ask the c",
       "expect_source": [
         "home",
         "resume",

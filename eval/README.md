@@ -42,9 +42,9 @@ Worth knowing before you add a risky case, because the bars are percentages and 
 
 | Gate | Bar | At current counts | Tolerates |
 |---|---|---|---|
-| Retrieval accuracy | ≥ 85% | 37 in-corpus | 5 misses |
-| False-refusal rate | ≤ 10% | 37 in-corpus | 3 false refusals |
-| Out-of-corpus refusal | ≥ 90% | 21 out-of-corpus | 2 misses |
+| Retrieval accuracy | ≥ 85% | 38 in-corpus | 5 misses |
+| False-refusal rate | ≤ 10% | 38 in-corpus | 3 false refusals |
+| Out-of-corpus refusal | ≥ 90% | 22 out-of-corpus | 2 misses |
 
 Two consequences. **One false refusal is currently spent** — `atc-refusal`, diagnosed below — so there is real but finite room. And the **out-of-corpus gate is the tightest**: it tolerated a single miss back when the set was 18, which is how a stale trap case once sat there passing at 17/18 with nothing left over. Adjacent-but-absent questions ("what is Meta's stock price") are the valuable next tier, but they're also the ones most likely to draw a hedged answer instead of the denial line. Add them deliberately, and check the margin first.
 

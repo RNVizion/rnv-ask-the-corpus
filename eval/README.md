@@ -17,7 +17,11 @@ Scoring is deterministic throughout: exact denial-line match, chunk-id prefix ma
 
 ## The case set
 
-58 cases: 37 in-corpus, 21 out-of-corpus. One JSON object per line, grouped by blank lines for readability.
+**60 cases, frozen at 60 by decision (August 5, 2026).** One JSON object per line, grouped by blank lines for readability.
+
+The suite no longer grows because a source arrived. **Admission requires that a case teach the suite something it cannot already see:** a new content shape, a new failure mode, or a public claim that depends on it. `home-tests` guards the published 5,000+ floor and `res-count` guards the nine-project figure; those earn their places. "A new post shipped" does not.
+
+**The total is stable; the split is not.** A trap flips `out_of_corpus` → `in_corpus` when its post publishes — edited, not added — so the count holds at 60 while the split slides. It currently sits at 38/22, and two flips are already armed: `trap-margin` waits on "The Margin, Not the Price," and `trap-compass` on the unpublished "Without a Compass." That is why the split is machine-checked in `rnv-brand/profile.json` and never printed on a public surface: **publish a figure only if it changes on a human decision the publisher makes.**
 
 ```
 {"id": "...", "kind": "in_corpus"|"out_of_corpus", "question": "...",
@@ -26,7 +30,7 @@ Scoring is deterministic throughout: exact denial-line match, chunk-id prefix ma
  "note": "..."}                          # free text for humans
 ```
 
-**Every source in `sources.json` should carry at least one case.** That is the goal, not a guarantee, and it is currently unmet: `sources.json` lists ten sources and the cases reference nine. **`fit-over-default` has no case of its own** — it is answerable and unmeasured. When a source has no case, the corpus has content nothing is watching.
+**Every source in `sources.json` currently carries at least one case** — ten sources, ten covered, first met on August 5, 2026 when `fit-over-default` gained `fod-two-systems` and `trap-fod-openai`. Treat that as the current state, not an invariant: under the freeze, **a future source may deliberately go uncovered**, and the coverage guard reports it as a note rather than a failure. An uncovered source is a decision to be able to defend, not a gap to close by reflex — but it does mean the corpus holds content nothing is watching, so make the call knowingly.
 
 Keep notes short. They're free text for humans, but this is a data file, not a document: a note that runs past a few hundred characters belongs in the Ecosystem Master with a pointer here. Long lines also stop syntax highlighting in most editors, which is a useful smell.
 

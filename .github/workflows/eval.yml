@@ -1,5 +1,19 @@
 name: eval
 
+# The gate. One run of the suite per trigger, recorded once and asserted once.
+#
+# TRIGGER PATHS ARE ENUMERATED, NOT GLOBBED
+# This used to watch "eval/**". The commit-back below writes eval/report.md and
+# eval/results.json, which sit inside that glob, so committing a report would
+# retrigger the workflow that wrote it. Three things stop the loop now and all
+# three are kept deliberately: the outputs are outside the trigger list, a push
+# made with GITHUB_TOKEN does not start a new run, and the commit message carries
+# [skip ci]. Do not remove one on the grounds that another still holds.
+#
+# The cost of enumeration is that a new file under eval/ has to be added here or
+# it silently stops gating. That is the trade: a glob that is always right and
+# occasionally loops, against a list that never loops and occasionally forgets.
+
 on:
   push:
     branches: [main]
@@ -8,7 +22,12 @@ on:
       - "ingest.py"
       - "sources.json"
       - "chroma/**"
-      - "eval/**"
+      - "eval/evaluate.py"
+      - "eval/cases.jsonl"
+      - "eval/thresholds.json"
+      - "eval/test_eval.py"
+      - "eval/check_index_coverage.py"
+      - "eval/why.py"
       - ".github/workflows/eval.yml"
   pull_request:
     paths:
@@ -16,8 +35,24 @@ on:
       - "ingest.py"
       - "sources.json"
       - "chroma/**"
-      - "eval/**"
+      - "eval/evaluate.py"
+      - "eval/cases.jsonl"
+      - "eval/thresholds.json"
+      - "eval/test_eval.py"
+      - "eval/check_index_coverage.py"
+      - "eval/why.py"
   workflow_dispatch:
+
+# Only the commit-back needs write. Declared explicitly so this job gains exactly
+# one capability and inherits nothing.
+permissions:
+  contents: write
+
+# Two pushes in quick succession would otherwise produce two runs both trying to
+# commit a report, and the second push would be rejected against a moved ref.
+concurrency:
+  group: eval-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   eval:
@@ -35,19 +70,50 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
-      
+
+      # About a second, no network, no API key. A doomed run fails here rather
+      # than after spending one Claude call per case learning the same thing.
       - name: Check index covers the cases
         run: python eval/check_index_coverage.py
 
+      # The only step that spends Claude calls. It writes eval/report.md and
+      # eval/results.json and never fails the build; the gate below does that.
       - name: Run eval report
         env:
           ANTHROPIC_API_KEY: ${{ secrets.EVAL_KEY }}
         run: python eval/evaluate.py --report-only
 
+      # Reads the artifact the previous step wrote. No API key: the gate asserts
+      # against the recorded run rather than performing a second one, so the
+      # report and the gate can no longer describe different runs.
       - name: Gate on thresholds
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.EVAL_KEY }}
         run: pytest eval/test_eval.py -v
+
+      # Keeps the repo's record of eval state current. Without this the committed
+      # report drifts behind the system it describes: it sat four days stale in
+      # August 2026 while describing a scorer that no longer existed, and every
+      # diagnosis in that window cost a fresh run.
+      #
+      # always() so a FAILING run still commits its report. A red report is the
+      # artifact most worth reading, and discarding it is how a failure becomes
+      # invisible.
+      #
+      # Gated to push-on-main: a pull_request run holds EVAL_KEY, and a workflow
+      # holding a secret should not also gain write-back on an event a stranger
+      # can trigger.
+      - name: Commit the report back
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add eval/report.md eval/results.json
+          if git diff --cached --quiet; then
+            echo "report unchanged; nothing to commit"
+            exit 0
+          fi
+          git commit -m "eval: refresh report [skip ci]"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
 
       - name: Upload eval report
         if: always()

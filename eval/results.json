@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-05T16:58:02+00:00",
-    "commit": "bed8f08",
+    "generated_at": "2026-08-05T18:02:40+00:00",
+    "commit": "e463ac5",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -214,7 +214,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functiona",
+      "answer_preview": "based on [source: squish: the soul that speed can't generate], christian describes hollow software as the result of spee",
       "expect_source": [
         "squish"
       ],
@@ -298,7 +298,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"lazy in the right way is leverage,\" when christian sent a post to his publishing machine that was missing ",
+      "answer_preview": "according to \"lazy in the right way is leverage,\" when christian sent a broken post to his publishing machine, it refuse",
       "expect_source": [
         "sloth"
       ],
@@ -438,7 +438,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
+      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -725,7 +725,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith has a bachelor of science in game programming. [source: r\u00e9sum\u00e9 \u2014 christian smit",
+      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith earned a **bachelor of science in game programming** [source: r\u00e9sum\u00e9 \u2014 christia",
       "expect_source": [
         "resume",
         "bio"
@@ -869,10 +869,11 @@
         "fit-over-default-0"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
+      "answer_preview": "based on the context, christian picked the smaller model (haiku) for ask the corpus for several reasons: 1. **the job's ",
       "expect_source": [
         "ask-the-corpus",
-        "home"
+        "home",
+        "fit-over-default"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
@@ -954,7 +955,7 @@
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" the developers genuinely exposed by ai writing code are **the typists** \u2014 those",
+      "answer_preview": "according to \"the job was never coding,\" the developers genuinely exposed by ai writing code are **the typists** \u2014 and c",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1011,7 +1012,7 @@
         "home-1"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, aiii is built on one principle: **resolve or refuse, never guess**. this rule appears consiste",
+      "answer_preview": "according to the sources, aiii is built on one principle: **\"resolve or refuse, never guess.\"** this rule appears consis",
       "expect_source": [
         "aiii",
         "home"
@@ -1595,7 +1596,7 @@
         "home-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided context lists the programmin",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },

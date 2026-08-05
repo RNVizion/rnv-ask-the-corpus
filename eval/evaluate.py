@@ -24,6 +24,12 @@ Writes eval/report.md and eval/results.json.
 Every report carries a provenance line: timestamp, commit, model, corpus
 fingerprint, and thresholds. Two reports of the same run are otherwise
 indistinguishable, and an undated table is weak evidence.
+
+THIS FILE IS THE ONLY THING THAT SPENDS CLAUDE CALLS.
+test_eval.py reads the artifact this writes rather than running the suite again.
+It used to call run() a second time and overwrite the report, which doubled the
+per-run cost, discarded the first run's output, and meant the metrics printed in
+the CI log belonged to a run that neither gated nor survived as an artifact.
 """
 import argparse
 import datetime
@@ -32,6 +38,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 EVAL_DIR = Path(__file__).resolve().parent
@@ -45,9 +52,9 @@ RESULTS_JSON = EVAL_DIR / "results.json"
 os.chdir(REPO_ROOT)
 sys.path.insert(0, str(REPO_ROOT))
 
-import app  # noqa: E402  (the real pipeline: answer(), col, embedder, TOP_K, SYSTEM)
+import app  # noqa: E402  (the real pipeline: answer_with_status(), col, embedder, TOP_K, SYSTEM)
 
-# The eval hammers answer() in a tight loop; the per-client rate limiter would
+# The eval hammers the pipeline in a tight loop; the per-client rate limiter would
 # trip after a handful of calls and poison the run. It's infra, not answer
 # quality, so we disable it for the eval only. app.py is left untouched.
 app._rate_ok = lambda key=None: True
@@ -57,6 +64,11 @@ DENIAL = "The corpus has knowledge, but the information you seek will not be fou
 # A refusal that doesn't lead with the denial is still a refusal if it has little
 # else to say. Past this much left over, the denial was quoted inside a real answer.
 REFUSAL_REMAINDER_MAX = 200
+
+# One retry on a transport failure before a case is marked errored. A single 529
+# should not red a build; a real outage still will, because the retry fails too.
+ERROR_RETRIES = 1
+ERROR_BACKOFF_SECONDS = 3
 
 # Valid source ids (the prefix on every chunk id, e.g. "squish-3" -> "squish").
 LIVE_SOURCE_IDS = {
@@ -93,7 +105,9 @@ def is_refusal(answer_text: str) -> bool:
     Residual risk, recorded rather than papered over: an answer that opens by
     quoting the denial and then discusses it would be misread as a refusal. No
     such answer has appeared; if one does, this needs a marker from app.py
-    rather than a fourth heuristic.
+    rather than a fourth heuristic. The error path took exactly that route in
+    2026-08: app.answer_with_status returns a status instead of the scorer
+    matching on the friendly failure string.
     """
     norm, denial = _norm(answer_text), _norm(DENIAL)
     if denial not in norm:
@@ -103,21 +117,41 @@ def is_refusal(answer_text: str) -> bool:
     return len(norm.replace(denial, "").strip()) < REFUSAL_REMAINDER_MAX
 
 
-def retrieved_source_ids(question: str):
-    """Re-run retrieval the same way app.answer does, and map chunk ids -> source ids.
+def retrieve(question: str):
+    """Re-run retrieval the same way app.answer_with_status does. Returns
+    (chunk_ids, source_ids).
+
     Chunk ids look like '{source_id}-{n}', so rsplit on the last hyphen recovers
-    the source id even when the id itself contains hyphens (i-lacked-the-tools-3)."""
+    the source id even when the id itself contains hyphens (i-lacked-the-tools-3).
+    Both are recorded: the source ids are what the metric scores, the chunk ids
+    are what a post-mortem needs. Dropping the chunk ids is why answering one
+    question about a June index took a git worktree and a hand-typed query."""
     res = app.col.query(
         query_embeddings=app.embedder.encode([question]).tolist(),
         n_results=app.TOP_K,
         include=["metadatas"],
     )
-    ids = res.get("ids", [[]])[0]
-    out = []
-    for cid in ids:
+    chunk_ids = res.get("ids", [[]])[0]
+    source_ids = []
+    for cid in chunk_ids:
         sid = cid.rsplit("-", 1)[0]
-        out.append(sid if sid in LIVE_SOURCE_IDS else cid)
-    return out
+        source_ids.append(sid if sid in LIVE_SOURCE_IDS else cid)
+    return chunk_ids, source_ids
+
+
+def ask(question: str):
+    """One question through the real pipeline, with a single retry on error.
+
+    Returns (text, error). An errored case is not a wrong answer; it is an
+    unmeasured one, and the difference matters to every denominator below."""
+    err = None
+    for attempt in range(ERROR_RETRIES + 1):
+        text, err = app.answer_with_status(question)
+        if err is None:
+            return text, None
+        if attempt < ERROR_RETRIES:
+            time.sleep(ERROR_BACKOFF_SECONDS)
+    return text, err
 
 
 def load_cases(limit=None):
@@ -143,16 +177,27 @@ def run(limit=None):
     for c in cases:
         kind = c["kind"]
         q = c["question"]
-        retrieved = retrieved_source_ids(q)
-        ans = app.answer(q)          # the real path, denial line included
+        chunk_ids, retrieved = retrieve(q)
+        ans, err = ask(q)             # the real path, denial line included
         calls += 1
         refused = is_refusal(ans)
 
         row = {
             "id": c["id"], "kind": kind, "question": q,
-            "retrieved": retrieved, "refused": refused,
+            "retrieved": retrieved,
+            "retrieved_chunks": chunk_ids,
+            "refused": refused,
             "answer_preview": _norm(ans)[:120],
         }
+
+        if err:
+            # Unmeasured, not failed. It scores nothing, gates nothing, and is
+            # counted separately so a run full of these cannot read as green.
+            row["error"] = err
+            row["refused"] = None
+            row["pass"] = None
+            rows.append(row)
+            continue
 
         if kind == "in_corpus":
             exp = expected_ids(c)
@@ -178,8 +223,10 @@ def run(limit=None):
 
         rows.append(row)
 
-    in_rows = [r for r in rows if r["kind"] == "in_corpus"]
-    out_rows = [r for r in rows if r["kind"] == "out_of_corpus"]
+    err_rows = [r for r in rows if r.get("error")]
+    ok_rows = [r for r in rows if not r.get("error")]
+    in_rows = [r for r in ok_rows if r["kind"] == "in_corpus"]
+    out_rows = [r for r in ok_rows if r["kind"] == "out_of_corpus"]
 
     def pct(xs):
         return round(100 * sum(xs) / len(xs), 1) if xs else None
@@ -187,12 +234,14 @@ def run(limit=None):
     kw_rows = [r for r in in_rows if r.get("keyword_hit") is not None]
     metrics = {
         "total_cases": len(rows),
+        "scored_cases": len(ok_rows),
+        "error_cases": len(err_rows),
         "claude_calls": calls,
         "retrieval_accuracy": pct([r["retrieval_hit"] for r in in_rows]),
         "false_refusal_rate": pct([r["false_refusal"] for r in in_rows]),
         "ooc_refusal_accuracy": pct([r["refusal_correct"] for r in out_rows]),
         "keyword_groundedness": pct([r["keyword_hit"] for r in kw_rows]),
-        "overall_pass_rate": pct([r["pass"] for r in rows]),
+        "overall_pass_rate": pct([r["pass"] for r in ok_rows]),
     }
     return metrics, rows
 
@@ -208,21 +257,51 @@ def _git(*args):
         return ""
 
 
+def index_fingerprint():
+    """What the index actually holds, not what sources.json says it should.
+
+    These are different documents and have been out of step for a month at a
+    time. A report that records the manifest and calls it the corpus repeats,
+    inside the instrument, the exact error the res-mcp investigation spent two
+    write-ups getting wrong: a page's history describes what was published,
+    never what was ingested."""
+    try:
+        got = app.col.get(include=[])
+    except Exception:
+        try:
+            got = app.col.get()
+        except Exception:
+            return [], 0
+    ids = got.get("ids", [])
+    return sorted({cid.rsplit("-", 1)[0] for cid in ids}), len(ids)
+
+
 def provenance(tag=None):
     """What makes a report self-identifying: when, from which commit, against
     which corpus, with which model and bars. Without this, two runs a month
     apart are indistinguishable tables."""
     sha = _git("rev-parse", "--short", "HEAD") or "unknown"
-    if _git("status", "--porcelain"):
+    dirty = bool(_git("status", "--porcelain"))
+    if dirty:
         sha += "-dirty"
+    indexed, chunk_count = index_fingerprint()
+    declared = sorted(LIVE_SOURCE_IDS)
     return {
         "generated_at": datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
         "commit": sha,
+        "dirty": dirty,
         "tag": tag,
         "model": getattr(app, "MODEL", "unknown"),
+        "temperature": getattr(app, "TEMPERATURE", None),
         "top_k": getattr(app, "TOP_K", None),
-        "source_count": len(LIVE_SOURCE_IDS),
-        "sources": sorted(LIVE_SOURCE_IDS),
+        # the index is the thing that was actually queried
+        "source_count": len(indexed),
+        "sources": indexed,
+        "chunk_count": chunk_count,
+        # the manifest, kept alongside so drift between them is visible
+        "declared_count": len(declared),
+        "declared_sources": declared,
+        "index_matches_manifest": indexed == declared,
         "thresholds": dict(THRESHOLDS),
     }
 
@@ -242,14 +321,32 @@ def write_report(metrics, rows, tag=None):
     lines += [
         f"_{prov['generated_at']} · commit `{prov['commit']}`{label}_",
         "",
-        f"_{prov['source_count']} sources · {metrics['total_cases']} cases · "
-        f"model `{prov['model']}` · top-k {prov['top_k']}_",
+        f"_{prov['source_count']} sources · {prov['chunk_count']} chunks · "
+        f"{metrics['total_cases']} cases · model `{prov['model']}` · "
+        f"temp {prov['temperature']} · top-k {prov['top_k']}_",
         "",
         f"_Gates: retrieval ≥ {THRESHOLDS['retrieval_accuracy']}% · "
         f"out-of-corpus refusal ≥ {THRESHOLDS['ooc_refusal_accuracy']}% · "
         f"false refusal ≤ {THRESHOLDS['false_refusal_rate']}%_",
         "",
     ]
+    if not prov["index_matches_manifest"]:
+        behind = sorted(set(prov["declared_sources"]) - set(prov["sources"]))
+        orphan = sorted(set(prov["sources"]) - set(prov["declared_sources"]))
+        lines += [
+            f"> **Index and manifest differ.** Declared but not indexed: "
+            f"{behind or '—'}. Indexed but not declared: {orphan or '—'}. "
+            f"Scores below describe the index, which is what the bot answers from.",
+            "",
+        ]
+    if metrics["error_cases"]:
+        lines += [
+            f"> **{metrics['error_cases']} case(s) errored and were not scored.** "
+            f"Percentages below are over {metrics['scored_cases']} cases, not "
+            f"{metrics['total_cases']}. A run with errored cases is not a valid "
+            f"measurement.",
+            "",
+        ]
     lines += [
         "| Metric | Value |",
         "| --- | --- |",
@@ -258,19 +355,32 @@ def write_report(metrics, rows, tag=None):
         f"| False-refusal rate (in-corpus) | {metrics['false_refusal_rate']}% |",
         f"| Keyword groundedness (proxy) | {metrics['keyword_groundedness']}% |",
         f"| Overall pass rate | {metrics['overall_pass_rate']}% |",
-        f"| Cases / Claude calls | {metrics['total_cases']} / {metrics['claude_calls']} |",
+        f"| Cases scored / total | {metrics['scored_cases']} / {metrics['total_cases']} |",
+        f"| Errored (unscored) | {metrics['error_cases']} |",
+        f"| Claude calls | {metrics['claude_calls']} |",
         "",
         "## In-corpus",
         "| id | retrieved right source | refused? | keyword | pass |",
         "| --- | :---: | :---: | :---: | :---: |",
     ]
     for r in [r for r in rows if r["kind"] == "in_corpus"]:
+        if r.get("error"):
+            lines.append(f"| {r['id']} | ⚠️ | ⚠️ | ⚠️ | errored |")
+            continue
         kw = "—" if r.get("keyword_hit") is None else b(r["keyword_hit"])
         lines.append(f"| {r['id']} | {b(r['retrieval_hit'])} | {'⚠️' if r['refused'] else '—'} | {kw} | {b(r['pass'])} |")
 
     lines += ["", "## Out-of-corpus (should refuse)", "| id | refused? | pass |", "| --- | :---: | :---: |"]
     for r in [r for r in rows if r["kind"] == "out_of_corpus"]:
+        if r.get("error"):
+            lines.append(f"| {r['id']} | ⚠️ | errored |")
+            continue
         lines.append(f"| {r['id']} | {b(r['refused'])} | {b(r['pass'])} |")
+
+    if metrics["error_cases"]:
+        lines += ["", "## Errored cases", "| id | reason |", "| --- | --- |"]
+        for r in [r for r in rows if r.get("error")]:
+            lines.append(f"| {r['id']} | `{r['error'][:120]}` |")
 
     lines += ["", "## Corpus at run time", "", ", ".join(f"`{s}`" for s in prov["sources"]), ""]
 
@@ -288,12 +398,26 @@ _DEFAULT_THRESHOLDS = {
 
 
 def load_thresholds():
+    """A missing FILE falls back to the defaults, deliberately. A missing KEY
+    inside a file that exists does not.
+
+    data.get(k, default) treats a typo, a rename, or a half-finished edit as an
+    intention to use the default, so the suite keeps passing against a bar
+    nobody declared and the resume keeps quoting a gate that enforces nothing.
+    Fail loudly instead: an unresolved threshold is an unresolved threshold."""
     try:
         data = json.loads(THRESHOLDS_FILE.read_text(encoding="utf-8"))
     except FileNotFoundError:
         return dict(_DEFAULT_THRESHOLDS)
+    missing = [k for k in _DEFAULT_THRESHOLDS if k not in data]
+    if missing:
+        raise SystemExit(
+            f"{THRESHOLDS_FILE.name} exists but is missing {missing}. "
+            f"Falling back to defaults here would enforce a bar nobody declared; "
+            f"add the key or delete the file to use defaults on purpose."
+        )
     # ignore the _comment key and any stray fields; keep only known gates
-    return {k: float(data.get(k, v)) for k, v in _DEFAULT_THRESHOLDS.items()}
+    return {k: float(data[k]) for k in _DEFAULT_THRESHOLDS}
 
 
 THRESHOLDS = load_thresholds()
@@ -301,6 +425,11 @@ THRESHOLDS = load_thresholds()
 
 def gate(metrics):
     failures = []
+    if metrics.get("error_cases"):
+        failures.append(
+            f"{metrics['error_cases']} case(s) errored and were not scored; "
+            f"a run with unmeasured cases is not a valid measurement"
+        )
     if (metrics["retrieval_accuracy"] or 0) < THRESHOLDS["retrieval_accuracy"]:
         failures.append(f"retrieval_accuracy {metrics['retrieval_accuracy']}% < {THRESHOLDS['retrieval_accuracy']}%")
     if (metrics["ooc_refusal_accuracy"] or 0) < THRESHOLDS["ooc_refusal_accuracy"]:

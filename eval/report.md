@@ -1,8 +1,8 @@
 # Ask the Corpus — Eval Report
 
-_2026-08-05T15:52:30+00:00 · commit `2c46fdb`_
+_2026-08-05T16:58:02+00:00 · commit `bed8f08`_
 
-_10 sources · 49 chunks · 58 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
+_10 sources · 49 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
 
 _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal ≤ 10.0%_
 
@@ -10,12 +10,12 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | --- | --- |
 | Retrieval accuracy (in-corpus) | 100.0% |
 | Out-of-corpus refusal accuracy | 100.0% |
-| False-refusal rate (in-corpus) | 2.7% |
+| False-refusal rate (in-corpus) | 2.6% |
 | Keyword groundedness (proxy) | 100.0% |
 | Overall pass rate | 98.3% |
-| Cases scored / total | 58 / 58 |
+| Cases scored / total | 60 / 60 |
 | Errored (unscored) | 0 |
-| Claude calls | 58 |
+| Claude calls | 60 |
 
 ## In-corpus
 | id | retrieved right source | refused? | keyword | pass |
@@ -31,6 +31,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | sloth-machine | ✅ | — | ✅ | ✅ |
 | sloth-strength | ✅ | — | ✅ | ✅ |
 | sloth-general | ✅ | — | — | ✅ |
+| fod-two-systems | ✅ | — | ✅ | ✅ |
 | tools-resources | ✅ | — | ✅ | ✅ |
 | tools-constraint | ✅ | — | ✅ | ✅ |
 | tools-suite | ✅ | — | ✅ | ✅ |
@@ -82,6 +83,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | trap-gpa | ✅ | ✅ |
 | trap-dislike | ✅ | ✅ |
 | trap-manager | ✅ | ✅ |
+| trap-fod-openai | ✅ | ✅ |
 
 ## Corpus at run time
 

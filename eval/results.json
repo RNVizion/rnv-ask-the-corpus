@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-05T15:52:30+00:00",
-    "commit": "2c46fdb",
+    "generated_at": "2026-08-05T16:58:02+00:00",
+    "commit": "bed8f08",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -42,12 +42,12 @@
     }
   },
   "metrics": {
-    "total_cases": 58,
-    "scored_cases": 58,
+    "total_cases": 60,
+    "scored_cases": 60,
     "error_cases": 0,
-    "claude_calls": 58,
+    "claude_calls": 60,
     "retrieval_accuracy": 100.0,
-    "false_refusal_rate": 2.7,
+    "false_refusal_rate": 2.6,
     "ooc_refusal_accuracy": 100.0,
     "keyword_groundedness": 100.0,
     "overall_pass_rate": 98.3
@@ -72,7 +72,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**\u2014the weight, the response, a",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**. specifically: > \"squish is",
       "expect_source": [
         "squish"
       ],
@@ -214,7 +214,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the source material, christian describes software as \"hollow\" when it functions correctly but lacks identity an",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functiona",
       "expect_source": [
         "squish"
       ],
@@ -364,6 +364,34 @@
       "pass": true
     },
     {
+      "id": "fod-two-systems",
+      "kind": "in_corpus",
+      "question": "Why did Christian choose Sonnet for the publishing agent but Haiku for Ask the Corpus?",
+      "retrieved": [
+        "fit-over-default",
+        "bio",
+        "home",
+        "home",
+        "resume"
+      ],
+      "retrieved_chunks": [
+        "fit-over-default-1",
+        "bio-0",
+        "home-3",
+        "home-2",
+        "resume-0"
+      ],
+      "refused": false,
+      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each job: **sonnet for th",
+      "expect_source": [
+        "fit-over-default"
+      ],
+      "retrieval_hit": true,
+      "false_refusal": false,
+      "keyword_hit": true,
+      "pass": true
+    },
+    {
       "id": "tools-resources",
       "kind": "in_corpus",
       "question": "What does resources are the enemy of imagination mean?",
@@ -410,7 +438,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
+      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -754,7 +782,7 @@
         "bio-2"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works in ar/vr at meta as a sales and support specialist in the best buy retail program.",
+      "answer_preview": "according to the sources, christian works at meta as an ar/vr sales and support specialist in the best buy retail progra",
       "expect_source": [
         "resume",
         "bio"
@@ -926,7 +954,7 @@
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" the developers genuinely exposed by ai writing code are **the typists** \u2014 and c",
+      "answer_preview": "according to \"the job was never coding,\" the developers genuinely exposed by ai writing code are **the typists** \u2014 those",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1567,7 +1595,7 @@
         "home-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided context lists the programmin",
       "refusal_correct": true,
       "pass": true
     },
@@ -1593,6 +1621,30 @@
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
+    },
+    {
+      "id": "trap-fod-openai",
+      "kind": "out_of_corpus",
+      "question": "Which OpenAI models did Christian compare against before choosing Haiku?",
+      "retrieved": [
+        "fit-over-default",
+        "bio",
+        "home",
+        "squish",
+        "bio"
+      ],
+      "retrieved_chunks": [
+        "fit-over-default-1",
+        "bio-0",
+        "home-2",
+        "squish-3",
+        "bio-1"
+      ],
+      "refused": true,
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the context excerpts discuss christian's ",
+      "refusal_correct": true,
+      "pass": true,
+      "note": "ADDED 2026-08-05. Fit Over Default weighs Haiku, Sonnet and Opus only; no OpenAI or GPT model is named anywhere in the corpus. Refusal is correct. Chosen as an absent TOPIC rather than a missing detail of a present one: a trap keyed to a figure the post declines to give invites an answer explaining the absence, which scores as a non-refusal."
     }
   ]
 }

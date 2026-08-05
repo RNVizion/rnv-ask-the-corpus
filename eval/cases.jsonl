@@ -11,6 +11,8 @@
 {"id": "sloth-strength",    "kind": "in_corpus",     "question": "How does aiming laziness at the future become leverage?",          "expect_source": "sloth",             "keywords": ["leverage", "effort", "future"]}
 {"id": "sloth-general",     "kind": "in_corpus",     "question": "What is the upside of doing less on purpose?",                     "expect_source": "sloth",             "keywords": []}
 
+{"id": "fod-two-systems", "kind": "in_corpus", "question": "Why did Christian choose Sonnet for the publishing agent but Haiku for Ask the Corpus?", "expect_source": "fit-over-default", "keywords": ["Sonnet", "Haiku", "orchestration", "thrift"], "note": "ADDED 2026-08-05, first eval coverage for this source. Anchored to fit-over-default-1, which states both calls in consecutive sentences. Distinctive proper nouns pull retrieval directly rather than through theme, which is exactly the property atc-refusal's anchor lacks. Verify with --limit before trusting."}
+
 {"id": "tools-resources",   "kind": "in_corpus",     "question": "What does resources are the enemy of imagination mean?",           "expect_source": "i-lacked-the-tools", "keywords": ["imagination", "resource"]}
 {"id": "tools-constraint",  "kind": "in_corpus",     "question": "How does Christian describe constraint as a creative force?",       "expect_source": "i-lacked-the-tools", "keywords": ["constraint", "creative"]}
 {"id": "tools-suite",       "kind": "in_corpus",     "question": "How did Christian end up building a whole software suite?",         "expect_source": "i-lacked-the-tools", "keywords": ["suite", "color", "tool"]}
@@ -67,3 +69,4 @@
 {"id": "trap-gpa",          "kind": "out_of_corpus", "question": "What was Christian's GPA?"}
 {"id": "trap-dislike",      "kind": "out_of_corpus", "question": "What programming languages does Christian dislike?"}
 {"id": "trap-manager",      "kind": "out_of_corpus", "question": "Who is Christian's manager at Meta?"}
+{"id": "trap-fod-openai",   "kind": "out_of_corpus", "question": "Which OpenAI models did Christian compare against before choosing Haiku?", "note": "ADDED 2026-08-05. Fit Over Default weighs Haiku, Sonnet and Opus only; no OpenAI or GPT model is named anywhere in the corpus. Refusal is correct. Chosen as an absent TOPIC rather than a missing detail of a present one: a trap keyed to a figure the post declines to give invites an answer explaining the absence, which scores as a non-refusal."}

@@ -101,19 +101,52 @@ jobs:
       # Gated to push-on-main: a pull_request run holds EVAL_KEY, and a workflow
       # holding a secret should not also gain write-back on an event a stranger
       # can trigger.
+      #
+      # OURS WINS, DELIBERATELY. The first version pulled with --rebase and
+      # conflicted on 2026-08-05 the moment two runs overlapped, because merging
+      # two generated reports is a meaningless operation: they are not two edits
+      # to one document, they are two observations, and the newest observation is
+      # the record. So the outputs are set aside, the branch is reset to whatever
+      # origin now holds, and the outputs are written over the top. The report's
+      # provenance block names the commit it actually describes, so a report
+      # landing on a newer tip is self-identifying rather than confusing.
       - name: Commit the report back
         if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        continue-on-error: true      # bookkeeping; it must not red a passing gate
         run: |
+          set -uo pipefail
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add eval/report.md eval/results.json
-          if git diff --cached --quiet; then
-            echo "report unchanged; nothing to commit"
-            exit 0
-          fi
-          git commit -m "eval: refresh report [skip ci]"
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
+
+          tmp="$(mktemp -d)"
+          cp eval/report.md "$tmp/report.md"
+          cp eval/results.json "$tmp/results.json"
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp "$tmp/report.md" eval/report.md
+            cp "$tmp/results.json" eval/results.json
+            git add eval/report.md eval/results.json
+            if git diff --cached --quiet; then
+              echo "report unchanged; nothing to commit"
+              rm -rf "$tmp"
+              exit 0
+            fi
+            git commit -m "eval: refresh report [skip ci]"
+            if git push origin HEAD:main; then
+              echo "report committed on attempt $attempt"
+              rm -rf "$tmp"
+              exit 0
+            fi
+            echo "push rejected, another run moved main; retrying ($attempt/3)"
+            sleep 3
+          done
+
+          rm -rf "$tmp"
+          echo "::warning::could not commit the report after 3 attempts; "\
+               "the artifact upload below still has it"
+          exit 1
 
       - name: Upload eval report
         if: always()

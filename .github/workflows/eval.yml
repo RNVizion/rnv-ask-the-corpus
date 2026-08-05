@@ -27,7 +27,6 @@ on:
       - "eval/thresholds.json"
       - "eval/test_eval.py"
       - "eval/check_index_coverage.py"
-      - "eval/why.py"
       - ".github/workflows/eval.yml"
   pull_request:
     paths:
@@ -40,7 +39,6 @@ on:
       - "eval/thresholds.json"
       - "eval/test_eval.py"
       - "eval/check_index_coverage.py"
-      - "eval/why.py"
   workflow_dispatch:
 
 # Only the commit-back needs write. Declared explicitly so this job gains exactly

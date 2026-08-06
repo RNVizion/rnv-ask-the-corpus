@@ -27,7 +27,6 @@ on:
       - "eval/thresholds.json"
       - "eval/test_eval.py"
       - "eval/check_index_coverage.py"
-      - "eval/why.py"
       - ".github/workflows/eval.yml"
   pull_request:
     paths:
@@ -40,7 +39,6 @@ on:
       - "eval/thresholds.json"
       - "eval/test_eval.py"
       - "eval/check_index_coverage.py"
-      - "eval/why.py"
   workflow_dispatch:
 
 # Only the commit-back needs write. Declared explicitly so this job gains exactly
@@ -97,10 +95,6 @@ jobs:
       # always() so a FAILING run still commits its report. A red report is the
       # artifact most worth reading, and discarding it is how a failure becomes
       # invisible.
-      #
-      # Gated to push-on-main: a pull_request run holds EVAL_KEY, and a workflow
-      # holding a secret should not also gain write-back on an event a stranger
-      # can trigger.
       #
       # OURS WINS, DELIBERATELY. The first version pulled with --rebase and
       # conflicted on 2026-08-05 the moment two runs overlapped, because merging

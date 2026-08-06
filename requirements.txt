@@ -1,7 +1,70 @@
-sentence-transformers
-chromadb
-beautifulsoup4
-requests
-anthropic
-gradio
-huggingface_hub
+# Pinned 2026-08-06 from the CI run at commit a26810c, which produced the
+# 60-case report the current baseline rests on. Two consecutive runs 2h apart
+# resolved identically, so this is reproducibly the environment that made those
+# numbers; the six-week comparison below is what shows why that matters.
+#
+# WHY PIN AT ALL — MEASURED, NOT PRECAUTIONARY
+# Unpinned names mean every CI run installs whatever PyPI has that day. Diffing
+# the first green eval run (2026-06-27) against 2026-08-06 shows 46 of 135
+# packages moved in six weeks, including every package on the embedding path:
+# sentence-transformers 5.6.0 -> 5.6.1, torch 2.12.1 -> 2.13.0, transformers
+# 5.12.1 -> 5.14.1. numpy, tokenizers and chromadb held.
+#
+# Retrieval accuracy stayed at 100% across all of that, which is the reassuring
+# half: the drift did not move rankings enough to break a case. The other half is
+# that nobody would have known if it had. Two runs of the same commit could
+# disagree with no commit and no diff to inspect, which is the one failure a gate
+# cannot absorb. Temperature 0 closed the model half of that. This closes the
+# library half.
+#
+# The drift landed between 2026-06-29 and 2026-07-28, when all three embedding
+# packages moved at once. It did NOT land between 2026-07-29 and 2026-08-01, the
+# window where atc-refusal flipped from passing to failing: that window's
+# embedding path is identical across both runs, so dependency drift is ruled out
+# as the cause of that flip. Pinning is not a fix for a case; it is what makes
+# the next such question answerable from a log instead of a guess.
+#
+# WHAT PINNING STILL DOES NOT COVER
+# sentence-transformers downloads all-MiniLM-L6-v2 from the Hub at runtime and
+# nothing here pins the model revision. The library is pinned; the weights are
+# not. A new commit on that Hub repo would change embeddings with no version
+# bump and no diff to inspect. The model has been stable, so this is recorded
+# rather than solved.
+#
+# TWO TIERS, DELIBERATELY
+# The direct dependencies are pinned because they are ours to choose. A handful
+# of transitive ones are pinned too, and only that handful, because they are the
+# ones that can silently change what a vector is: the embedding path runs
+# sentence-transformers -> transformers -> tokenizers over torch and numpy, and
+# chromadb decides how the index is read and written. A minor bump anywhere on
+# that path moves retrieval, which moves the gate. The other ~120 packages are
+# left to resolve; pinning all of them buys little and turns every security
+# patch into a manual chore.
+#
+# WHAT THIS DOES NOT BUY
+# This is not a lock file. Transitive dependencies outside the list below still
+# float, so two runs a month apart can still differ in ways this does not catch.
+# That is a bound honestly stated rather than a claim of determinism. A real
+# lock file with hashes is the next rung, and it is not free on a phone-first
+# workflow; revisit if an unpinned transitive is ever shown to move a metric.
+#
+# BUMPING
+# Bump deliberately, one line at a time, and read the report the run produces.
+# A dependency change is now a trigger path, so the gate runs on it and the
+# numbers either hold or they do not. If they move, the new numbers are the
+# baseline and the run-history table gains a line.
+
+# --- direct ---
+sentence-transformers==5.6.1
+chromadb==1.5.9
+beautifulsoup4==4.15.0
+requests==2.34.2
+anthropic==0.120.2
+gradio==6.22.0
+huggingface_hub==1.26.0
+
+# --- transitive, pinned because they determine embedding values ---
+transformers==5.14.1
+tokenizers==0.22.2
+torch==2.13.0
+numpy==2.4.6

@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-05T22:12:29+00:00",
-    "commit": "a26810c",
+    "generated_at": "2026-08-06T00:24:57+00:00",
+    "commit": "1e77bd9",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -72,7 +72,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**. specifically: > \"squish is",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**\u2014the weight, the response, a",
       "expect_source": [
         "squish"
       ],
@@ -214,7 +214,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the source material, christian describes software as \"hollow\" when it functions correctly but lacks identity an",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functiona",
       "expect_source": [
         "squish"
       ],
@@ -580,7 +580,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: - **ai engineer** - **sol",
+      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: 1. **ai engineer** 2. **s",
       "expect_source": [
         "resume",
         "bio"
@@ -899,7 +899,7 @@
         "the-job-was-never-coding-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was merely the o",
+      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was just the out",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1097,7 +1097,7 @@
         "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "# what christian has built based on the sources, christian smith (rnvizion) has built: **ai/llm systems:** - **ask the c",
+      "answer_preview": "# what christian has built based on the sources, christian has built several projects: **ai/llm systems:** - **ask the c",
       "expect_source": [
         "home",
         "resume",

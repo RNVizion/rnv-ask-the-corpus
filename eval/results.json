@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-06T00:24:57+00:00",
-    "commit": "1e77bd9",
+    "generated_at": "2026-08-06T22:19:57+00:00",
+    "commit": "7e804d3",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -72,7 +72,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**\u2014the weight, the response, a",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**. specifically: > \"squish is",
       "expect_source": [
         "squish"
       ],
@@ -326,7 +326,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "# how aiming laziness at the future becomes leverage according to [\"lazy in the right way is leverage\"], aiming laziness",
+      "answer_preview": "# how aiming laziness at the future becomes leverage according to \"lazy in the right way is leverage,\" aiming laziness a",
       "expect_source": [
         "sloth"
       ],
@@ -523,7 +523,7 @@
         "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian works across these fields as a renaissance man: 1. **developer/software enginee",
+      "answer_preview": "based on the context provided, christian smith works across these fields as a renaissance man: 1. **development** - pyth",
       "expect_source": [
         "bio"
       ],
@@ -725,7 +725,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith earned a **bachelor of science in game programming** [source: r\u00e9sum\u00e9 \u2014 christia",
+      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith has a bachelor of science in game programming. [source: r\u00e9sum\u00e9 \u2014 christian smit",
       "expect_source": [
         "resume",
         "bio"
@@ -1455,7 +1455,7 @@
         "fit-over-default-2"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts don't contain any s",
       "refusal_correct": true,
       "pass": true,
       "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."

@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-06T22:19:57+00:00",
-    "commit": "7e804d3",
+    "generated_at": "2026-08-07T09:02:38+00:00",
+    "commit": "bc911a0",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -214,7 +214,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functiona",
+      "answer_preview": "based on [source: squish: the soul that speed can't generate], christian describes hollow software as work that is funct",
       "expect_source": [
         "squish"
       ],
@@ -438,7 +438,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
+      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -725,7 +725,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith has a bachelor of science in game programming. [source: r\u00e9sum\u00e9 \u2014 christian smit",
+      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith earned a **bachelor of science in game programming** [source: r\u00e9sum\u00e9 \u2014 christia",
       "expect_source": [
         "resume",
         "bio"
@@ -899,7 +899,7 @@
         "the-job-was-never-coding-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was just the out",
+      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was merely the o",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1455,7 +1455,7 @@
         "fit-over-default-2"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts don't contain any s",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true,
       "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."
@@ -1596,7 +1596,7 @@
         "home-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
       "refusal_correct": true,
       "pass": true
     },

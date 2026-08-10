@@ -1,1 +1,1 @@
-grep -n 'RATE\|_rate_ok\|_hits\|patch\|setattr' eval/evaluate.py
+grep -n 'on:\|pull_request\|push\|branches\|permissions\|contents:\|if:' .github/workflows/eval.yml

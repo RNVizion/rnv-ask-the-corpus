@@ -1,17 +1,19 @@
 # Eval — does the corpus stay honest?
 
-This suite measures the one claim the whole project makes: **answers come from the corpus, or not at all.** It runs every question in `cases.jsonl` through the real `app.answer()` and scores whether the system retrieves the right source, refuses what it doesn't cover, and never refuses what it does.
+This suite measures the one claim the whole project makes: **answers come from the corpus, or not at all.** It runs every question in `cases.jsonl` through the real `app.answer_with_status()` and scores whether the system retrieves the right source, refuses what it doesn't cover, and never refuses what it does.
 
-It imports `app` and calls the same function the Space serves; it doesn't reimplement retrieval. The only thing it patches is the per-client rate limiter, which would otherwise trip partway through a run. That's infrastructure, not answer quality, and `app.py` is never modified.
+It imports `app` and calls the same code path the Space serves; `answer()` is only a thin wrapper that drops the status. It doesn't reimplement retrieval. The only thing it patches is the per-client rate limiter, which would otherwise trip partway through a run. That's infrastructure, not answer quality, and `app.py` is never modified.
 
 ## What it scores
 
 - **Retrieval accuracy** — for in-corpus questions, did the right source get pulled (matched by chunk-id prefix, e.g. `squish-3` → `squish`)?
-- **Out-of-corpus refusal accuracy** — for questions the blog doesn't cover, did it return the exact denial line? This is the honesty thesis, measured.
+- **Out-of-corpus refusal accuracy** — for questions the blog doesn't cover, did the answer lead with the denial line? This is the honesty thesis, measured.
 - **False-refusal rate** — in-corpus questions it wrongly refused. Should be ~0.
 - **Keyword groundedness** — a light proxy: did the answer contain an expected term? Directional only; it isn't an LLM judge, and it is **not gated**.
 
-Scoring is deterministic throughout: exact denial-line match, chunk-id prefix match, substring match. The only nondeterministic component is the model's own answer, which is the thing under test.
+Scoring is deterministic throughout: a structural refusal test, chunk-id prefix match, substring match. The model is sampled at `TEMPERATURE = 0`, so the same question over the same context no longer drifts between runs; before that was pinned, thresholds were being asserted against numbers that moved underneath them.
+
+The refusal test checks structure rather than substring, because a plain `in` test over-fires: one post reproduces the denial line verbatim, so correct answers *about that post* scored as refusals on a healthy system. A refusal leads with the denial; an answer quoting it has to set the quotation up first.
 
 **Known limit: `retrieval_hit` is source-level, not chunk-level.** A case scores a hit when a chunk from an expected source appears in the top-k, regardless of whether the answer was built from it. `atc-model` demonstrates this: it hits on an `ask-the-corpus` chunk at rank 3, then answers largely from `fit-over-default`. The metric measures presence in the window, not provenance of the answer. Documented limit, not a defect — but don't read a green `retrieval_hit` as proof the answer came from the right place.
 
@@ -66,13 +68,14 @@ Run the coverage guard before anything that spends money. It reads the index dir
 
 ## CI
 
-`.github/workflows/eval.yml` runs on any change to `app.py`, `scripts/ingest.py`, `sources.json`, `chroma/**`, or `eval/**`, plus manual dispatch. Steps:
+`.github/workflows/eval.yml` runs on any change to `app.py`, `scripts/ingest.py`, `sources.json`, `chroma/**`, `requirements.txt`, the workflow file itself, or one of five enumerated files under `eval/` (`evaluate.py`, `cases.jsonl`, `thresholds.json`, `test_eval.py`, `check_index_coverage.py`), plus manual dispatch. The paths are enumerated rather than globbed; a new gating file under `eval/` has to be added to that list by hand or it silently stops gating. Steps:
 
 1. **Install deps**
 2. **`check_index_coverage.py`** — the guard; fails fast, before any Claude spend
 3. **`evaluate.py --report-only`** — always writes the report
 4. **`pytest eval/test_eval.py -v`** — the gate
-5. Upload `report.md` as an artifact, on every run including failures
+5. **Commit `report.md` and `results.json` back to `main`** — on every run including failures; ours-wins, `[skip ci]`
+6. Upload `report.md` as an artifact, on every run including failures
 
 **CI does not ingest.** It evaluates the **committed `chroma/`**, which is itself a trigger path. The invariant is not "the index is current" but **"the index contains every source the cases reference"** — an index a post behind is harmless; an index missing a source a case expects is fatal and reads as a broken bot. The guard enforces exactly that, and nothing else does.
 
@@ -128,7 +131,7 @@ One in-corpus case refuses: **`atc-refusal`** — *"What does Christian say made
 
 **Cause, established 2026-08-04 from the committed index.** `c037b4f` holds four résumé chunks, 1,043 words, and **zero** `color-mcp` mentions — a snapshot fetched around June 21–22, three days before the term entered the page on June 25. The page was never thin. The corpus was, and only the corpus refused.
 
-**It resolved on the 2026-07-27 re-ingest** — the same event described under the maintenance rules, where one `scripts/ingest.py` moved the identical cases from 73% retrieval and 24.3% false refusal to 97.3% and 5.4%. `res-mcp` was one of the false refusals that re-ingest cured.
+**It resolved on the 2026-07-27 re-ingest** — the same event described under the maintenance rules, where one `ingest.py` moved the identical cases from 73% retrieval and 24.3% false refusal to 97.3% and 5.4%. `res-mcp` was one of the false refusals that re-ingest cured.
 
 Two earlier explanations are retired. "The résumé entry was too thin" is false. "It began passing when the home page entered the corpus" credits one item for a batch: the home page arrived in the same re-ingest as a month of résumé updates, and `res-mcp` now answers from the résumé with no `home` chunk retrieved at all.
 

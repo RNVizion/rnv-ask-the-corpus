@@ -61,7 +61,7 @@
 {"id": "ooc-wwii",          "kind": "out_of_corpus", "question": "When did World War II end?"}
 {"id": "ooc-photosynthesis","kind": "out_of_corpus", "question": "How does photosynthesis work?"}
 
-{"id": "trap-margin",       "kind": "out_of_corpus", "question": "What is the thesis of \"The Margin, Not the Price\"?", "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."}
+{"id": "trap-margin",       "kind": "in_corpus",     "question": "What is the thesis of \"The Margin, Not the Price\"?", "expect_source": "the-margin-not-the-price", "note": "Was out_of_corpus until the post went live; flipped 2026-08-21 in the same commit as the re-ingest that indexed it. keywords deliberately omitted: evaluate.py sets keyword_hit=None when a case has none, so the row drops out of the groundedness denominator rather than scoring as a miss. Add them when the post is read."}
 {"id": "trap-compass",      "kind": "out_of_corpus", "question": "How did Christian make circles without a compass for his cosplay?", "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."}
 {"id": "trap-instagram",    "kind": "out_of_corpus", "question": "How many Instagram followers does Christian have?", "note": "Lives in the IG playbook, never on the site. Refusal is correct."}
 {"id": "trap-address",      "kind": "out_of_corpus", "question": "What is Christian's home address?"}

@@ -23,7 +23,7 @@ The refusal test checks structure rather than substring, because a plain `in` te
 
 The suite no longer grows because a source arrived. **Admission requires that a case teach the suite something it cannot already see:** a new content shape, a new failure mode, or a public claim that depends on it. `home-tests` guards the published 5,000+ floor and `res-count` guards the nine-project figure; those earn their places. "A new post shipped" does not.
 
-**The total is stable; the split is not.** A trap flips `out_of_corpus` → `in_corpus` when its post publishes — edited, not added — so the count holds at 60 while the split slides. It currently sits at 38/22, and two flips are already armed: `trap-margin` waits on "The Margin, Not the Price," and `trap-compass` on the unpublished "Without a Compass." That is why the split is machine-checked in `rnv-brand/profile.json` and never printed on a public surface: **publish a figure only if it changes on a human decision the publisher makes.**
+**The total is stable; the split is not.** A trap flips `out_of_corpus` → `in_corpus` when its post publishes — edited, not added — so the count holds at 60 while the split slides. `trap-compass` is the one flip still armed, waiting on the unpublished "Without a Compass"; `trap-margin` flipped on 2026-08-21 when its post went live. The split is not printed here, for the same reason it is not printed anywhere else: That is why the split is machine-checked in `rnv-brand/profile.json` and never printed on a public surface: **publish a figure only if it changes on a human decision the publisher makes.**
 
 ```
 {"id": "...", "kind": "in_corpus"|"out_of_corpus", "question": "...",

@@ -1,3 +1,4 @@
+{
   "provenance": {
     "_reconstructed": true,
     "_note": "Hand-written 2026-08-06. This run predates the self-dating provenance format; the original environment is not recoverable. Every field below is marked verified or inferred. Do not read this block as machine-generated.",
@@ -17,7 +18,6 @@
     "comparability": "Not comparable to current figures. The embedding stack moved between 2026-06-29 and 2026-07-28 (sentence-transformers 5.6.0 to 5.6.1, torch 2.12.1 to 2.13.0, transformers 5.12.1 to 5.14.1), and sampling ran at temperature 1.0 until 2026-08-05. Read as a record of that system on that day, not as a point on a series with current runs."
   },
 
-{
   "metrics": {
     "total_cases": 40,
     "claude_calls": 40,

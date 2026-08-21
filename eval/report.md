@@ -1,10 +1,12 @@
 # Ask the Corpus — Eval Report
 
-_2026-08-07T09:02:38+00:00 · commit `bc911a0`_
+_2026-08-21T18:10:31+00:00 · commit `1d061cb`_
 
 _10 sources · 49 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
 
 _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal ≤ 10.0%_
+
+> **Index and manifest differ.** Declared but not indexed: ['the-margin-not-the-price']. Indexed but not declared: —. Scores below describe the index, which is what the bot answers from.
 
 | Metric | Value |
 | --- | --- |

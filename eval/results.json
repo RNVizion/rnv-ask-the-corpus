@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-07T09:02:38+00:00",
-    "commit": "bc911a0",
+    "generated_at": "2026-08-21T18:10:31+00:00",
+    "commit": "1d061cb",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -21,7 +21,7 @@
       "the-job-was-never-coding"
     ],
     "chunk_count": 49,
-    "declared_count": 10,
+    "declared_count": 11,
     "declared_sources": [
       "aiii",
       "ask-the-corpus",
@@ -32,9 +32,10 @@
       "resume",
       "sloth",
       "squish",
-      "the-job-was-never-coding"
+      "the-job-was-never-coding",
+      "the-margin-not-the-price"
     ],
-    "index_matches_manifest": true,
+    "index_matches_manifest": false,
     "thresholds": {
       "retrieval_accuracy": 85.0,
       "ooc_refusal_accuracy": 90.0,
@@ -214,7 +215,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on [source: squish: the soul that speed can't generate], christian describes hollow software as work that is funct",
+      "answer_preview": "based on [source: squish: the soul that speed can't generate], christian describes hollow software as the result of spee",
       "expect_source": [
         "squish"
       ],
@@ -326,7 +327,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "# how aiming laziness at the future becomes leverage according to \"lazy in the right way is leverage,\" aiming laziness a",
+      "answer_preview": "according to \"lazy in the right way is leverage,\" aiming laziness at the future becomes leverage through a specific trad",
       "expect_source": [
         "sloth"
       ],
@@ -354,7 +355,7 @@
         "fit-over-default-2"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, the upside of doing less on purpose depends on the direction you aim it: **aimed at the f",
+      "answer_preview": "based on the context provided, the upside of doing less on purpose is **leverage**. from \"lazy in the right way is lever",
       "expect_source": [
         "sloth"
       ],
@@ -382,7 +383,7 @@
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each job: **sonnet for th",
+      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each system: **sonnet for",
       "expect_source": [
         "fit-over-default"
       ],
@@ -523,7 +524,7 @@
         "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith works across these fields as a renaissance man: 1. **development** - pyth",
+      "answer_preview": "based on the context provided, christian works across these fields as a renaissance man: from [\"i lacked the tools, so i",
       "expect_source": [
         "bio"
       ],
@@ -899,7 +900,7 @@
         "the-job-was-never-coding-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was merely the o",
+      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was just the out",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1097,7 +1098,7 @@
         "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "# what christian has built based on the sources, christian has built several projects: **ai/llm systems:** - **ask the c",
+      "answer_preview": "# what christian has built based on the sources, christian smith (rnvizion) has built: **ai/llm systems:** - **ask the c",
       "expect_source": [
         "home",
         "resume",
@@ -1455,7 +1456,7 @@
         "fit-over-default-2"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts don't contain any s",
       "refusal_correct": true,
       "pass": true,
       "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."
@@ -1596,7 +1597,7 @@
         "home-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },

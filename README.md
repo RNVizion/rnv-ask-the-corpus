@@ -50,7 +50,7 @@ question  ->  embed  ->  similarity search (top-k)  ->  context  -+
 
 ## Evaluation
 
-The honesty claim is measured, not asserted. A fixed case set runs through the real `app.answer()` on every change to the app, the ingester, the sources, or the index, and CI fails the build if behavior regresses.
+The honesty claim is measured, not asserted. A fixed case set runs through the real `app.answer_with_status()` on every change to the app, the ingester, the sources, the index, the eval’s own files, or the dependency list, and CI fails the build if behavior regresses.
 
 |Gate                          |What it proves                                       |Bar  |
 |------------------------------|-----------------------------------------------------|-----|
@@ -60,14 +60,15 @@ The honesty claim is measured, not asserted. A fixed case set runs through the r
 
 The third gate is the one that matters most and the one most retrieval demos skip. It’s easy to look honest by refusing more; measuring wrongful refusal is what keeps grounding from quietly becoming uselessness.
 
-Scoring is deterministic rather than an LLM judge: refusals are matched against the exact denial line, retrieval by chunk-id prefix. The most interesting cases are traps — questions about posts that are drafted but not yet published. They’re out-of-corpus today, so a correct system refuses them; when the post ships, the case flips.
+Scoring is deterministic rather than an LLM judge, down to sampling the model at temperature 0 so the same question cannot be answered on one run and refused on the next. Retrieval is matched by chunk-id prefix; a refusal is identified structurally, by whether the answer *leads* with the denial rather than merely contains it. That distinction is load-bearing, because one of the posts quotes the denial line verbatim, and a plain substring test scored correct answers about that post as refusals. The most interesting cases are traps — questions about posts that are drafted but not yet published. They’re out-of-corpus today, so a correct system refuses them; when the post ships, the case flips.
 
 ```bash
-python eval/evaluate.py       # writes eval/report.md
-pytest eval/test_eval.py -v   # the CI gate
+python eval/check_index_coverage.py   # ~1s, no network, no key: does the index cover the cases?
+python eval/evaluate.py               # runs the suite, writes eval/report.md
+pytest eval/test_eval.py -v           # the gate, reading that report
 ```
 
-Every run uploads `report.md` as a build artifact, including failed runs. See [`eval/`](eval/) for the case set and thresholds.
+Every run uploads `report.md` as a build artifact and commits it back to the repo, failed runs included; a red report is the one most worth reading. See [`eval/`](eval/) for the case set and thresholds.
 
 ## Stack
 
@@ -81,12 +82,12 @@ Every run uploads `report.md` as a build artifact, including failed runs. See [`
 
 ```bash
 git clone https://github.com/RNVizion/rnv-ask-the-corpus
-cd ask-the-corpus
+cd rnv-ask-the-corpus
 pip install -r requirements.txt
 export ANTHROPIC_API_KEY=sk-ant-...   # your key
 
-python scripts/ingest.py     # builds the Chroma index from the published posts
-python app.py        # serves the Gradio app at http://localhost:7860
+python scripts/ingest.py   # builds the Chroma index from the published posts
+python app.py              # serves the Gradio app at http://localhost:7860
 ```
 
 The index is committed, so you can skip `scripts/ingest.py` and run `app.py` straight away; re-run `scripts/ingest.py` only when the posts change.
@@ -100,12 +101,13 @@ The live index also stays current on its own: a scheduled GitHub Action in this 
 ## Repo layout
 
 ```
-scripts/ingest.py          # published-only ingester -> ChromaDB
 app.py             # retrieval + Claude + Gradio UI
+scripts/           # published-only ingester, feed discovery, edit detection
 requirements.txt
 chroma/            # prebuilt vector index (committed)
 eval/              # case set, thresholds, runner, pytest gate
 assets/            # demo clip and screenshots
+SECURITY.md
 ```
 
 ## Design note: why published-only

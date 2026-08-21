@@ -288,7 +288,7 @@ def provenance(tag=None):
     # that fires on a clean checkout tells you nothing.
     dirty = bool(_git(
         "status", "--porcelain", "--",
-        "app.py", "ingest.py", "sources.json",
+        "app.py", "scripts/ingest.py", "sources.json",
         "eval/evaluate.py", "eval/cases.jsonl", "eval/thresholds.json",
         "eval/test_eval.py", "eval/check_index_coverage.py",
     ))

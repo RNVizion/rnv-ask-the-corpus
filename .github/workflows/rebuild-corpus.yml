@@ -7,7 +7,7 @@ on:
   push:
     paths:
       - "sources.json"
-      - "ingest.py"
+      - "scripts/ingest.py"
   workflow_dispatch:
 
 # Shares its group with check-source-edits.yml so the two corpus workflows
@@ -32,7 +32,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Rebuild Chroma from the live sources
-        run: python ingest.py
+        run: python scripts/ingest.py
 
       # Quirk to NOT "fix": this uploads through the Python API, not `hf upload`.
       # The CLI hardcodes create_repo(space_sdk="gradio") on every --repo-type=space

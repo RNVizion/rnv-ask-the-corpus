@@ -27,14 +27,14 @@ Three things make it more than a wrapper around an LLM:
 ## How it works
 
 ```
-published posts  ->  ingest.py  ->  chunks  ->  embeddings  ->  ChromaDB
+published posts  ->  scripts/ingest.py  ->  chunks  ->  embeddings  ->  ChromaDB
                                                                    |
 question  ->  embed  ->  similarity search (top-k)  ->  context  -+
                                                           |
                               context + question  ->  Claude  ->  grounded answer
 ```
 
-1. **Ingest** (`ingest.py`): fetches each published post, strips the page chrome, splits the body into overlapping chunks, embeds them with `all-MiniLM-L6-v2`, and stores them in a local ChromaDB collection.
+1. **Ingest** (`scripts/ingest.py`): fetches each published post, strips the page chrome, splits the body into overlapping chunks, embeds them with `all-MiniLM-L6-v2`, and stores them in a local ChromaDB collection.
 1. **Retrieve** (`app.py`): embeds the question with the same model, pulls the top-k most similar chunks from Chroma.
 1. **Answer** (`app.py`): sends the retrieved context plus the question to Claude with a system prompt that allows answers *only* from the context, and returns a concise, sourced reply.
 
@@ -85,22 +85,22 @@ cd ask-the-corpus
 pip install -r requirements.txt
 export ANTHROPIC_API_KEY=sk-ant-...   # your key
 
-python ingest.py     # builds the Chroma index from the published posts
+python scripts/ingest.py     # builds the Chroma index from the published posts
 python app.py        # serves the Gradio app at http://localhost:7860
 ```
 
-The index is committed, so you can skip `ingest.py` and run `app.py` straight away; re-run `ingest.py` only when the posts change.
+The index is committed, so you can skip `scripts/ingest.py` and run `app.py` straight away; re-run `scripts/ingest.py` only when the posts change.
 
 ## Deploy
 
 The live demo runs on Hugging Face Spaces. `app.py`, `requirements.txt`, and the prebuilt `chroma/` index are uploaded to the Space; the Anthropic key is set as a Space secret (`ANTHROPIC_API_KEY`). The Space rebuilds on upload.
 
-The live index also stays current on its own: a scheduled GitHub Action in this repo discovers newly published posts from the site’s feed and re-ingests when a tracked page changes, then pushes the refreshed index to the Space — running `ingest.py` by hand is only for local work.
+The live index also stays current on its own: a scheduled GitHub Action in this repo discovers newly published posts from the site’s feed and re-ingests when a tracked page changes, then pushes the refreshed index to the Space — running `scripts/ingest.py` by hand is only for local work.
 
 ## Repo layout
 
 ```
-ingest.py          # published-only ingester -> ChromaDB
+scripts/ingest.py          # published-only ingester -> ChromaDB
 app.py             # retrieval + Claude + Gradio UI
 requirements.txt
 chroma/            # prebuilt vector index (committed)

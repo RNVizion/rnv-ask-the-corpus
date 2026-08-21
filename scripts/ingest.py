@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 from sentence_transformers import SentenceTransformer
 import chromadb
 
-HERE = Path(__file__).resolve().parent
-SOURCES_FILE = HERE / "sources.json"
+REPO_ROOT = Path(__file__).resolve().parent.parent   # scripts/ -> repo root
+SOURCES_FILE = REPO_ROOT / "sources.json"
 CHUNK_WORDS, OVERLAP = 300, 50
 
 
@@ -79,7 +79,7 @@ def main():
         sys.exit(f"no sources found in {SOURCES_FILE}")
 
     model = SentenceTransformer("all-MiniLM-L6-v2")
-    client = chromadb.PersistentClient(path="chroma")
+    client = chromadb.PersistentClient(path=str(REPO_ROOT / "chroma"))
     try:
         client.delete_collection("corpus")
     except Exception:

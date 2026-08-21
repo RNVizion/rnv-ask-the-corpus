@@ -31,15 +31,15 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Discover new posts from the feed
-        run: python discover.py
+        run: python scripts/discover.py
 
       - name: Check tracked sources for edits
         id: check
-        run: python check_edits.py
+        run: python scripts/check_edits.py
 
       - name: Re-ingest (only if a source changed)
         if: steps.check.outputs.changed == 'true'
-        run: python ingest.py
+        run: python scripts/ingest.py
 
       # Quirk to NOT "fix": Python API, not `hf upload` — see rebuild-corpus.yml
       # for the full note. The CLI 402s on free accounts; upload_folder doesn't.

@@ -19,7 +19,7 @@ on:
     branches: [main]
     paths:
       - "app.py"
-      - "ingest.py"
+      - "scripts/ingest.py"
       - "sources.json"
       - "chroma/**"
       - "eval/evaluate.py"
@@ -32,7 +32,7 @@ on:
   pull_request:
     paths:
       - "app.py"
-      - "ingest.py"
+      - "scripts/ingest.py"
       - "sources.json"
       - "chroma/**"
       - "eval/evaluate.py"

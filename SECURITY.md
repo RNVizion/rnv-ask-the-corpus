@@ -34,7 +34,7 @@ That changes what matters here:
 
 **Availability.** Any way to make the Space unresponsive for other visitors, short of ordinary traffic.
 
-**The ingest path.** `ingest.py` fetches only the URLs listed in `sources.json`, and that list is the only thing separating "published" from "indexed." A way to make it fetch something else, or to get content into the index that was never on that list, is a real finding.
+**The ingest path.** `scripts/ingest.py` fetches only the URLs listed in `sources.json`, and that list is the only thing separating "published" from "indexed." A way to make it fetch something else, or to get content into the index that was never on that list, is a real finding.
 
 **Credential exposure.** Any path that reveals or spends either API key outside the flow it belongs to.
 

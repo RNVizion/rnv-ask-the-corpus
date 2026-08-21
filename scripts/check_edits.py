@@ -7,8 +7,8 @@ from pathlib import Path
 # ingested (article -> main -> body, bio stripped), not nav chrome that drifts.
 from ingest import load_sources, fetch_source, SkipSource
 
-HERE = Path(__file__).resolve().parent
-HASH_FILE = HERE / ".source-hashes.json"
+REPO_ROOT = Path(__file__).resolve().parent.parent   # scripts/ -> repo root
+HASH_FILE = REPO_ROOT / ".source-hashes.json"
 
 
 def text_hash(text):

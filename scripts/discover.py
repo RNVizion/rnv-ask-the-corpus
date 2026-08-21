@@ -6,8 +6,8 @@ from xml.etree import ElementTree as ET
 
 import requests
 
-HERE = Path(__file__).resolve().parent
-SOURCES_FILE = HERE / "sources.json"
+REPO_ROOT = Path(__file__).resolve().parent.parent   # scripts/ -> repo root
+SOURCES_FILE = REPO_ROOT / "sources.json"
 FEED_URL = os.environ.get("FEED_URL", "https://rnvizion.dev/feed.xml")
 
 

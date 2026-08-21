@@ -14,7 +14,7 @@ the time you read it. This reads the index straight, so a failing case can be
 taken apart without re-running 58 Claude calls to watch one of them.
 
 VERIFY THE INDEX, NOT THE PAGE
-`ingest.py` fetches live URLs, so a source's git history describes what was
+`scripts/ingest.py` fetches live URLs, so a source's git history describes what was
 published, never what was ingested; a page commit and an index commit on the same
 day are two different documents. `--at` exists because that rule had no tool. It
 reads the committed `chroma/` as of any commit, which is what settled the res-mcp
@@ -60,8 +60,8 @@ try:
 except ImportError as e:                                    # pragma: no cover
     sys.exit(f"missing dependency: {e}. This runs in the corpus repo's environment.")
 
-MODEL = "all-MiniLM-L6-v2"      # must match ingest.py
-COLLECTION = "corpus"           # must match ingest.py
+MODEL = "all-MiniLM-L6-v2"      # must match scripts/ingest.py
+COLLECTION = "corpus"           # must match scripts/ingest.py
 CHROMA_PATH = "chroma"          # relative, like app.py
 
 
@@ -120,7 +120,7 @@ def open_collection(path: Path):
     names = [c.name for c in client.list_collections()]
     if COLLECTION not in names:
         sys.exit(f"no '{COLLECTION}' collection at {path}; found {names or 'nothing'}. "
-                 f"Run from the repo root, or run ingest.py first.")
+                 f"Run from the repo root, or run scripts/ingest.py first.")
     return client.get_collection(COLLECTION)
 
 

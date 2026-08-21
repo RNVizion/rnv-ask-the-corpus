@@ -66,7 +66,7 @@ Run the coverage guard before anything that spends money. It reads the index dir
 
 ## CI
 
-`.github/workflows/eval.yml` runs on any change to `app.py`, `ingest.py`, `sources.json`, `chroma/**`, or `eval/**`, plus manual dispatch. Steps:
+`.github/workflows/eval.yml` runs on any change to `app.py`, `scripts/ingest.py`, `sources.json`, `chroma/**`, or `eval/**`, plus manual dispatch. Steps:
 
 1. **Install deps**
 2. **`check_index_coverage.py`** — the guard; fails fast, before any Claude spend
@@ -128,11 +128,11 @@ One in-corpus case refuses: **`atc-refusal`** — *"What does Christian say made
 
 **Cause, established 2026-08-04 from the committed index.** `c037b4f` holds four résumé chunks, 1,043 words, and **zero** `color-mcp` mentions — a snapshot fetched around June 21–22, three days before the term entered the page on June 25. The page was never thin. The corpus was, and only the corpus refused.
 
-**It resolved on the 2026-07-27 re-ingest** — the same event described under the maintenance rules, where one `ingest.py` moved the identical cases from 73% retrieval and 24.3% false refusal to 97.3% and 5.4%. `res-mcp` was one of the false refusals that re-ingest cured.
+**It resolved on the 2026-07-27 re-ingest** — the same event described under the maintenance rules, where one `scripts/ingest.py` moved the identical cases from 73% retrieval and 24.3% false refusal to 97.3% and 5.4%. `res-mcp` was one of the false refusals that re-ingest cured.
 
 Two earlier explanations are retired. "The résumé entry was too thin" is false. "It began passing when the home page entered the corpus" credits one item for a batch: the home page arrived in the same re-ingest as a month of résumé updates, and `res-mcp` now answers from the résumé with no `home` chunk retrieved at all.
 
-**Related trap: verify the index, not the page.** `ingest.py` fetches live URLs, so a page's git history describes what was published, never what was ingested; a page commit and an index commit on the same day are different documents. Chunk ids compound this — they're positional, so `resume-3` in the June index and `resume-3` today are different spans.
+**Related trap: verify the index, not the page.** `scripts/ingest.py` fetches live URLs, so a page's git history describes what was published, never what was ingested; a page commit and an index commit on the same day are different documents. Chunk ids compound this — they're positional, so `resume-3` in the June index and `resume-3` today are different spans.
 
 The case now passes on the résumé alone; `home-3` has since fallen to rank 6, outside the five slots the app serves. **A green case can quietly change what it is testing.**
 

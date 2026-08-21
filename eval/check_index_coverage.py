@@ -39,7 +39,7 @@ def indexed_source_ids():
         sys.exit("chromadb is not installed; run pip install -r requirements.txt")
 
     if not CHROMA.exists():
-        sys.exit(f"no index at {CHROMA} — run: python ingest.py")
+        sys.exit(f"no index at {CHROMA} — run: python scripts/ingest.py")
 
     client = chromadb.PersistentClient(path=str(CHROMA))
     try:
@@ -109,7 +109,7 @@ def main():
         print(
             f"\nFAIL: the committed index is missing sources the cases expect: {missing}\n"
             f"      Those cases cannot pass and the run will read as a broken bot.\n"
-            f"      Fix: python ingest.py && git add chroma/ && commit it with this change."
+            f"      Fix: python scripts/ingest.py && git add chroma/ && commit it with this change."
         )
         sys.exit(1)
 

@@ -1,13 +1,13 @@
 {
   "provenance": {
-    "generated_at": "2026-08-21T18:10:31+00:00",
-    "commit": "1d061cb",
+    "generated_at": "2026-08-21T19:24:09+00:00",
+    "commit": "8dfdb5c",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
     "temperature": 0,
     "top_k": 5,
-    "source_count": 10,
+    "source_count": 11,
     "sources": [
       "aiii",
       "ask-the-corpus",
@@ -18,9 +18,10 @@
       "resume",
       "sloth",
       "squish",
-      "the-job-was-never-coding"
+      "the-job-was-never-coding",
+      "the-margin-not-the-price"
     ],
-    "chunk_count": 49,
+    "chunk_count": 53,
     "declared_count": 11,
     "declared_sources": [
       "aiii",
@@ -35,7 +36,7 @@
       "the-job-was-never-coding",
       "the-margin-not-the-price"
     ],
-    "index_matches_manifest": false,
+    "index_matches_manifest": true,
     "thresholds": {
       "retrieval_accuracy": 85.0,
       "ooc_refusal_accuracy": 90.0,
@@ -73,7 +74,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**. specifically: > \"squish is",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**\u2014the weight, the response, a",
       "expect_source": [
         "squish"
       ],
@@ -147,14 +148,14 @@
         "squish",
         "squish",
         "the-job-was-never-coding",
-        "home"
+        "the-job-was-never-coding"
       ],
       "retrieved_chunks": [
         "squish-3",
         "squish-4",
         "squish-2",
         "the-job-was-never-coding-1",
-        "home-5"
+        "the-job-was-never-coding-3"
       ],
       "refused": false,
       "answer_preview": "according to \"squish: the soul that speed can't generate,\" ai doesn't take squish away\u2014it makes room for it. christian s",
@@ -185,7 +186,7 @@
         "ask-the-corpus-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" what turns software from working into loved is **the human decision to make it ",
+      "answer_preview": "according to christian smith's work, what turns software that merely works into software people love is **the human deci",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -202,20 +203,20 @@
       "question": "What does Christian mean when he calls software hollow?",
       "retrieved": [
         "bio",
-        "resume",
         "squish",
+        "resume",
         "bio",
         "the-job-was-never-coding"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "resume-2",
         "squish-2",
+        "resume-2",
         "bio-2",
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on [source: squish: the soul that speed can't generate], christian describes hollow software as the result of spee",
+      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian describes hollow software as the result of s",
       "expect_source": [
         "squish"
       ],
@@ -288,18 +289,18 @@
         "sloth",
         "bio",
         "home",
-        "resume",
-        "fit-over-default"
+        "fit-over-default",
+        "ask-the-corpus"
       ],
       "retrieved_chunks": [
         "sloth-0",
         "bio-0",
         "home-3",
-        "resume-2",
-        "fit-over-default-1"
+        "fit-over-default-1",
+        "ask-the-corpus-0"
       ],
       "refused": false,
-      "answer_preview": "according to \"lazy in the right way is leverage,\" when christian sent a post to his publishing machine that was missing ",
+      "answer_preview": "according to \"lazy in the right way is leverage,\" christian's publishing machine refused to publish the broken post. spe",
       "expect_source": [
         "sloth"
       ],
@@ -316,18 +317,18 @@
         "sloth",
         "fit-over-default",
         "i-lacked-the-tools",
-        "sloth",
-        "squish"
+        "the-margin-not-the-price",
+        "sloth"
       ],
       "retrieved_chunks": [
         "sloth-1",
         "fit-over-default-3",
         "i-lacked-the-tools-6",
-        "sloth-2",
-        "squish-1"
+        "the-margin-not-the-price-2",
+        "sloth-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"lazy in the right way is leverage,\" aiming laziness at the future becomes leverage through a specific trad",
+      "answer_preview": "according to \"lazy in the right way is leverage,\" aiming laziness at the future becomes leverage by building tools or sy",
       "expect_source": [
         "sloth"
       ],
@@ -344,18 +345,18 @@
         "sloth",
         "fit-over-default",
         "ask-the-corpus",
-        "squish",
-        "fit-over-default"
+        "the-margin-not-the-price",
+        "squish"
       ],
       "retrieved_chunks": [
         "sloth-1",
         "fit-over-default-3",
         "ask-the-corpus-3",
-        "squish-1",
-        "fit-over-default-2"
+        "the-margin-not-the-price-2",
+        "squish-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, the upside of doing less on purpose is **leverage**. from \"lazy in the right way is lever",
+      "answer_preview": "based on the context provided, the upside of doing less on purpose depends on the direction you aim it: **aimed at the f",
       "expect_source": [
         "sloth"
       ],
@@ -378,12 +379,12 @@
       "retrieved_chunks": [
         "fit-over-default-1",
         "bio-0",
-        "home-3",
         "home-2",
+        "home-3",
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each system: **sonnet for",
+      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each system: **publishing",
       "expect_source": [
         "fit-over-default"
       ],
@@ -399,19 +400,19 @@
       "retrieved": [
         "i-lacked-the-tools",
         "sloth",
-        "home",
         "fit-over-default",
+        "home",
         "the-job-was-never-coding"
       ],
       "retrieved_chunks": [
         "i-lacked-the-tools-1",
         "sloth-1",
-        "home-4",
         "fit-over-default-0",
+        "home-4",
         "the-job-was-never-coding-2"
       ],
       "refused": false,
-      "answer_preview": "according to the essay \"i lacked the tools, so i built them: how constraint created a software suite,\" christian smith c",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian smith states that",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -542,17 +543,17 @@
         "i-lacked-the-tools",
         "resume",
         "home",
-        "fit-over-default"
+        "home"
       ],
       "retrieved_chunks": [
         "bio-0",
         "i-lacked-the-tools-0",
         "resume-0",
-        "home-0",
-        "fit-over-default-3"
+        "home-5",
+        "home-0"
       ],
       "refused": false,
-      "answer_preview": "based on the provided context, christian smith works at **meta as a sales and support specialist in the best buy retail ",
+      "answer_preview": "according to the sources, christian smith works at **meta as a sales and support specialist in the best buy retail progr",
       "expect_source": [
         "bio",
         "resume"
@@ -581,7 +582,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: 1. **ai engineer** 2. **s",
+      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: - **ai engineer** - **sol",
       "expect_source": [
         "resume",
         "bio"
@@ -597,20 +598,20 @@
       "question": "What is rnv-color-mcp?",
       "retrieved": [
         "resume",
+        "home",
         "i-lacked-the-tools",
         "resume",
-        "i-lacked-the-tools",
         "i-lacked-the-tools"
       ],
       "retrieved_chunks": [
         "resume-4",
+        "home-3",
         "i-lacked-the-tools-4",
         "resume-1",
-        "i-lacked-the-tools-2",
-        "i-lacked-the-tools-3"
+        "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9, **rnv-color-mcp** is a color-computation server built on the model context protocol (fastmcp). it i",
+      "answer_preview": "based on the context provided, **rnv-color-mcp** is a color-computation server built on the model context protocol (fast",
       "expect_source": [
         "resume",
         "bio"
@@ -663,12 +664,12 @@
       "retrieved_chunks": [
         "bio-0",
         "resume-0",
-        "home-3",
         "home-5",
+        "home-3",
         "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects** across his portfolio. the r\u00e9sum\u00e9 states: \"",
+      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects** across his portfolio, with 5,000+ tests.",
       "expect_source": [
         "resume",
         "home"
@@ -697,7 +698,7 @@
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 and profile sources, christian uses the following testing tools: - **pytest** \u2014 python testing frame",
+      "answer_preview": "based on the provided context, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **p",
       "expect_source": [
         "resume",
         "bio"
@@ -777,13 +778,13 @@
       ],
       "retrieved_chunks": [
         "bio-0",
-        "resume-0",
         "resume-2",
+        "resume-0",
         "home-0",
         "bio-2"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, christian works at meta as an ar/vr sales and support specialist in the best buy retail progra",
+      "answer_preview": "based on the context, christian works at meta as an ar/vr sales and support specialist in the best buy retail program. h",
       "expect_source": [
         "resume",
         "bio"
@@ -812,7 +813,7 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's approach to building an ai assistant that",
+      "answer_preview": "based on the context provided, \"the honest machine\" is about an ai assistant that christian smith built to answer questi",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -900,7 +901,7 @@
         "the-job-was-never-coding-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was just the out",
+      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was merely the o",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1098,7 +1099,7 @@
         "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "# what christian has built based on the sources, christian smith (rnvizion) has built: **ai/llm systems:** - **ask the c",
+      "answer_preview": "# what christian has built based on the sources, christian has built several projects: **ai/llm systems:** - **ask the c",
       "expect_source": [
         "home",
         "resume",
@@ -1169,15 +1170,15 @@
         "squish",
         "ask-the-corpus",
         "squish",
-        "ask-the-corpus",
-        "aiii"
+        "the-margin-not-the-price",
+        "ask-the-corpus"
       ],
       "retrieved_chunks": [
         "squish-0",
         "ask-the-corpus-0",
         "squish-4",
-        "ask-the-corpus-1",
-        "aiii-2"
+        "the-margin-not-the-price-0",
+        "ask-the-corpus-1"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1189,18 +1190,18 @@
       "kind": "out_of_corpus",
       "question": "How do I reverse a list in Python?",
       "retrieved": [
+        "the-margin-not-the-price",
         "sloth",
         "sloth",
         "sloth",
-        "home",
         "home"
       ],
       "retrieved_chunks": [
+        "the-margin-not-the-price-0",
         "sloth-1",
         "sloth-0",
         "sloth-2",
-        "home-2",
-        "home-3"
+        "home-2"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1262,14 +1263,14 @@
         "resume",
         "bio",
         "ask-the-corpus",
-        "the-job-was-never-coding"
+        "the-margin-not-the-price"
       ],
       "retrieved_chunks": [
         "home-4",
         "resume-1",
         "bio-1",
         "ask-the-corpus-1",
-        "the-job-was-never-coding-1"
+        "the-margin-not-the-price-3"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1331,14 +1332,14 @@
         "the-job-was-never-coding",
         "bio",
         "home",
-        "bio"
+        "the-margin-not-the-price"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-2",
         "the-job-was-never-coding-1",
         "bio-2",
         "home-2",
-        "bio-0"
+        "the-margin-not-the-price-0"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1350,16 +1351,16 @@
       "kind": "out_of_corpus",
       "question": "What is the population of Tokyo?",
       "retrieved": [
-        "squish",
-        "squish",
         "home",
+        "squish",
+        "squish",
         "squish",
         "the-job-was-never-coding"
       ],
       "retrieved_chunks": [
+        "home-5",
         "squish-0",
         "squish-1",
-        "home-5",
         "squish-2",
         "the-job-was-never-coding-3"
       ],
@@ -1396,18 +1397,18 @@
       "kind": "out_of_corpus",
       "question": "When did World War II end?",
       "retrieved": [
+        "the-margin-not-the-price",
         "the-job-was-never-coding",
+        "the-margin-not-the-price",
         "the-job-was-never-coding",
-        "ask-the-corpus",
-        "fit-over-default",
-        "bio"
+        "ask-the-corpus"
       ],
       "retrieved_chunks": [
+        "the-margin-not-the-price-2",
         "the-job-was-never-coding-0",
+        "the-margin-not-the-price-3",
         "the-job-was-never-coding-3",
-        "ask-the-corpus-0",
-        "fit-over-default-0",
-        "bio-2"
+        "ask-the-corpus-0"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1420,15 +1421,15 @@
       "question": "How does photosynthesis work?",
       "retrieved": [
         "ask-the-corpus",
-        "home",
         "sloth",
+        "home",
         "the-job-was-never-coding",
         "fit-over-default"
       ],
       "retrieved_chunks": [
         "ask-the-corpus-1",
-        "home-4",
         "sloth-1",
+        "home-4",
         "the-job-was-never-coding-3",
         "fit-over-default-3"
       ],
@@ -1439,27 +1440,31 @@
     },
     {
       "id": "trap-margin",
-      "kind": "out_of_corpus",
+      "kind": "in_corpus",
       "question": "What is the thesis of \"The Margin, Not the Price\"?",
       "retrieved": [
+        "the-margin-not-the-price",
         "sloth",
         "fit-over-default",
         "fit-over-default",
-        "squish",
-        "fit-over-default"
+        "squish"
       ],
       "retrieved_chunks": [
+        "the-margin-not-the-price-1",
         "sloth-1",
         "fit-over-default-0",
         "fit-over-default-1",
-        "squish-3",
-        "fit-over-default-2"
+        "squish-3"
       ],
-      "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts don't contain any s",
-      "refusal_correct": true,
-      "pass": true,
-      "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."
+      "refused": false,
+      "answer_preview": "based on [source: the margin, not the price], the thesis is that agentic engineering doesn't change what clients pay for",
+      "expect_source": [
+        "the-margin-not-the-price"
+      ],
+      "retrieval_hit": true,
+      "false_refusal": false,
+      "keyword_hit": null,
+      "pass": true
     },
     {
       "id": "trap-compass",
@@ -1468,15 +1473,15 @@
       "retrieved": [
         "i-lacked-the-tools",
         "bio",
-        "resume",
         "home",
+        "resume",
         "squish"
       ],
       "retrieved_chunks": [
         "i-lacked-the-tools-2",
         "bio-0",
-        "resume-4",
         "home-4",
+        "resume-4",
         "squish-4"
       ],
       "refused": true,
@@ -1517,15 +1522,15 @@
         "bio",
         "aiii",
         "aiii",
-        "aiii",
-        "resume"
+        "resume",
+        "aiii"
       ],
       "retrieved_chunks": [
         "bio-0",
         "aiii-5",
         "aiii-0",
-        "aiii-4",
-        "resume-2"
+        "resume-2",
+        "aiii-4"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1541,14 +1546,14 @@
         "resume",
         "resume",
         "home",
-        "resume"
+        "the-margin-not-the-price"
       ],
       "retrieved_chunks": [
         "bio-0",
         "resume-2",
         "resume-0",
         "home-0",
-        "resume-3"
+        "the-margin-not-the-price-1"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1562,15 +1567,15 @@
       "retrieved": [
         "aiii",
         "bio",
-        "aiii",
         "resume",
+        "aiii",
         "aiii"
       ],
       "retrieved_chunks": [
         "aiii-0",
         "bio-0",
-        "aiii-4",
         "resume-4",
+        "aiii-4",
         "aiii-3"
       ],
       "refused": true,
@@ -1597,7 +1602,7 @@
         "home-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
       "refusal_correct": true,
       "pass": true
     },

@@ -1,12 +1,10 @@
 # Ask the Corpus — Eval Report
 
-_2026-08-21T18:10:31+00:00 · commit `1d061cb`_
+_2026-08-21T19:24:09+00:00 · commit `8dfdb5c`_
 
-_10 sources · 49 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
+_11 sources · 53 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
 
 _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal ≤ 10.0%_
-
-> **Index and manifest differ.** Declared but not indexed: ['the-margin-not-the-price']. Indexed but not declared: —. Scores below describe the index, which is what the bot answers from.
 
 | Metric | Value |
 | --- | --- |
@@ -60,6 +58,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | aiii-layers | ✅ | — | ✅ | ✅ |
 | home-built | ✅ | — | ✅ | ✅ |
 | home-tests | ✅ | — | ✅ | ✅ |
+| trap-margin | ✅ | — | — | ✅ |
 
 ## Out-of-corpus (should refuse)
 | id | refused? | pass |
@@ -77,7 +76,6 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | ooc-kubernetes | ✅ | ✅ |
 | ooc-wwii | ✅ | ✅ |
 | ooc-photosynthesis | ✅ | ✅ |
-| trap-margin | ✅ | ✅ |
 | trap-compass | ✅ | ✅ |
 | trap-instagram | ✅ | ✅ |
 | trap-address | ✅ | ✅ |
@@ -89,5 +87,5 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 
 ## Corpus at run time
 
-`aiii`, `ask-the-corpus`, `bio`, `fit-over-default`, `home`, `i-lacked-the-tools`, `resume`, `sloth`, `squish`, `the-job-was-never-coding`
+`aiii`, `ask-the-corpus`, `bio`, `fit-over-default`, `home`, `i-lacked-the-tools`, `resume`, `sloth`, `squish`, `the-job-was-never-coding`, `the-margin-not-the-price`
 

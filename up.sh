@@ -15,7 +15,20 @@ TODAY="$(date +%F)"
 echo "== 0. preflight =="
 [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] || { echo "  not on main"; exit 1; }
 git diff --quiet && git diff --cached --quiet || { echo "  working tree is dirty; commit or stash first"; exit 1; }
-echo "  clean, on main"
+# Everything below costs minutes. Both preconditions cost nothing, so check them here.
+python - <<'PYEOF'
+import importlib.util, json, sys
+missing = [m for m in ("bs4", "requests", "sentence_transformers", "chromadb")
+           if importlib.util.find_spec(m) is None]
+if missing:
+    sys.exit("  missing modules: %s\n  fix: python -m pip install -r requirements.txt"
+             % ", ".join(missing))
+kinds = {json.loads(l)["id"]: json.loads(l)["kind"]
+         for l in open("eval/cases.jsonl", encoding="utf-8") if l.strip()}
+if kinds.get("trap-margin") != "out_of_corpus":
+    sys.exit("  trap-margin is %r, not out_of_corpus; already flipped?" % kinds.get("trap-margin"))
+PYEOF
+echo "  clean, on main, deps present, trap not yet flipped"
 
 echo "== 1. re-ingest =="
 python scripts/ingest.py 2>&1 | tee /tmp/ingest.log

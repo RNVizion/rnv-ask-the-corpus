@@ -1,1 +1,1 @@
-cd "$(git rev-parse --show-toplevel)" && grep -rnE '(^|[^/[:alnum:]_-])(ingest|discover|check_edits)\.py' --include='*.py' --include='*.yml' --include='*.md' --include='*.json' . | grep -v '^\./chroma/'
+cd "$(git rev-parse --show-toplevel)" && grep -rnE '(^|[^/[:alnum:]_-])(ingest|discover|check_edits)\.py' --include='*.py' --include='*.yml' --include='*.md' --include='*.json' --include='*.sh' . | grep -v '^\./chroma/' > /tmp/refs.txt; wc -l < /tmp/refs.txt; cut -d: -f1 /tmp/refs.txt | sort | uniq -c | sort -rn

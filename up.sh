@@ -1,0 +1,1 @@
+cd "$(git rev-parse --show-toplevel)" && grep -rnE '(^|[^/[:alnum:]_-])(ingest|discover|check_edits)\.py' --include='*.py' --include='*.yml' --include='*.md' --include='*.json' . | grep -v '^\./chroma/'

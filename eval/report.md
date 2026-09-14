@@ -1,10 +1,12 @@
 # Ask the Corpus — Eval Report
 
-_2026-08-21T19:24:09+00:00 · commit `8dfdb5c`_
+_2026-09-14T07:59:46+00:00 · commit `f0fa6bc`_
 
 _11 sources · 53 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
 
 _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal ≤ 10.0%_
+
+> **Index and manifest differ.** Declared but not indexed: ['honest-and-wrong', 'the-warning-not-the-gate']. Indexed but not declared: —. Scores below describe the index, which is what the bot answers from.
 
 | Metric | Value |
 | --- | --- |

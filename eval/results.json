@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-08-21T19:24:09+00:00",
-    "commit": "8dfdb5c",
+    "generated_at": "2026-09-14T07:59:46+00:00",
+    "commit": "f0fa6bc",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -22,21 +22,23 @@
       "the-margin-not-the-price"
     ],
     "chunk_count": 53,
-    "declared_count": 11,
+    "declared_count": 13,
     "declared_sources": [
       "aiii",
       "ask-the-corpus",
       "bio",
       "fit-over-default",
       "home",
+      "honest-and-wrong",
       "i-lacked-the-tools",
       "resume",
       "sloth",
       "squish",
       "the-job-was-never-coding",
-      "the-margin-not-the-price"
+      "the-margin-not-the-price",
+      "the-warning-not-the-gate"
     ],
-    "index_matches_manifest": true,
+    "index_matches_manifest": false,
     "thresholds": {
       "retrieval_accuracy": 85.0,
       "ooc_refusal_accuracy": 90.0,
@@ -74,7 +76,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**\u2014the weight, the response, a",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**. specifically: > \"squish is",
       "expect_source": [
         "squish"
       ],
@@ -216,7 +218,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian describes hollow software as the result of s",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" christian describes hollow software as the result of speed op",
       "expect_source": [
         "squish"
       ],
@@ -582,7 +584,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: - **ai engineer** - **sol",
+      "answer_preview": "based on the sources provided, christian smith is open to remote roles in three specific areas: 1. **ai engineer** 2. **",
       "expect_source": [
         "resume",
         "bio"
@@ -698,7 +700,7 @@
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "based on the provided context, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **p",
+      "answer_preview": "based on the r\u00e9sum\u00e9 and profile sources, christian uses the following testing tools: - **pytest** \u2014 python testing frame",
       "expect_source": [
         "resume",
         "bio"
@@ -727,7 +729,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith earned a **bachelor of science in game programming** [source: r\u00e9sum\u00e9 \u2014 christia",
+      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith has a bachelor of science in game programming. [source: r\u00e9sum\u00e9 \u2014 christian smit",
       "expect_source": [
         "resume",
         "bio"
@@ -784,7 +786,7 @@
         "bio-2"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works at meta as an ar/vr sales and support specialist in the best buy retail program. h",
+      "answer_preview": "based on the context, christian works in ar/vr at meta as a sales and support specialist in the best buy retail program.",
       "expect_source": [
         "resume",
         "bio"
@@ -813,7 +815,7 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, \"the honest machine\" is about an ai assistant that christian smith built to answer questi",
+      "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's approach to building an ai assistant that",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -901,7 +903,7 @@
         "the-job-was-never-coding-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was merely the o",
+      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was just the out",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1602,7 +1604,7 @@
         "home-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },

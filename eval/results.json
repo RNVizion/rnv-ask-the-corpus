@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-14T07:59:46+00:00",
-    "commit": "f0fa6bc",
+    "generated_at": "2026-09-14T08:04:20+00:00",
+    "commit": "ca3795a",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -22,7 +22,7 @@
       "the-margin-not-the-price"
     ],
     "chunk_count": 53,
-    "declared_count": 13,
+    "declared_count": 12,
     "declared_sources": [
       "aiii",
       "ask-the-corpus",
@@ -35,8 +35,7 @@
       "sloth",
       "squish",
       "the-job-was-never-coding",
-      "the-margin-not-the-price",
-      "the-warning-not-the-gate"
+      "the-margin-not-the-price"
     ],
     "index_matches_manifest": false,
     "thresholds": {
@@ -903,7 +902,7 @@
         "the-job-was-never-coding-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was just the out",
+      "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was merely the o",
       "expect_source": [
         "the-job-was-never-coding"
       ],

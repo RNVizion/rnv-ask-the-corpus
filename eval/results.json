@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-14T08:04:20+00:00",
-    "commit": "ca3795a",
+    "generated_at": "2026-09-16T21:37:58+00:00",
+    "commit": "0d32e1a",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -22,7 +22,7 @@
       "the-margin-not-the-price"
     ],
     "chunk_count": 53,
-    "declared_count": 12,
+    "declared_count": 13,
     "declared_sources": [
       "aiii",
       "ask-the-corpus",
@@ -35,7 +35,8 @@
       "sloth",
       "squish",
       "the-job-was-never-coding",
-      "the-margin-not-the-price"
+      "the-margin-not-the-price",
+      "the-warning-not-the-gate"
     ],
     "index_matches_manifest": false,
     "thresholds": {
@@ -75,7 +76,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**. specifically: > \"squish is",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**\u2014the weight, the response, a",
       "expect_source": [
         "squish"
       ],
@@ -217,7 +218,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" christian describes hollow software as the result of speed op",
+      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian describes hollow software as the result of s",
       "expect_source": [
         "squish"
       ],
@@ -497,7 +498,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone who pursues multiple creativ",
+      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone who is \"never been content t",
       "expect_source": [
         "bio",
         "i-lacked-the-tools"
@@ -526,7 +527,7 @@
         "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian works across these fields as a renaissance man: from [\"i lacked the tools, so i",
+      "answer_preview": "based on the context provided, christian works across these fields as a renaissance man: 1. **developer/software enginee",
       "expect_source": [
         "bio"
       ],
@@ -583,7 +584,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on the sources provided, christian smith is open to remote roles in three specific areas: 1. **ai engineer** 2. **",
+      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: - **ai engineer** - **sol",
       "expect_source": [
         "resume",
         "bio"

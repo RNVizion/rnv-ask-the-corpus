@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-17T21:48:44+00:00",
-    "commit": "60c47f7",
+    "generated_at": "2026-09-17T21:53:17+00:00",
+    "commit": "1937eb1",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -190,7 +190,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
+      "answer_preview": "based on [\"the job was never coding\"](source), the answer lies in the human element: **the machine makes it run. the hum",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -220,7 +220,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as apps that are functionally",
+      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functionally ",
       "expect_source": [
         "squish"
       ],
@@ -444,7 +444,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
+      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -529,7 +529,7 @@
         "home-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith works across these fields as a \"modern-day renaissance man\": - **software",
+      "answer_preview": "based on the context provided, christian smith works across these fields as a renaissance man: 1. **software development",
       "expect_source": [
         "bio"
       ],
@@ -586,7 +586,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, with a preference for remote ",
+      "answer_preview": "based on the context provided, christian is targeting **solutions engineer and ai engineer roles**, with a preference fo",
       "expect_source": [
         "resume",
         "bio"
@@ -615,7 +615,7 @@
         "i-lacked-the-tools-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith. acco",
+      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith that ",
       "expect_source": [
         "resume",
         "bio"
@@ -673,7 +673,7 @@
         "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. the r\u00e9sum\u00e9 states: \"nine shipped projects",
+      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. however, this is an interesting case beca",
       "expect_source": [
         "resume",
         "home"
@@ -817,7 +817,7 @@
         "ask-the-corpus-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's creation of a question-answering system b",
+      "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's creation of a question-answering system t",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -1133,7 +1133,7 @@
         "honest-and-wrong-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian has written **two** tests: 1. **the initial test** - a set of forty questions (",
+      "answer_preview": "based on the context provided, christian has written **two** tests: 1. **the initial test** - a set of questions he aske",
       "expect_source": [
         "home",
         "resume"

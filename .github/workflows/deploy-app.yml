@@ -1,0 +1,59 @@
+name: deploy app
+
+# Ships app.py, the pinned requirements, and the Gradio version to the Space, and
+# only for a commit the eval has already passed.
+#
+# WHY
+# The Space used to be updated by hand, and its requirements.txt was uploaded once,
+# unpinned, in June 2026. The environment CI tested and the one visitors used drifted
+# apart until an Anthropic SDK major version rejected an argument app.py passes, and
+# every question failed for weeks. Deploying from the gated commit, with everything
+# derived from the repo, makes the two environments the same thing.
+#
+# workflow_run fires for every completed `eval` run. Only push and dispatch runs on
+# main deploy: a pull_request run is a proposal, not a release. The checkout is the
+# exact commit the eval judged, not whatever main holds by the time this starts.
+#
+# Most runs change nothing on the Space; deploy_space.py then commits nothing and
+# skips the smoke check, so no rebuild and no model call.
+
+on:
+  workflow_run:
+    workflows: [eval]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: space-app-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      github.event.workflow_run.conclusion == 'success'
+      && github.event.workflow_run.event != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      # Only what the deploy needs, at the versions requirements.txt pins. gradio
+      # brings gradio_client, which the health check uses.
+      - name: Install deploy tools
+        run: |
+          grep -E '^(huggingface_hub|gradio)==' requirements.txt > "$RUNNER_TEMP/deploy-requirements.txt"
+          pip install -r "$RUNNER_TEMP/deploy-requirements.txt"
+
+      - name: Deploy and check the live app answers
+        env:
+          HF_TOKEN: ${{ secrets.CORPUS_CI }}
+        run: python scripts/deploy_space.py --app --smoke

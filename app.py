@@ -1,3 +1,4 @@
+import sys
 import time
 from collections import defaultdict, deque
 
@@ -47,6 +48,11 @@ ERROR_MESSAGE = (
     "The demo hit a snag on that one. Try again in a moment, or pick a suggested question."
 )
 
+RATE_LIMIT_MESSAGE = (
+    "You've hit the demo's rate limit for now — give it a minute, "
+    "or try a suggested question."
+)
+
 
 SUGGESTED = [
     "What is squish?",
@@ -92,13 +98,21 @@ def answer_with_status(question, request: gr.Request = None):
         return "Ask me something about Christian's work.", None
     if len(question) > MAX_INPUT:
         return f"Please keep your question under {MAX_INPUT} characters.", None
-    key = request.client.host if request and request.client else "local"
-    if not _rate_ok(key):
-        return (
-            "You've hit the demo's rate limit for now — give it a minute, "
-            "or try a suggested question."
-        ), None
+    if not _rate_ok(_client_key(request)):
+        return RATE_LIMIT_MESSAGE, None
+    return _pipeline(question)
 
+
+def _client_key(request):
+    return request.client.host if request and request.client else "local"
+
+
+def _pipeline(question):
+    """Retrieval, then the model. Returns (text, error), as answer_with_status does.
+
+    Split out so that health() can run the real path behind its own limiter check
+    without going through input handling meant for visitors. Behaviour is unchanged.
+    """
     try:
         res = col.query(
             query_embeddings=embedder.encode([question]).tolist(),
@@ -128,10 +142,48 @@ def answer_with_status(question, request: gr.Request = None):
     return "".join(b.text for b in resp.content if b.type == "text"), None
 
 
+def _log_failure(err):
+    """Record why a visitor saw ERROR_MESSAGE.
+
+    The reason only: never the question and never the visitor's address, so the
+    public demo stays anonymous. Container logs are the only place this appears.
+    Until this existed the reason was discarded, and from late August 2026 every
+    question failed for weeks with nothing anywhere to say why.
+    """
+    stamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    print(f"{stamp} answer failed: {err}", file=sys.stderr, flush=True)
+
+
 def answer(question, request: gr.Request = None):
-    """What Gradio calls. Same behaviour as before; the status is dropped."""
-    text, _err = answer_with_status(question, request)
+    """What Gradio calls. Visitors see the same text as before; failures are now logged."""
+    text, err = answer_with_status(question, request)
+    if err:
+        _log_failure(err)
     return text
+
+
+HEALTH_QUESTION = SUGGESTED[0]
+
+
+def health(request: gr.Request) -> str:
+    """Deploy check: one suggested question through the real pipeline.
+
+    Returns "ok", "rate-limited", or "fail: <layer>" where layer is retrieval or
+    model. That is a marker emitted by the pipeline, so a checker never has to infer
+    a failure from answer text; the corpus writes about this machine in its own
+    words, and text is the one signal here that can collide. The exception itself
+    goes to the log, never to the caller: this endpoint is public, only undocumented.
+
+    It spends one model call, so it sits behind the same per-client limiter as a
+    visitor's question.
+    """
+    if not _rate_ok(_client_key(request)):
+        return "rate-limited"
+    _text, err = _pipeline(HEALTH_QUESTION)
+    if err:
+        _log_failure(err)
+        return "fail: " + err.split(":", 1)[0]
+    return "ok"
 
 
 CSS = """
@@ -159,6 +211,8 @@ with gr.Blocks(title="Ask the Corpus") as demo:
     gr.Examples(SUGGESTED, inputs=inp)
     btn.click(answer, inputs=inp, outputs=out)
     inp.submit(answer, inputs=inp, outputs=out)
+    # Called by scripts/deploy_space.py after every deploy. Hidden from the API page.
+    gr.api(health, api_name="health", api_visibility="undocumented")
 
 if __name__ == "__main__":
     demo.launch(css=CSS,server_name="0.0.0.0", server_port=7860)

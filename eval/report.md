@@ -1,6 +1,6 @@
 # Ask the Corpus — Eval Report
 
-_2026-09-17T22:32:05+00:00 · commit `94bb633`_
+_2026-09-17T22:46:09+00:00 · commit `cc29bf1`_
 
 _13 sources · 64 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
 
@@ -8,12 +8,12 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 
 | Metric | Value |
 | --- | --- |
-| Retrieval accuracy (in-corpus) | 94.9% |
+| Retrieval accuracy (in-corpus) | 100.0% |
 | Out-of-corpus refusal accuracy | 100.0% |
 | False-refusal rate (in-corpus) | 2.6% |
-| Public claims stated correctly | 50.0% (2 case(s)) |
-| Keyword groundedness (proxy) | 97.2% |
-| Overall pass rate | 95.0% |
+| Public claims stated correctly | 100.0% (2 case(s)) |
+| Keyword groundedness (proxy) | 100.0% |
+| Overall pass rate | 98.3% |
 | Cases scored / total | 60 / 60 |
 | Errored (unscored) | 0 |
 | Claude calls | 60 |
@@ -40,7 +40,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | bio-fields | ✅ | — | ✅ | — | ✅ |
 | bio-meta | ✅ | — | ✅ | — | ✅ |
 | res-roles | ✅ | — | ✅ | — | ✅ |
-| res-mcp | ❌ | — | ✅ | — | ❌ |
+| res-mcp | ✅ | — | ✅ | — | ✅ |
 | res-ai | ✅ | — | ✅ | — | ✅ |
 | res-count | ✅ | — | ✅ | ✅ | ✅ |
 | res-testing | ✅ | — | ✅ | — | ✅ |
@@ -58,7 +58,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | aiii-openssf | ✅ | — | ✅ | — | ✅ |
 | aiii-layers | ✅ | — | ✅ | — | ✅ |
 | home-built | ✅ | — | ✅ | — | ✅ |
-| home-tests | ❌ | — | ❌ | ❌ | ❌ |
+| home-tests | ✅ | — | ✅ | ✅ | ✅ |
 | trap-margin | ✅ | — | — | — | ✅ |
 
 ## Public claims
@@ -68,7 +68,7 @@ Cases that guard a figure published elsewhere on the site. The gate fails on any
 | id | stated correctly | what the answer said |
 | --- | :---: | --- |
 | res-count | ✅ | — |
-| home-tests | ❌ | missing \b5,?000\b: Based on the context provided, Christian has written **two** tests: 1. **The initial test** - a set of questions he asked his assistant (Ask the Corpus) informally to check its beh |
+| home-tests | ✅ | — |
 
 ## Out-of-corpus (should refuse)
 | id | refused? | pass |

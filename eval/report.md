@@ -1,20 +1,18 @@
 # Ask the Corpus — Eval Report
 
-_2026-09-16T21:37:58+00:00 · commit `0d32e1a`_
+_2026-09-17T02:11:53+00:00 · commit `2550839`_
 
-_11 sources · 53 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
+_13 sources · 64 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
 
 _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal ≤ 10.0%_
 
-> **Index and manifest differ.** Declared but not indexed: ['honest-and-wrong', 'the-warning-not-the-gate']. Indexed but not declared: —. Scores below describe the index, which is what the bot answers from.
-
 | Metric | Value |
 | --- | --- |
-| Retrieval accuracy (in-corpus) | 100.0% |
+| Retrieval accuracy (in-corpus) | 94.9% |
 | Out-of-corpus refusal accuracy | 100.0% |
 | False-refusal rate (in-corpus) | 2.6% |
-| Keyword groundedness (proxy) | 100.0% |
-| Overall pass rate | 98.3% |
+| Keyword groundedness (proxy) | 97.2% |
+| Overall pass rate | 95.0% |
 | Cases scored / total | 60 / 60 |
 | Errored (unscored) | 0 |
 | Claude calls | 60 |
@@ -41,7 +39,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | bio-fields | ✅ | — | ✅ | ✅ |
 | bio-meta | ✅ | — | ✅ | ✅ |
 | res-roles | ✅ | — | ✅ | ✅ |
-| res-mcp | ✅ | — | ✅ | ✅ |
+| res-mcp | ❌ | — | ✅ | ❌ |
 | res-ai | ✅ | — | ✅ | ✅ |
 | res-count | ✅ | — | ✅ | ✅ |
 | res-testing | ✅ | — | ✅ | ✅ |
@@ -59,7 +57,7 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 | aiii-openssf | ✅ | — | ✅ | ✅ |
 | aiii-layers | ✅ | — | ✅ | ✅ |
 | home-built | ✅ | — | ✅ | ✅ |
-| home-tests | ✅ | — | ✅ | ✅ |
+| home-tests | ❌ | — | ❌ | ❌ |
 | trap-margin | ✅ | — | — | ✅ |
 
 ## Out-of-corpus (should refuse)
@@ -89,5 +87,5 @@ _Gates: retrieval ≥ 85.0% · out-of-corpus refusal ≥ 90.0% · false refusal 
 
 ## Corpus at run time
 
-`aiii`, `ask-the-corpus`, `bio`, `fit-over-default`, `home`, `i-lacked-the-tools`, `resume`, `sloth`, `squish`, `the-job-was-never-coding`, `the-margin-not-the-price`
+`aiii`, `ask-the-corpus`, `bio`, `fit-over-default`, `home`, `honest-and-wrong`, `i-lacked-the-tools`, `resume`, `sloth`, `squish`, `the-job-was-never-coding`, `the-margin-not-the-price`, `the-warning-not-the-gate`
 

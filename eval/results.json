@@ -1,27 +1,29 @@
 {
   "provenance": {
-    "generated_at": "2026-09-16T21:37:58+00:00",
-    "commit": "0d32e1a",
+    "generated_at": "2026-09-17T02:11:53+00:00",
+    "commit": "2550839",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
     "temperature": 0,
     "top_k": 5,
-    "source_count": 11,
+    "source_count": 13,
     "sources": [
       "aiii",
       "ask-the-corpus",
       "bio",
       "fit-over-default",
       "home",
+      "honest-and-wrong",
       "i-lacked-the-tools",
       "resume",
       "sloth",
       "squish",
       "the-job-was-never-coding",
-      "the-margin-not-the-price"
+      "the-margin-not-the-price",
+      "the-warning-not-the-gate"
     ],
-    "chunk_count": 53,
+    "chunk_count": 64,
     "declared_count": 13,
     "declared_sources": [
       "aiii",
@@ -38,7 +40,7 @@
       "the-margin-not-the-price",
       "the-warning-not-the-gate"
     ],
-    "index_matches_manifest": false,
+    "index_matches_manifest": true,
     "thresholds": {
       "retrieval_accuracy": 85.0,
       "ooc_refusal_accuracy": 90.0,
@@ -50,11 +52,11 @@
     "scored_cases": 60,
     "error_cases": 0,
     "claude_calls": 60,
-    "retrieval_accuracy": 100.0,
+    "retrieval_accuracy": 94.9,
     "false_refusal_rate": 2.6,
     "ooc_refusal_accuracy": 100.0,
-    "keyword_groundedness": 100.0,
-    "overall_pass_rate": 98.3
+    "keyword_groundedness": 97.2,
+    "overall_pass_rate": 95.0
   },
   "rows": [
     {
@@ -122,17 +124,17 @@
         "squish",
         "squish",
         "squish",
-        "squish"
+        "honest-and-wrong"
       ],
       "retrieved_chunks": [
         "squish-0",
         "squish-4",
         "squish-2",
         "squish-1",
-        "squish-3"
+        "honest-and-wrong-6"
       ],
       "refused": false,
-      "answer_preview": "# how mario illustrates squish according to the source \"squish: the soul that speed can't generate,\" mario illustrates s",
+      "answer_preview": "# how mario illustrates squish according to [source: squish: the soul that speed can't generate], mario illustrates squi",
       "expect_source": [
         "squish"
       ],
@@ -175,20 +177,20 @@
       "question": "What turns software that merely works into software people love?",
       "retrieved": [
         "the-job-was-never-coding",
-        "bio",
-        "home",
         "the-job-was-never-coding",
-        "ask-the-corpus"
+        "ask-the-corpus",
+        "bio",
+        "resume"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-1",
-        "bio-2",
-        "home-4",
         "the-job-was-never-coding-3",
-        "ask-the-corpus-1"
+        "ask-the-corpus-1",
+        "bio-2",
+        "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to christian smith's work, what turns software that merely works into software people love is **the human deci",
+      "answer_preview": "based on \"the job was never coding,\" the answer lies in the human element: **making it \"squishy\"** \u2014 thinking like a hum",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -205,20 +207,20 @@
       "question": "What does Christian mean when he calls software hollow?",
       "retrieved": [
         "bio",
-        "squish",
+        "honest-and-wrong",
         "resume",
-        "bio",
+        "squish",
         "the-job-was-never-coding"
       ],
       "retrieved_chunks": [
         "bio-0",
+        "honest-and-wrong-6",
+        "resume-3",
         "squish-2",
-        "resume-2",
-        "bio-2",
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian describes hollow software as the result of s",
+      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as apps that are functionally",
       "expect_source": [
         "squish"
       ],
@@ -288,21 +290,21 @@
       "kind": "in_corpus",
       "question": "What did Christian's publishing machine do when a post was broken?",
       "retrieved": [
+        "honest-and-wrong",
+        "the-warning-not-the-gate",
         "sloth",
         "bio",
-        "home",
-        "fit-over-default",
-        "ask-the-corpus"
+        "the-warning-not-the-gate"
       ],
       "retrieved_chunks": [
+        "honest-and-wrong-6",
+        "the-warning-not-the-gate-0",
         "sloth-0",
         "bio-0",
-        "home-3",
-        "fit-over-default-1",
-        "ask-the-corpus-0"
+        "the-warning-not-the-gate-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"lazy in the right way is leverage,\" christian's publishing machine refused to publish the broken post. spe",
+      "answer_preview": "according to the context, when a post was broken, christian's publishing machine refused to publish it. as described in ",
       "expect_source": [
         "sloth"
       ],
@@ -383,10 +385,10 @@
         "bio-0",
         "home-2",
         "home-3",
-        "resume-0"
+        "resume-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each system: **publishing",
+      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each system: **sonnet for",
       "expect_source": [
         "fit-over-default"
       ],
@@ -403,18 +405,18 @@
         "i-lacked-the-tools",
         "sloth",
         "fit-over-default",
-        "home",
-        "the-job-was-never-coding"
+        "the-job-was-never-coding",
+        "squish"
       ],
       "retrieved_chunks": [
         "i-lacked-the-tools-1",
         "sloth-1",
         "fit-over-default-0",
-        "home-4",
-        "the-job-was-never-coding-2"
+        "the-job-was-never-coding-2",
+        "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian smith states that",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian explains this phr",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -457,17 +459,17 @@
       "question": "How did Christian end up building a whole software suite?",
       "retrieved": [
         "bio",
-        "resume",
         "i-lacked-the-tools",
         "the-job-was-never-coding",
-        "bio"
+        "home",
+        "resume"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "resume-0",
         "i-lacked-the-tools-5",
         "the-job-was-never-coding-3",
-        "bio-2"
+        "home-1",
+        "resume-0"
       ],
       "refused": false,
       "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't set out to",
@@ -498,7 +500,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone who is \"never been content t",
+      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone who pursues multiple creativ",
       "expect_source": [
         "bio",
         "i-lacked-the-tools"
@@ -516,18 +518,18 @@
         "i-lacked-the-tools",
         "bio",
         "i-lacked-the-tools",
-        "resume",
-        "i-lacked-the-tools"
+        "i-lacked-the-tools",
+        "home"
       ],
       "retrieved_chunks": [
         "i-lacked-the-tools-0",
         "bio-0",
         "i-lacked-the-tools-1",
-        "resume-0",
-        "i-lacked-the-tools-2"
+        "i-lacked-the-tools-2",
+        "home-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian works across these fields as a renaissance man: 1. **developer/software enginee",
+      "answer_preview": "based on the context provided, christian smith works across these fields as a \"modern-day renaissance man\": - **software",
       "expect_source": [
         "bio"
       ],
@@ -550,12 +552,12 @@
       "retrieved_chunks": [
         "bio-0",
         "i-lacked-the-tools-0",
-        "resume-0",
+        "resume-4",
         "home-5",
-        "home-0"
+        "home-3"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, christian smith works at **meta as a sales and support specialist in the best buy retail progr",
+      "answer_preview": "according to the \"about christian smith\" source, christian works at meta as a sales and support specialist in the best b",
       "expect_source": [
         "bio",
         "resume"
@@ -571,20 +573,20 @@
       "question": "What kind of roles is Christian looking for?",
       "retrieved": [
         "bio",
-        "resume",
-        "home",
         "i-lacked-the-tools",
-        "home"
+        "home",
+        "home",
+        "i-lacked-the-tools"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "resume-0",
-        "home-0",
         "i-lacked-the-tools-0",
-        "home-5"
+        "home-1",
+        "home-0",
+        "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the sources provided, christian smith is open to remote roles in the following areas: - **ai engineer** - **sol",
+      "answer_preview": "based on the context provided, christian is targeting **solutions engineer and ai engineer roles**, with a preference fo",
       "expect_source": [
         "resume",
         "bio"
@@ -599,29 +601,29 @@
       "kind": "in_corpus",
       "question": "What is rnv-color-mcp?",
       "retrieved": [
-        "resume",
         "home",
         "i-lacked-the-tools",
-        "resume",
+        "home",
+        "i-lacked-the-tools",
         "i-lacked-the-tools"
       ],
       "retrieved_chunks": [
-        "resume-4",
-        "home-3",
+        "home-4",
         "i-lacked-the-tools-4",
-        "resume-1",
-        "i-lacked-the-tools-2"
+        "home-3",
+        "i-lacked-the-tools-2",
+        "i-lacked-the-tools-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, **rnv-color-mcp** is a color-computation server built on the model context protocol (fast",
+      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith. acco",
       "expect_source": [
         "resume",
         "bio"
       ],
-      "retrieval_hit": true,
+      "retrieval_hit": false,
       "false_refusal": false,
       "keyword_hit": true,
-      "pass": true
+      "pass": false
     },
     {
       "id": "res-ai",
@@ -630,19 +632,19 @@
       "retrieved": [
         "bio",
         "the-job-was-never-coding",
-        "resume",
-        "home",
-        "bio"
+        "bio",
+        "bio",
+        "the-job-was-never-coding"
       ],
       "retrieved_chunks": [
         "bio-0",
         "the-job-was-never-coding-3",
-        "resume-0",
-        "home-5",
-        "bio-2"
+        "bio-2",
+        "bio-1",
+        "the-job-was-never-coding-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian has built several ai systems: 1. **ask the corpus** \u2014 a retrieval-augmented cha",
+      "answer_preview": "based on the context provided, christian has built the following ai systems: 1. **ask the corpus** - a retrieval-augment",
       "expect_source": [
         "resume",
         "bio"
@@ -659,19 +661,19 @@
       "retrieved": [
         "bio",
         "resume",
+        "resume",
         "home",
-        "home",
-        "i-lacked-the-tools"
+        "honest-and-wrong"
       ],
       "retrieved_chunks": [
         "bio-0",
         "resume-0",
+        "resume-4",
         "home-5",
-        "home-3",
-        "i-lacked-the-tools-2"
+        "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects** across his portfolio, with 5,000+ tests.",
+      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. the r\u00e9sum\u00e9 states: \"nine shipped projects",
       "expect_source": [
         "resume",
         "home"
@@ -687,20 +689,20 @@
       "question": "What testing tools does Christian use?",
       "retrieved": [
         "bio",
-        "home",
+        "resume",
         "home",
         "resume",
-        "resume"
+        "bio"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "home-1",
+        "resume-4",
         "home-3",
         "resume-1",
-        "resume-0"
+        "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 and profile sources, christian uses the following testing tools: - **pytest** \u2014 python testing frame",
+      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-qt**",
       "expect_source": [
         "resume",
         "bio"
@@ -717,19 +719,19 @@
       "retrieved": [
         "bio",
         "i-lacked-the-tools",
-        "resume",
         "i-lacked-the-tools",
+        "home",
         "i-lacked-the-tools"
       ],
       "retrieved_chunks": [
         "bio-0",
         "i-lacked-the-tools-0",
-        "resume-0",
         "i-lacked-the-tools-2",
+        "home-1",
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "according to his r\u00e9sum\u00e9, christian smith has a bachelor of science in game programming. [source: r\u00e9sum\u00e9 \u2014 christian smit",
+      "answer_preview": "according to the context, christian smith has a b.s. in game programming [source: christian smith, ai engineer & develop",
       "expect_source": [
         "resume",
         "bio"
@@ -745,20 +747,20 @@
       "question": "What certifications does Christian hold?",
       "retrieved": [
         "bio",
+        "resume",
         "home",
-        "resume",
-        "resume",
-        "resume"
+        "aiii",
+        "i-lacked-the-tools"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "home-1",
         "resume-0",
-        "resume-4",
-        "resume-1"
+        "home-1",
+        "aiii-1",
+        "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 sources, christian smith holds the following certifications: 1. **google it support professional cer",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and the sources s",
       "expect_source": [
         "resume"
       ],
@@ -773,17 +775,17 @@
       "question": "What does Christian do in his AR/VR role?",
       "retrieved": [
         "bio",
-        "resume",
-        "resume",
         "home",
-        "bio"
+        "bio",
+        "resume",
+        "home"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "resume-2",
-        "resume-0",
         "home-0",
-        "bio-2"
+        "bio-2",
+        "resume-3",
+        "home-4"
       ],
       "refused": false,
       "answer_preview": "based on the context, christian works in ar/vr at meta as a sales and support specialist in the best buy retail program.",
@@ -801,21 +803,21 @@
       "kind": "in_corpus",
       "question": "What is \"The Honest Machine\" about?",
       "retrieved": [
+        "honest-and-wrong",
         "ask-the-corpus",
-        "ask-the-corpus",
-        "the-job-was-never-coding",
-        "ask-the-corpus",
-        "squish"
+        "honest-and-wrong",
+        "honest-and-wrong",
+        "ask-the-corpus"
       ],
       "retrieved_chunks": [
+        "honest-and-wrong-4",
         "ask-the-corpus-4",
-        "ask-the-corpus-1",
-        "the-job-was-never-coding-3",
-        "ask-the-corpus-2",
-        "squish-3"
+        "honest-and-wrong-6",
+        "honest-and-wrong-5",
+        "ask-the-corpus-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's approach to building an ai assistant that",
+      "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's creation of a question-answering system t",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -831,20 +833,20 @@
       "question": "What does Christian say made the refusal the design goal?",
       "retrieved": [
         "ask-the-corpus",
+        "honest-and-wrong",
+        "honest-and-wrong",
         "squish",
-        "sloth",
-        "fit-over-default",
-        "the-job-was-never-coding"
+        "sloth"
       ],
       "retrieved_chunks": [
         "ask-the-corpus-4",
+        "honest-and-wrong-2",
+        "honest-and-wrong-6",
         "squish-4",
-        "sloth-1",
-        "fit-over-default-1",
-        "the-job-was-never-coding-3"
+        "sloth-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the context excerpts discuss the re",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the excerpts discuss christian's re",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -918,20 +920,20 @@
       "question": "What did AI actually automate for developers?",
       "retrieved": [
         "the-job-was-never-coding",
-        "home",
-        "the-job-was-never-coding",
         "bio",
-        "the-job-was-never-coding"
+        "the-job-was-never-coding",
+        "the-job-was-never-coding",
+        "home"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-1",
-        "home-5",
-        "the-job-was-never-coding-3",
         "bio-2",
-        "the-job-was-never-coding-0"
+        "the-job-was-never-coding-3",
+        "the-job-was-never-coding-0",
+        "home-5"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" ai automated **the translation and grunt work inside the job**, not the develop",
+      "answer_preview": "according to \"the job was never coding,\" ai automated **the translation** \u2014 not the developer themselves. specifically, ",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -947,19 +949,19 @@
       "retrieved": [
         "the-job-was-never-coding",
         "the-job-was-never-coding",
-        "home",
-        "home",
-        "resume"
+        "bio",
+        "the-job-was-never-coding",
+        "home"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-0",
         "the-job-was-never-coding-3",
-        "home-5",
-        "home-1",
-        "resume-0"
+        "bio-2",
+        "the-job-was-never-coding-1",
+        "home-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" the developers genuinely exposed by ai writing code are **the typists** \u2014 and c",
+      "answer_preview": "based on \"the job was never coding,\" christian smith distinguishes between developers and \"typists\": > \"so no, the devel",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -975,16 +977,16 @@
       "retrieved": [
         "aiii",
         "the-job-was-never-coding",
-        "home",
+        "bio",
         "squish",
-        "bio"
+        "resume"
       ],
       "retrieved_chunks": [
         "aiii-3",
         "the-job-was-never-coding-1",
-        "home-1",
+        "bio-2",
         "squish-3",
-        "bio-1"
+        "resume-1"
       ],
       "refused": false,
       "answer_preview": "based on the context provided, aiii (artificial intelligence identification initiative) is: an apache-2.0 reference impl",
@@ -1003,20 +1005,20 @@
       "question": "What rule is AIII built on?",
       "retrieved": [
         "aiii",
-        "resume",
         "the-job-was-never-coding",
+        "resume",
         "bio",
-        "home"
+        "bio"
       ],
       "retrieved_chunks": [
         "aiii-3",
-        "resume-1",
         "the-job-was-never-coding-1",
-        "bio-1",
-        "home-1"
+        "resume-1",
+        "bio-2",
+        "bio-1"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, aiii is built on one principle: **\"resolve or refuse, never guess.\"** this rule appears consis",
+      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on one rule: **resolve or re",
       "expect_source": [
         "aiii",
         "home"
@@ -1032,17 +1034,17 @@
       "question": "Why was one OpenSSF control marked unmet?",
       "retrieved": [
         "aiii",
-        "aiii",
-        "aiii",
         "resume",
-        "aiii"
+        "aiii",
+        "the-warning-not-the-gate",
+        "the-warning-not-the-gate"
       ],
       "retrieved_chunks": [
         "aiii-1",
+        "resume-0",
         "aiii-4",
-        "aiii-2",
-        "resume-1",
-        "aiii-3"
+        "the-warning-not-the-gate-3",
+        "the-warning-not-the-gate-1"
       ],
       "refused": false,
       "answer_preview": "according to the aiii source, control qa-07.01 was marked unmet because it requires non-author human review before every",
@@ -1062,18 +1064,18 @@
         "aiii",
         "aiii",
         "aiii",
-        "resume",
-        "bio"
+        "bio",
+        "resume"
       ],
       "retrieved_chunks": [
         "aiii-5",
         "aiii-4",
         "aiii-0",
-        "resume-1",
-        "bio-1"
+        "bio-1",
+        "resume-1"
       ],
       "refused": false,
-      "answer_preview": "according to the sources, **rnv-mcp-identity implements an l1\u2013l3 identity-and-authorization layer for mcp servers**. the",
+      "answer_preview": "according to the context, **rnv-mcp-identity implements an l1\u2013l3 identity and authorization layer** for mcp servers. [so",
       "expect_source": [
         "aiii"
       ],
@@ -1088,20 +1090,20 @@
       "question": "What has Christian built?",
       "retrieved": [
         "bio",
-        "resume",
         "squish",
         "i-lacked-the-tools",
-        "i-lacked-the-tools"
+        "i-lacked-the-tools",
+        "the-job-was-never-coding"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "resume-0",
         "squish-1",
         "i-lacked-the-tools-7",
-        "i-lacked-the-tools-2"
+        "i-lacked-the-tools-2",
+        "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "# what christian has built based on the sources, christian has built several projects: **ai/llm systems:** - **ask the c",
+      "answer_preview": "based on the context provided, christian smith (rnvizion) has built: 1. **ask the corpus** - a retrieval-augmented chatb",
       "expect_source": [
         "home",
         "resume",
@@ -1117,29 +1119,29 @@
       "kind": "in_corpus",
       "question": "How many tests has Christian written?",
       "retrieved": [
+        "honest-and-wrong",
+        "honest-and-wrong",
         "bio",
-        "home",
-        "home",
-        "ask-the-corpus",
-        "home"
+        "honest-and-wrong",
+        "honest-and-wrong"
       ],
       "retrieved_chunks": [
+        "honest-and-wrong-2",
+        "honest-and-wrong-1",
         "bio-0",
-        "home-1",
-        "home-3",
-        "ask-the-corpus-0",
-        "home-2"
+        "honest-and-wrong-6",
+        "honest-and-wrong-0"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian has written **5,000+ tests**. [source: christian smith, ai engineer & developer]",
+      "answer_preview": "based on the context provided, christian has written **two** tests: 1. **the initial test** - a set of forty questions (",
       "expect_source": [
         "home",
         "resume"
       ],
-      "retrieval_hit": true,
+      "retrieval_hit": false,
       "false_refusal": false,
-      "keyword_hit": true,
-      "pass": true
+      "keyword_hit": false,
+      "pass": false
     },
     {
       "id": "ooc-china",
@@ -1147,17 +1149,17 @@
       "question": "What is the capital of China?",
       "retrieved": [
         "the-job-was-never-coding",
-        "i-lacked-the-tools",
-        "squish",
         "home",
-        "i-lacked-the-tools"
+        "bio",
+        "i-lacked-the-tools",
+        "squish"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-1",
-        "i-lacked-the-tools-5",
-        "squish-2",
         "home-1",
-        "i-lacked-the-tools-6"
+        "bio-1",
+        "i-lacked-the-tools-5",
+        "squish-2"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1170,17 +1172,17 @@
       "question": "Who won the Super Bowl this year?",
       "retrieved": [
         "squish",
+        "honest-and-wrong",
+        "honest-and-wrong",
         "ask-the-corpus",
-        "squish",
-        "the-margin-not-the-price",
-        "ask-the-corpus"
+        "squish"
       ],
       "retrieved_chunks": [
         "squish-0",
+        "honest-and-wrong-2",
+        "honest-and-wrong-6",
         "ask-the-corpus-0",
-        "squish-4",
-        "the-margin-not-the-price-0",
-        "ask-the-corpus-1"
+        "squish-4"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1193,17 +1195,17 @@
       "question": "How do I reverse a list in Python?",
       "retrieved": [
         "the-margin-not-the-price",
+        "honest-and-wrong",
+        "honest-and-wrong",
         "sloth",
-        "sloth",
-        "sloth",
-        "home"
+        "sloth"
       ],
       "retrieved_chunks": [
         "the-margin-not-the-price-0",
+        "honest-and-wrong-2",
+        "honest-and-wrong-5",
         "sloth-1",
-        "sloth-0",
-        "sloth-2",
-        "home-2"
+        "sloth-0"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1215,17 +1217,17 @@
       "kind": "out_of_corpus",
       "question": "What is the weather in Washington DC today?",
       "retrieved": [
+        "resume",
         "i-lacked-the-tools",
         "i-lacked-the-tools",
-        "resume",
-        "resume",
+        "home",
         "bio"
       ],
       "retrieved_chunks": [
+        "resume-3",
         "i-lacked-the-tools-3",
         "i-lacked-the-tools-4",
-        "resume-4",
-        "resume-0",
+        "home-5",
         "bio-0"
       ],
       "refused": true,
@@ -1238,18 +1240,18 @@
       "kind": "out_of_corpus",
       "question": "Write me a haiku about autumn.",
       "retrieved": [
-        "home",
         "the-job-was-never-coding",
         "sloth",
-        "i-lacked-the-tools",
-        "fit-over-default"
+        "resume",
+        "home",
+        "i-lacked-the-tools"
       ],
       "retrieved_chunks": [
-        "home-4",
         "the-job-was-never-coding-0",
         "sloth-0",
-        "i-lacked-the-tools-0",
-        "fit-over-default-1"
+        "resume-4",
+        "home-4",
+        "i-lacked-the-tools-0"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1261,18 +1263,18 @@
       "kind": "out_of_corpus",
       "question": "What is the boiling point of water?",
       "retrieved": [
-        "home",
         "resume",
         "bio",
-        "ask-the-corpus",
-        "the-margin-not-the-price"
+        "home",
+        "home",
+        "ask-the-corpus"
       ],
       "retrieved_chunks": [
-        "home-4",
         "resume-1",
         "bio-1",
-        "ask-the-corpus-1",
-        "the-margin-not-the-price-3"
+        "home-5",
+        "home-4",
+        "ask-the-corpus-1"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1285,17 +1287,17 @@
       "question": "Who is the CEO of Microsoft?",
       "retrieved": [
         "aiii",
+        "resume",
         "bio",
         "resume",
-        "the-job-was-never-coding",
-        "aiii"
+        "home"
       ],
       "retrieved_chunks": [
         "aiii-2",
-        "bio-0",
         "resume-3",
-        "the-job-was-never-coding-3",
-        "aiii-3"
+        "bio-0",
+        "resume-0",
+        "home-5"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1307,18 +1309,18 @@
       "kind": "out_of_corpus",
       "question": "What is a good recipe for carbonara?",
       "retrieved": [
-        "i-lacked-the-tools",
-        "i-lacked-the-tools",
-        "i-lacked-the-tools",
         "home",
-        "i-lacked-the-tools"
+        "i-lacked-the-tools",
+        "i-lacked-the-tools",
+        "i-lacked-the-tools",
+        "resume"
       ],
       "retrieved_chunks": [
+        "home-4",
         "i-lacked-the-tools-3",
         "i-lacked-the-tools-4",
         "i-lacked-the-tools-5",
-        "home-4",
-        "i-lacked-the-tools-2"
+        "resume-4"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1333,14 +1335,14 @@
         "the-job-was-never-coding",
         "the-job-was-never-coding",
         "bio",
-        "home",
+        "resume",
         "the-margin-not-the-price"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-2",
         "the-job-was-never-coding-1",
         "bio-2",
-        "home-2",
+        "resume-2",
         "the-margin-not-the-price-0"
       ],
       "refused": true,
@@ -1354,17 +1356,17 @@
       "question": "What is the population of Tokyo?",
       "retrieved": [
         "home",
+        "honest-and-wrong",
         "squish",
         "squish",
-        "squish",
-        "the-job-was-never-coding"
+        "squish"
       ],
       "retrieved_chunks": [
         "home-5",
+        "honest-and-wrong-2",
         "squish-0",
         "squish-1",
-        "squish-2",
-        "the-job-was-never-coding-3"
+        "squish-2"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1378,16 +1380,16 @@
       "retrieved": [
         "home",
         "home",
-        "aiii",
         "resume",
-        "i-lacked-the-tools"
+        "aiii",
+        "resume"
       ],
       "retrieved_chunks": [
         "home-5",
         "home-3",
-        "aiii-1",
         "resume-0",
-        "i-lacked-the-tools-7"
+        "aiii-1",
+        "resume-4"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1403,14 +1405,14 @@
         "the-job-was-never-coding",
         "the-margin-not-the-price",
         "the-job-was-never-coding",
-        "ask-the-corpus"
+        "home"
       ],
       "retrieved_chunks": [
         "the-margin-not-the-price-2",
         "the-job-was-never-coding-0",
         "the-margin-not-the-price-3",
         "the-job-was-never-coding-3",
-        "ask-the-corpus-0"
+        "home-5"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1424,16 +1426,16 @@
       "retrieved": [
         "ask-the-corpus",
         "sloth",
-        "home",
+        "honest-and-wrong",
         "the-job-was-never-coding",
-        "fit-over-default"
+        "home"
       ],
       "retrieved_chunks": [
         "ask-the-corpus-1",
         "sloth-1",
-        "home-4",
+        "honest-and-wrong-6",
         "the-job-was-never-coding-3",
-        "fit-over-default-3"
+        "home-4"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1475,19 +1477,19 @@
       "retrieved": [
         "i-lacked-the-tools",
         "bio",
+        "honest-and-wrong",
         "home",
-        "resume",
         "squish"
       ],
       "retrieved_chunks": [
         "i-lacked-the-tools-2",
         "bio-0",
+        "honest-and-wrong-1",
         "home-4",
-        "resume-4",
         "squish-4"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions \"the essay about bu",
       "refusal_correct": true,
       "pass": true,
       "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."
@@ -1498,17 +1500,17 @@
       "question": "How many Instagram followers does Christian have?",
       "retrieved": [
         "bio",
-        "bio",
-        "aiii",
+        "home",
+        "honest-and-wrong",
         "resume",
-        "resume"
+        "bio"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "bio-1",
-        "aiii-5",
-        "resume-1",
-        "resume-0"
+        "home-3",
+        "honest-and-wrong-2",
+        "resume-0",
+        "bio-1"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1522,17 +1524,17 @@
       "question": "What is Christian's home address?",
       "retrieved": [
         "bio",
+        "home",
         "aiii",
         "aiii",
-        "resume",
-        "aiii"
+        "home"
       ],
       "retrieved_chunks": [
         "bio-0",
+        "home-3",
         "aiii-5",
         "aiii-0",
-        "resume-2",
-        "aiii-4"
+        "home-5"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1545,17 +1547,17 @@
       "question": "What is Christian's salary at Meta?",
       "retrieved": [
         "bio",
-        "resume",
-        "resume",
         "home",
+        "the-margin-not-the-price",
+        "resume",
         "the-margin-not-the-price"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "resume-2",
-        "resume-0",
         "home-0",
-        "the-margin-not-the-price-1"
+        "the-margin-not-the-price-1",
+        "resume-0",
+        "the-margin-not-the-price-3"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1567,16 +1569,16 @@
       "kind": "out_of_corpus",
       "question": "What was Christian's GPA?",
       "retrieved": [
+        "honest-and-wrong",
         "aiii",
         "bio",
-        "resume",
         "aiii",
         "aiii"
       ],
       "retrieved_chunks": [
+        "honest-and-wrong-2",
         "aiii-0",
         "bio-0",
-        "resume-4",
         "aiii-4",
         "aiii-3"
       ],
@@ -1591,20 +1593,20 @@
       "question": "What programming languages does Christian dislike?",
       "retrieved": [
         "bio",
+        "home",
         "bio",
-        "resume",
         "squish",
-        "home"
+        "the-job-was-never-coding"
       ],
       "retrieved_chunks": [
         "bio-0",
+        "home-1",
         "bio-2",
-        "resume-0",
         "squish-4",
-        "home-1"
+        "the-job-was-never-coding-3"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the context excerpts list the programming",
       "refusal_correct": true,
       "pass": true
     },
@@ -1614,17 +1616,17 @@
       "question": "Who is Christian's manager at Meta?",
       "retrieved": [
         "bio",
-        "resume",
-        "aiii",
         "home",
-        "resume"
+        "aiii",
+        "bio",
+        "home"
       ],
       "retrieved_chunks": [
         "bio-0",
-        "resume-2",
-        "aiii-5",
         "home-0",
-        "resume-0"
+        "aiii-5",
+        "bio-1",
+        "home-3"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1639,14 +1641,14 @@
         "fit-over-default",
         "bio",
         "home",
-        "squish",
+        "home",
         "bio"
       ],
       "retrieved_chunks": [
         "fit-over-default-1",
         "bio-0",
         "home-2",
-        "squish-3",
+        "home-3",
         "bio-1"
       ],
       "refused": true,

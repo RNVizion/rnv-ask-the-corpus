@@ -128,13 +128,13 @@ def retrieve(question: str):
     the source id even when the id itself contains hyphens (i-lacked-the-tools-3).
     Both are recorded: the source ids are what the metric scores, the chunk ids
     are what a post-mortem needs. Dropping the chunk ids is why answering one
-    question about a June index took a git worktree and a hand-typed query."""
-    res = app.col.query(
-        query_embeddings=app.embedder.encode([question]).tolist(),
-        n_results=app.TOP_K,
-        include=["metadatas"],
-    )
-    chunk_ids = res.get("ids", [[]])[0]
+    question about a June index took a git worktree and a hand-typed query.
+
+    2026-09-17: this calls app.retrieve instead of issuing its own query. The two
+    were identical while both asked for TOP_K nearest, and would have diverged
+    silently the day app.py capped chunks per source: the eval would have scored
+    a window no visitor was ever served."""
+    chunk_ids, _docs, _metas = app.retrieve(question)
     source_ids = []
     for cid in chunk_ids:
         sid = cid.rsplit("-", 1)[0]

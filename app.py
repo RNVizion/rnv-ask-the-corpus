@@ -11,10 +11,26 @@ from anthropic import Anthropic
 MODEL = "claude-haiku-4-5"      # cheap + fast; the whole cost story
 MAX_INPUT = 500                 # reject longer questions (bounds cost per call)
 TOP_K = 5                       # chunks retrieved per question
+MAX_PER_SOURCE = 2              # ...of which at most two may come from one source
 MAX_TOKENS = 400                # caps answer length, so each call's cost is bounded
 TEMPERATURE = 0                 # see below; determinism is a feature here
 RATE = {"per_min": 6, "per_day": 60}
 
+# MAX_PER_SOURCE exists because the window is small and the corpus is not flat.
+#
+# Nearest-neighbour retrieval returns the k closest chunks and nothing stops one
+# source holding all of them. On 2026-09-17, "How many tests has Christian
+# written?" served four chunks of a single essay about the eval suite; the figure
+# published on the home page sat sixth, and the bot answered "two". Four wordings
+# of that question produced four different answers, and the deciding character was
+# a question mark.
+#
+# This is not a widening. TOP_K stays at 5 and the same five slots are spent; what
+# changes is that one source cannot take the whole window, so a window spans at
+# least three sources whenever three are close. A question whose answer genuinely
+# lives in one source still gets that source twice, which is what the top of the
+# window is for.
+#
 # TEMPERATURE = 0 is a deliberate choice, not a default.
 #
 # The API default is 1.0, which means the same question over the same context can
@@ -107,6 +123,38 @@ def _client_key(request):
     return request.client.host if request and request.client else "local"
 
 
+def retrieve(question):
+    """The chunks the model is given, with no source allowed to fill the window.
+
+    Returns (ids, documents, metadatas) in served order. Chroma is asked for a
+    larger pool and the cap is applied here, so the k nearest are still the
+    candidates; only their distribution changes.
+
+    evaluate.py calls this rather than re-querying. It used to hold its own copy
+    of the query, which was harmless while both said n_results=TOP_K and would
+    have gone quietly wrong the moment one of them capped and the other did not:
+    the eval would have scored a window no visitor was served.
+    """
+    pool = col.query(
+        query_embeddings=embedder.encode([question]).tolist(),
+        n_results=min(TOP_K * 6, max(col.count(), 1)),
+        include=["documents", "metadatas"],
+    )
+    ids, docs, metas = pool["ids"][0], pool["documents"][0], pool["metadatas"][0]
+    kept, per_source = [], defaultdict(int)
+    for i, chunk_id in enumerate(ids):
+        source = (metas[i] or {}).get("source") or chunk_id.rsplit("-", 1)[0]
+        if per_source[source] >= MAX_PER_SOURCE:
+            continue
+        per_source[source] += 1
+        kept.append(i)
+        if len(kept) == TOP_K:
+            break
+    # Fewer than TOP_K here means the corpus genuinely has less to offer than the
+    # window holds, which is a fact about the corpus and is passed through as one.
+    return [ids[i] for i in kept], [docs[i] for i in kept], [metas[i] for i in kept]
+
+
 def _pipeline(question):
     """Retrieval, then the model. Returns (text, error), as answer_with_status does.
 
@@ -114,12 +162,7 @@ def _pipeline(question):
     without going through input handling meant for visitors. Behaviour is unchanged.
     """
     try:
-        res = col.query(
-            query_embeddings=embedder.encode([question]).tolist(),
-            n_results=TOP_K,
-            include=["documents", "metadatas"],
-        )
-        docs, metas = res["documents"][0], res["metadatas"][0]
+        _ids, docs, metas = retrieve(question)
     except Exception as exc:
         return ERROR_MESSAGE, f"retrieval: {type(exc).__name__}: {exc}"
 

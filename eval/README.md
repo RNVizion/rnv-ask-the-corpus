@@ -29,8 +29,16 @@ The suite no longer grows because a source arrived. **Admission requires that a 
 {"id": "...", "kind": "in_corpus"|"out_of_corpus", "question": "...",
  "expect_source": "id" | ["id", "id"],   # in_corpus only
  "keywords": ["..."],                    # optional; [] or omitted opts out
+ "claim": {"require": ["regex"],         # optional; gated, see below
+           "forbid": ["regex"]},
  "note": "..."}                          # free text for humans
 ```
+
+**`claim` is the only content check that gates.** `keywords` is a directional proxy and stays one; it passes if a term appears anywhere in the answer, which is too weak for the two cases whose job is to guard a number published on the site. A live answer contained `5,000` inside a sentence asserting 9,000+, and the proxy scored it a hit. A row also used to pass on retrieval alone, so `home-tests` would have passed while the bot answered "two".
+
+Patterns are regexes over the normalised answer. Every `require` must match. `forbid` is narrower than it looks: it names a figure that appears **nowhere in the corpus**, so it cannot have been read and can only have been fabricated. Do not forbid a wrong-but-grounded figure — `res-count` deliberately has no `forbid`, because "eight" is grounded in "Honest and Wrong", and an answer that quotes that account correctly is a right answer. A refused claim case counts as a miss: the figure was not stated.
+
+The bar is 100% with no slack, and the count of claim cases is asserted before the percentage, so deleting the blocks cannot leave the guard passing on an empty set.
 
 **Every source in `sources.json` currently carries at least one case** — ten sources, ten covered, first met on August 5, 2026 when `fit-over-default` gained `fod-two-systems` and `trap-fod-openai`. Treat that as the current state, not an invariant: under the freeze, **a future source may deliberately go uncovered**, and the coverage guard reports it as a note rather than a failure. An uncovered source is a decision to be able to defend, not a gap to close by reflex — but it does mean the corpus holds content nothing is watching, so make the call knowingly.
 
@@ -47,6 +55,7 @@ Worth knowing before you add a risky case, because the bars are percentages and 
 | Retrieval accuracy | ≥ 85% | 38 in-corpus | 5 misses |
 | False-refusal rate | ≤ 10% | 38 in-corpus | 3 false refusals |
 | Out-of-corpus refusal | ≥ 90% | 22 out-of-corpus | 2 misses |
+| Public claims | 100% | the cases carrying a `claim` block | nothing |
 
 Two consequences. **One false refusal is currently spent** — `atc-refusal`, diagnosed below — so there is real but finite room. And the **out-of-corpus gate is the tightest**: it tolerated a single miss back when the set was 18, which is how a stale trap case once sat there passing at 17/18 with nothing left over. Adjacent-but-absent questions ("what is Meta's stock price") are the valuable next tier, but they're also the ones most likely to draw a hedged answer instead of the denial line. Add them deliberately, and check the margin first.
 

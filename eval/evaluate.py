@@ -6,6 +6,9 @@ Runs every case in eval/cases.jsonl through the REAL pipeline in app.py and scor
   - retrieval accuracy : for in-corpus questions, did the right source get retrieved?
   - refusal accuracy   : out-of-corpus -> did it return the exact denial line?
                          in-corpus     -> did it NOT refuse (no false refusals)?
+  - public claims    : for the handful of cases that guard a figure published
+                         elsewhere, did the answer state it, and state nothing
+                         ungrounded beside it? Gated, all-or-nothing.
   - keyword groundedness: a light proxy — did the answer contain an expected term?
                          (cheap signal, not an LLM judge; treat as directional.
                           Refused rows are excluded, since a denial line can
@@ -170,6 +173,39 @@ def expected_ids(case):
     return exp if isinstance(exp, list) else [exp]
 
 
+def claim_result(case, answer, refused):
+    """Did the answer state the public figure this case guards?
+
+    Returns (ok, detail), or (None, None) when the case carries no claim block.
+
+    WHY THIS EXISTS ALONGSIDE keyword_hit
+    keyword_hit is a directional proxy over every in-corpus case: it passes if an
+    expected term appears anywhere in the answer, and it is not gated. That is too
+    weak for the two cases whose whole job is to guard a number published on the
+    site. A live answer contained "5,000" inside a sentence asserting 9,000+, and
+    the proxy scored it a hit. A row also used to pass on retrieval alone, so the
+    case that guards the test count would have passed while the bot said "two".
+
+    "require" patterns must all match. "forbid" names a figure that appears
+    nowhere in the corpus, so it cannot have been read and can only have been
+    fabricated; do not list a wrong-but-grounded figure there, because quoting one
+    correctly is a right answer. Patterns are regexes over the normalised answer.
+    """
+    claim = case.get("claim")
+    if not claim:
+        return None, None
+    if refused:
+        return False, "refused, so the figure was not stated"
+    text = _norm(answer)
+    missing = [pat for pat in claim.get("require", []) if not re.search(pat, text, re.I)]
+    if missing:
+        return False, "missing " + ", ".join(missing)
+    stated = [pat for pat in claim.get("forbid", []) if re.search(pat, text, re.I)]
+    if stated:
+        return False, "states " + ", ".join(stated)
+    return True, None
+
+
 def run(limit=None):
     cases = load_cases(limit)
     rows, calls = [], 0
@@ -214,7 +250,14 @@ def run(limit=None):
                 None if refused
                 else (any(k in _norm(ans) for k in kws) if kws else None)
             )
-            row["pass"] = row["retrieval_hit"] and not refused
+            row["claim_ok"], claim_detail = claim_result(c, ans, refused)
+            if row["claim_ok"] is not None:
+                row["claim_detail"] = claim_detail
+                # The full text, for claim rows only: a wrong public figure has to
+                # be diagnosable from the artifact, and answer_preview truncates
+                # before the number in most of them.
+                row["answer"] = ans
+            row["pass"] = row["retrieval_hit"] and not refused and row["claim_ok"] is not False
         else:  # out_of_corpus
             row["refusal_correct"] = refused        # should refuse
             row["pass"] = refused
@@ -232,8 +275,11 @@ def run(limit=None):
         return round(100 * sum(xs) / len(xs), 1) if xs else None
 
     kw_rows = [r for r in in_rows if r.get("keyword_hit") is not None]
+    claim_rows = [r for r in in_rows if r.get("claim_ok") is not None]
     metrics = {
         "total_cases": len(rows),
+        # a sampled run cannot be read as "the claim cases have gone missing"
+        "limited": bool(limit),
         "scored_cases": len(ok_rows),
         "error_cases": len(err_rows),
         "claude_calls": calls,
@@ -241,6 +287,8 @@ def run(limit=None):
         "false_refusal_rate": pct([r["false_refusal"] for r in in_rows]),
         "ooc_refusal_accuracy": pct([r["refusal_correct"] for r in out_rows]),
         "keyword_groundedness": pct([r["keyword_hit"] for r in kw_rows]),
+        "claim_cases": len(claim_rows),
+        "claim_accuracy": pct([r["claim_ok"] for r in claim_rows]),
         "overall_pass_rate": pct([r["pass"] for r in ok_rows]),
     }
     return metrics, rows
@@ -337,7 +385,8 @@ def write_report(metrics, rows, tag=None):
         "",
         f"_Gates: retrieval ≥ {THRESHOLDS['retrieval_accuracy']}% · "
         f"out-of-corpus refusal ≥ {THRESHOLDS['ooc_refusal_accuracy']}% · "
-        f"false refusal ≤ {THRESHOLDS['false_refusal_rate']}%_",
+        f"false refusal ≤ {THRESHOLDS['false_refusal_rate']}% · "
+        f"public claims {THRESHOLDS['claim_accuracy']}%_",
         "",
     ]
     if not prov["index_matches_manifest"]:
@@ -363,6 +412,8 @@ def write_report(metrics, rows, tag=None):
         f"| Retrieval accuracy (in-corpus) | {metrics['retrieval_accuracy']}% |",
         f"| Out-of-corpus refusal accuracy | {metrics['ooc_refusal_accuracy']}% |",
         f"| False-refusal rate (in-corpus) | {metrics['false_refusal_rate']}% |",
+        f"| Public claims stated correctly | {metrics['claim_accuracy']}% "
+        f"({metrics['claim_cases']} case(s)) |",
         f"| Keyword groundedness (proxy) | {metrics['keyword_groundedness']}% |",
         f"| Overall pass rate | {metrics['overall_pass_rate']}% |",
         f"| Cases scored / total | {metrics['scored_cases']} / {metrics['total_cases']} |",
@@ -370,15 +421,35 @@ def write_report(metrics, rows, tag=None):
         f"| Claude calls | {metrics['claude_calls']} |",
         "",
         "## In-corpus",
-        "| id | retrieved right source | refused? | keyword | pass |",
-        "| --- | :---: | :---: | :---: | :---: |",
+        "| id | retrieved right source | refused? | keyword | claim | pass |",
+        "| --- | :---: | :---: | :---: | :---: | :---: |",
     ]
     for r in [r for r in rows if r["kind"] == "in_corpus"]:
         if r.get("error"):
-            lines.append(f"| {r['id']} | ⚠️ | ⚠️ | ⚠️ | errored |")
+            lines.append(f"| {r['id']} | ⚠️ | ⚠️ | ⚠️ | ⚠️ | errored |")
             continue
         kw = "—" if r.get("keyword_hit") is None else b(r["keyword_hit"])
-        lines.append(f"| {r['id']} | {b(r['retrieval_hit'])} | {'⚠️' if r['refused'] else '—'} | {kw} | {b(r['pass'])} |")
+        cl = "—" if r.get("claim_ok") is None else b(r["claim_ok"])
+        lines.append(f"| {r['id']} | {b(r['retrieval_hit'])} | {'⚠️' if r['refused'] else '—'} | {kw} | {cl} | {b(r['pass'])} |")
+
+    claim_rows = [r for r in rows if r.get("claim_ok") is not None]
+    if claim_rows:
+        lines += [
+            "", "## Public claims",
+            "",
+            "Cases that guard a figure published elsewhere on the site. The gate fails "
+            "on any miss; there is no slack here by design.",
+            "",
+            "| id | stated correctly | what the answer said |",
+            "| --- | :---: | --- |",
+        ]
+        for r in claim_rows:
+            said = ""
+            if not r["claim_ok"]:
+                detail = r.get("claim_detail") or ""
+                text = " ".join((r.get("answer") or "").split())[:180]
+                said = f"{detail}: {text}".replace("|", "\\|")
+            lines.append(f"| {r['id']} | {b(r['claim_ok'])} | {said or '—'} |")
 
     lines += ["", "## Out-of-corpus (should refuse)", "| id | refused? | pass |", "| --- | :---: | :---: |"]
     for r in [r for r in rows if r["kind"] == "out_of_corpus"]:
@@ -404,6 +475,9 @@ _DEFAULT_THRESHOLDS = {
     "retrieval_accuracy": 85.0,     # >= this
     "ooc_refusal_accuracy": 90.0,   # >= this
     "false_refusal_rate": 10.0,     # <= this
+    "claim_accuracy": 100.0,        # >= this, and it is deliberately all-or-nothing:
+                                    # any slack here reads as "one wrong published
+                                    # figure is acceptable", which it is not.
 }
 
 
@@ -446,6 +520,16 @@ def gate(metrics):
         failures.append(f"ooc_refusal_accuracy {metrics['ooc_refusal_accuracy']}% < {THRESHOLDS['ooc_refusal_accuracy']}%")
     if (metrics["false_refusal_rate"] or 0) > THRESHOLDS["false_refusal_rate"]:
         failures.append(f"false_refusal_rate {metrics['false_refusal_rate']}% > {THRESHOLDS['false_refusal_rate']}%")
+    if metrics.get("claim_accuracy") is not None and metrics["claim_accuracy"] < THRESHOLDS["claim_accuracy"]:
+        failures.append(
+            f"claim_accuracy {metrics['claim_accuracy']}% < {THRESHOLDS['claim_accuracy']}%: "
+            f"a figure published on the site was stated wrong"
+        )
+    if not metrics.get("claim_cases") and not metrics.get("limited"):
+        failures.append(
+            "no claim cases were scored; a guard that quietly stops existing is the "
+            "failure this line exists to catch"
+        )
     return failures
 
 

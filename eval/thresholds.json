@@ -1,6 +1,7 @@
 {
-  "_comment": "The eval gate. evaluate.py and the CI pytest read these. Raise them as the corpus grows; a green run that should be greener is the next thing the eval will catch. Units are percentages.",
+  "_comment": "The eval gate. evaluate.py and the CI pytest read these. Raise them as the corpus grows; a green run that should be greener is the next thing the eval will catch. Units are percentages. claim_accuracy is all-or-nothing on purpose: it covers the cases that guard a figure published on the site, and slack there would mean one wrong public number is acceptable.",
   "retrieval_accuracy": 85.0,
   "ooc_refusal_accuracy": 90.0,
-  "false_refusal_rate": 10.0
+  "false_refusal_rate": 10.0,
+  "claim_accuracy": 100.0
 }

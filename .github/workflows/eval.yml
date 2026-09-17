@@ -86,10 +86,15 @@ jobs:
 
       # The only step that spends Claude calls. It writes eval/report.md and
       # eval/results.json and never fails the build; the gate below does that.
+      # The report also goes to the run summary, so a pull_request run is readable
+      # from a phone. PR runs never commit back, so before this the only copy was
+      # a zipped artifact, and a measurement nobody reads gates nothing.
       - name: Run eval report
         env:
           ANTHROPIC_API_KEY: ${{ secrets.EVAL_KEY }}
-        run: python eval/evaluate.py --report-only
+        run: |
+          python eval/evaluate.py --report-only
+          cat eval/report.md >> "$GITHUB_STEP_SUMMARY"
 
       # Reads the artifact the previous step wrote. No API key: the gate asserts
       # against the recorded run rather than performing a second one, so the

@@ -114,3 +114,22 @@ def test_out_of_corpus_refusal(metrics):
 def test_no_false_refusals(metrics):
     # In-corpus questions must NOT be refused.
     assert metrics["false_refusal_rate"] <= evaluate.THRESHOLDS["false_refusal_rate"], metrics
+
+
+def test_public_claims_stated_correctly(results, metrics):
+    # The cases that guard a figure published on the site. Every other in-corpus
+    # metric asks whether the machine behaved; this one asks whether what it said
+    # was true, because a row used to pass on retrieval alone and the case
+    # guarding the test count would have passed while the bot answered "two".
+    #
+    # All-or-nothing, and the count is asserted first: a percentage over an empty
+    # set is None, so a claim block deleted from every case would leave this test
+    # passing on nothing at all.
+    assert metrics.get("claim_cases", 0) > 0, (
+        "no claim cases were scored; the public-claim guard has silently disappeared"
+    )
+    failed = [
+        {"id": r["id"], "why": r.get("claim_detail"), "said": (r.get("answer") or "")[:200]}
+        for r in results["rows"] if r.get("claim_ok") is False
+    ]
+    assert metrics["claim_accuracy"] >= evaluate.THRESHOLDS["claim_accuracy"], failed

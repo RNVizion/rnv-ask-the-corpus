@@ -24,12 +24,18 @@ This script removes that failure class instead of adding a reminder about it.
            app's undocumented `health` endpoint, which runs one real question and
            answers "ok" or names the failing layer. A deploy that cannot be shown
            to answer fails the run.
+  --check  the health call on its own: upload nothing, wait for nothing, just ask
+           whether the live demo still answers. Runs on the corpus schedule, so a
+           Space that stops answering is found within hours rather than by someone
+           opening it. Between 2026-08-21 and 2026-09-17 nothing asked, and the
+           demo failed every question for weeks. Needs no token.
 
 Everything goes into one Space commit, so one deploy is one rebuild.
 
 USAGE
   python scripts/deploy_space.py --app --smoke        # CI, after the eval passes
   python scripts/deploy_space.py --index --smoke      # CI, after the index lands
+  python scripts/deploy_space.py --check              # CI, on the corpus schedule
   python scripts/deploy_space.py --index --app --dry-run
 
 Needs HF_TOKEN with write access to the Space (the CORPUS_CI secret in Actions).
@@ -178,7 +184,14 @@ def wait_for_rebuild(api, expect_sdk: str | None) -> None:
         fail(f"Space reports Gradio {got_sdk}; the repo pins {expect_sdk}")
 
 
-def check_health() -> None:
+def check_health(inconclusive_ok: bool = False) -> None:
+    """Ask the live app one real question through its health endpoint.
+
+    inconclusive_ok is for the scheduled check: a rate-limited reply means the
+    limiter answered, not the pipeline, and reddening the corpus schedule because
+    the demo was busy would teach everyone to ignore it. A deploy still demands
+    proof, so the deploy path leaves it False.
+    """
     from gradio_client import Client
 
     last = "no attempt"
@@ -193,6 +206,9 @@ def check_health() -> None:
                 return
             if str(result).startswith("fail"):
                 fail(f"health: {result}. The reason is in the Space's container log.")
+            if result == "rate-limited" and inconclusive_ok:
+                print("::warning::health: rate-limited, so the pipeline was not exercised")
+                return
             last = f"health returned {result!r}"
         print(f"health attempt {attempt}: {last}; retrying", flush=True)
         time.sleep(20 * attempt)
@@ -206,10 +222,15 @@ def main() -> int:
     ap.add_argument("--index", action="store_true", help="upload chroma/ and prune the rest")
     ap.add_argument("--app", action="store_true", help="upload app.py, requirements, README")
     ap.add_argument("--smoke", action="store_true", help="after a change, prove the app answers")
+    ap.add_argument("--check", action="store_true", help="only ask whether the live app answers")
     ap.add_argument("--dry-run", action="store_true", help="print the plan; change nothing")
     args = ap.parse_args(_normalise_argv(sys.argv[1:]))
+    if args.check and not (args.index or args.app):
+        # Nothing is uploaded, so nothing needs a token: the endpoint is public.
+        check_health(inconclusive_ok=True)
+        return 0
     if not (args.index or args.app):
-        ap.error("nothing to deploy: pass --index, --app, or both")
+        ap.error("nothing to deploy: pass --index, --app, --check, or a combination")
     if not os.environ.get("HF_TOKEN"):
         fail("HF_TOKEN is not set")
 

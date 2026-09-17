@@ -73,3 +73,32 @@ jobs:
     if: needs.check.outputs.changed == 'true'
     uses: ./.github/workflows/ship-index.yml
     secrets: inherit
+
+  # Every pass, whether or not anything changed: ask the live demo one real
+  # question. The deploy path already proves a deploy answers; this proves it
+  # still answers six hours later, which is the thing nobody had between
+  # 2026-08-21 and 2026-09-17, when an unpinned dependency took the Space down
+  # and every instrument in the system stayed green. One model call per pass.
+  #
+  # Independent of the check job on purpose: a Space that stops answering is not
+  # conditional on a post being edited.
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout corpus repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      # Only the client, at the version requirements.txt pins for gradio.
+      - name: Install the client
+        run: |
+          grep -E '^gradio==' requirements.txt > "$RUNNER_TEMP/health-requirements.txt"
+          pip install -r "$RUNNER_TEMP/health-requirements.txt"
+
+      - name: Ask the live demo one real question
+        run: python scripts/deploy_space.py --check

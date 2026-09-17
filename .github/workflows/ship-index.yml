@@ -1,0 +1,117 @@
+name: ship index
+
+# Rebuild the index from the live site, commit it, gate it, and deploy it. This is
+# the one path by which chroma/ changes on main and on the Space.
+#
+# WHY IT COMMITS chroma/
+# The corpus workflows used to rebuild the index and upload it to the Space without
+# committing it, so the committed chroma/ fell behind sources.json after every
+# discovery. The eval reads the committed index and test_index_matches_manifest
+# fails on that drift, but a push made with GITHUB_TOKEN starts no workflow, so the
+# drift sat unseen until the next human push on a trigger path, and that commit took
+# the blame. It happened on 2026-08-21, and again on 2026-09-14 when a new post was
+# reverted twice for drift it did not cause. Committing the index here keeps the
+# repo, the Space, and the gate describing one corpus.
+#
+# WHY IT DISPATCHES THE EVAL
+# The commit below is pushed with GITHUB_TOKEN, which deliberately starts nothing.
+# workflow_dispatch is the documented exception, so the gate is started explicitly,
+# once, against main with the new index on it.
+#
+# WHAT IS AND IS NOT GATED
+# The index deploys without waiting for the eval, as it always has: a new post
+# should reach the demo even while a case needs attention, and the eval's verdict is
+# visible either way. app.py and requirements.txt do wait; they reach the Space only
+# through deploy-app.yml, after the eval passes.
+#
+# Called by rebuild-corpus.yml and check-source-edits.yml, which share the
+# corpus-rebuild concurrency group, so two ships never overlap. Do not give this
+# file a concurrency group of its own.
+
+on:
+  workflow_call:
+    secrets:
+      CORPUS_CI:
+        required: true
+
+jobs:
+  ship:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # commit the index
+      actions: write    # dispatch the eval
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Wipes chroma/ and rebuilds it from the live URLs. Exits 1 if any declared
+      # source did not land, so a partial index is never committed or shipped.
+      - name: Rebuild the index from the live site
+        run: python scripts/ingest.py
+
+      - name: Index must match sources.json exactly
+        run: python eval/check_index_coverage.py --strict
+
+      # A generated artifact is replaced, never merged: set the index aside, move to
+      # whatever main holds now, and write it over the top. If sources.json changed
+      # on main while this ran, this index describes an older list, and the push
+      # that changed it has queued its own rebuild; stand down rather than commit a
+      # stale index over a newer declaration.
+      - name: Commit the index
+        id: commit
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          built_from="$(git hash-object sources.json)"
+          tmp="$(mktemp -d)"
+          cp -r chroma "$tmp/chroma"
+
+          for attempt in 1 2 3; do
+            git fetch -q origin main
+            if [ "$(git rev-parse origin/main:sources.json)" != "$built_from" ]; then
+              echo "::notice::sources.json changed on main during this rebuild; the queued run will ship it"
+              echo "committed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git reset -q --hard origin/main
+            rm -rf chroma
+            cp -r "$tmp/chroma" chroma
+            git add -A chroma
+            if git diff --cached --quiet; then
+              echo "index unchanged; nothing to commit"
+              echo "committed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git commit -q -m "corpus: rebuild index [skip ci]"
+            if git push -q origin HEAD:main; then
+              echo "committed $(git rev-parse --short HEAD)"
+              echo "committed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "push rejected, main moved; retrying ($attempt/3)"
+            sleep 3
+          done
+          echo "::error::could not commit the index after 3 attempts"
+          exit 1
+
+      - name: Gate the new index
+        if: steps.commit.outputs.committed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run eval.yml --ref main
+
+      - name: Deploy the index and check the live app answers
+        if: steps.commit.outputs.committed == 'true'
+        env:
+          HF_TOKEN: ${{ secrets.CORPUS_CI }}
+        run: python scripts/deploy_space.py --index --smoke

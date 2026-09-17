@@ -1,5 +1,6 @@
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -79,12 +80,19 @@ def main():
         sys.exit(f"no sources found in {SOURCES_FILE}")
 
     model = SentenceTransformer("all-MiniLM-L6-v2")
-    client = chromadb.PersistentClient(path=str(REPO_ROOT / "chroma"))
-    try:
-        client.delete_collection("corpus")
-    except Exception:
-        pass
-    col = client.get_or_create_collection("corpus")
+    # Build into an empty directory, every time. delete_collection() removes the
+    # collection from the catalogue but leaves its vector segment on disk, so each
+    # rebuild used to add a folder and remove none: ten generations back to June 2026
+    # sat in the tree, and the upload shipped them to the Space. Harmless while every
+    # source is public. From Phase 2 it would mean re-ingesting cannot remove
+    # vectors that should never have been written, so the fix lands now, while it
+    # costs nothing. Old generations stay readable from git history (why.py --at).
+    # A failed local run leaves a partial index; `git checkout -- chroma` restores it.
+    chroma_dir = REPO_ROOT / "chroma"
+    if chroma_dir.exists():
+        shutil.rmtree(chroma_dir)
+    client = chromadb.PersistentClient(path=str(chroma_dir))
+    col = client.create_collection("corpus")
 
     total = 0
     ingested, skipped = [], []
@@ -110,7 +118,13 @@ def main():
     print(f"\ndone — {total} chunks from {len(ingested)} sources → ./chroma")
     if skipped:
         print(f"skipped {len(skipped)}: " + ", ".join(f"{s} ({w})" for s, w in skipped))
-        print("the corpus excludes these for now; deploy or fix them, then re-run.")
+        # Fail closed. A declared source that did not land means this index is not
+        # the corpus sources.json describes, and CI must not commit or ship it. This
+        # used to exit 0, so a post fetched before Pages had deployed it could reach
+        # the Space silently missing. The index is still written, for local inspection.
+        print("index written WITHOUT these; exiting 1 so it is not shipped. "
+              "Deploy or fix them, then re-run.")
+        sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -1,56 +1,37 @@
 name: Rebuild corpus
 
-# Re-ingest the RAG and push the vector store to the Hugging Face Space whenever
-# the source list (or the ingester) changes, or on a manual run. This keeps the
-# heavy ML deps and the HF token in CI, out of the publishing agent's environment.
+# Rebuild, commit, gate, and deploy the index whenever the source list or the
+# ingester changes on main, or on a manual run. The work lives in ship-index.yml.
+#
+# main only. This commits to main and ships to the live Space, so a branch push
+# that touches the ingester (a chunking experiment, say) must not fire it; a branch
+# commits its own rebuilt chroma/ and lets the pull_request eval judge it.
+#
+# The eval no longer triggers on these two paths itself. A push here always reached
+# the eval before the rebuilt index did, so that run tested the old index and failed
+# test_index_matches_manifest every time. The ship job dispatches the eval once the
+# new index is committed.
+
 on:
   push:
+    branches: [main]
     paths:
       - "sources.json"
       - "scripts/ingest.py"
   workflow_dispatch:
 
-# Shares its group with check-source-edits.yml so the two corpus workflows
-# fully serialize. cancel-in-progress stays false on BOTH: neither an ingest
-# nor an upload is a job you want killed halfway.
+permissions:
+  contents: write
+  actions: write
+
+# Shares its group with check-source-edits.yml so the two corpus workflows fully
+# serialize. cancel-in-progress stays false on BOTH: neither an ingest nor an
+# upload is a job you want killed halfway.
 concurrency:
   group: corpus-rebuild
   cancel-in-progress: false
 
 jobs:
-  rebuild:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-          cache: pip
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Rebuild Chroma from the live sources
-        run: python scripts/ingest.py
-
-      # Quirk to NOT "fix": this uploads through the Python API, not `hf upload`.
-      # The CLI hardcodes create_repo(space_sdk="gradio") on every --repo-type=space
-      # upload; HF's July 2026 free-tier gate 402s that call before exist_ok is ever
-      # checked. upload_folder() never calls create_repo, so it commits straight to
-      # the existing Space. Reverting this to the CLI re-breaks the workflow.
-      - name: Push the vector store to the Space
-        env:
-          HF_TOKEN: ${{ secrets.CORPUS_CI }}
-        run: |
-          python - <<'PY'
-          import os
-          from huggingface_hub import HfApi
-          HfApi(token=os.environ["HF_TOKEN"]).upload_folder(
-              repo_id="RNVizion/ask-the-corpus",
-              repo_type="space",
-              folder_path="chroma",
-              path_in_repo="chroma",
-          )
-          print("uploaded chroma/ to Space")
-          PY
+  ship:
+    uses: ./.github/workflows/ship-index.yml
+    secrets: inherit

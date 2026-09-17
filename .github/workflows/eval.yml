@@ -13,14 +13,21 @@ name: eval
 # The cost of enumeration is that a new file under eval/ has to be added here or
 # it silently stops gating. That is the trade: a glob that is always right and
 # occasionally loops, against a list that never loops and occasionally forgets.
+#
+# sources.json AND scripts/ingest.py ARE NOT PUSH TRIGGERS
+# A push to either starts rebuild-corpus.yml, which rebuilds the index, commits it,
+# and dispatches this workflow against the commit that holds it. Triggering here as
+# well meant a run against the old index: for sources.json it failed
+# test_index_matches_manifest every time, and that red landed on whichever commit
+# came first; for the ingester it judged an index the change had not touched. Pull
+# requests still list both, because no rebuild runs for a branch: a branch commits
+# its own chroma/ and this workflow judges it.
 
 on:
   push:
     branches: [main]
     paths:
       - "app.py"
-      - "scripts/ingest.py"
-      - "sources.json"
       - "chroma/**"
       - "eval/evaluate.py"
       - "eval/cases.jsonl"

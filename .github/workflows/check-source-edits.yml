@@ -1,22 +1,33 @@
 name: Rebuild corpus on source edits
 
+# Every six hours, and on demand: register newly published posts from the feed,
+# detect edits to tracked pages, and when anything changed, commit the source list
+# and hand off to ship-index.yml, which rebuilds, commits, gates, and deploys the
+# index.
+#
+# GitHub cron is UTC, can lag under load, and GitHub disables a scheduled workflow
+# after 60 days with no commit to the repo.
+
 on:
   schedule:
     - cron: "0 */6 * * *"   # every 6 hours; tighten or loosen as you like
-  workflow_dispatch:          # manual "Run workflow" button
+  workflow_dispatch:        # manual "Run workflow" button
 
 permissions:
-  contents: write             # to commit the updated hash file back
+  contents: write
+  actions: write
 
-# Shares its group with rebuild-corpus.yml so the two corpus workflows
-# fully serialize. cancel-in-progress stays false on BOTH.
+# Shares its group with rebuild-corpus.yml so the two corpus workflows fully
+# serialize. cancel-in-progress stays false on BOTH.
 concurrency:
   group: corpus-rebuild
   cancel-in-progress: false
 
 jobs:
-  check-and-rebuild:
+  check:
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
     steps:
       - name: Checkout corpus repo
         uses: actions/checkout@v5
@@ -37,35 +48,28 @@ jobs:
         id: check
         run: python scripts/check_edits.py
 
-      - name: Re-ingest (only if a source changed)
-        if: steps.check.outputs.changed == 'true'
-        run: python scripts/ingest.py
-
-      # Quirk to NOT "fix": Python API, not `hf upload` — see rebuild-corpus.yml
-      # for the full note. The CLI 402s on free accounts; upload_folder doesn't.
-      - name: Push fresh index to the Space
+      # Committed before the ship job starts, so that job, which checks out main
+      # fresh, rebuilds from exactly this list. [skip ci] is belt and braces: a
+      # GITHUB_TOKEN push starts nothing anyway.
+      - name: Commit the source list and hashes
         if: steps.check.outputs.changed == 'true'
         env:
-          HF_TOKEN: ${{ secrets.CORPUS_CI }}
+          SUMMARY: ${{ steps.check.outputs.summary }}
         run: |
-          python - <<'PY'
-          import os
-          from huggingface_hub import HfApi
-          HfApi(token=os.environ["HF_TOKEN"]).upload_folder(
-              repo_id="RNVizion/ask-the-corpus",
-              repo_type="space",
-              folder_path="chroma",
-              path_in_repo="chroma",
-          )
-          print("uploaded chroma/ to Space")
-          PY
-
-      - name: Commit updated hashes
-        if: steps.check.outputs.changed == 'true'
-        run: |
+          set -euo pipefail
           git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sources.json .source-hashes.json
-          git commit -m "corpus: refresh after source change (${{ steps.check.outputs.summary }})" || echo "nothing to commit"
-          git push
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+            exit 0
+          fi
+          git commit -q -m "corpus: refresh after source change (${SUMMARY}) [skip ci]"
+          git pull -q --rebase origin main
+          git push -q origin HEAD:main
 
+  ship:
+    needs: check
+    if: needs.check.outputs.changed == 'true'
+    uses: ./.github/workflows/ship-index.yml
+    secrets: inherit

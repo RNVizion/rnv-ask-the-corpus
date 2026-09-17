@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-17T02:11:53+00:00",
-    "commit": "2550839",
+    "generated_at": "2026-09-17T21:53:17+00:00",
+    "commit": "1937eb1",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -78,7 +78,7 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**\u2014the weight, the response, a",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**. specifically: > \"squish is",
       "expect_source": [
         "squish"
       ],
@@ -190,7 +190,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" the answer lies in the human element: **making it \"squishy\"** \u2014 thinking like a hum",
+      "answer_preview": "based on [\"the job was never coding\"](source), the answer lies in the human element: **the machine makes it run. the hum",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -220,7 +220,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as apps that are functionally",
+      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functionally ",
       "expect_source": [
         "squish"
       ],
@@ -388,7 +388,7 @@
         "resume-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each system: **sonnet for",
+      "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each system: **publishing",
       "expect_source": [
         "fit-over-default"
       ],
@@ -444,7 +444,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
+      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -529,7 +529,7 @@
         "home-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith works across these fields as a \"modern-day renaissance man\": - **software",
+      "answer_preview": "based on the context provided, christian smith works across these fields as a renaissance man: 1. **software development",
       "expect_source": [
         "bio"
       ],
@@ -615,7 +615,7 @@
         "i-lacked-the-tools-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith. acco",
+      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith that ",
       "expect_source": [
         "resume",
         "bio"
@@ -673,7 +673,7 @@
         "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. the r\u00e9sum\u00e9 states: \"nine shipped projects",
+      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. however, this is an interesting case beca",
       "expect_source": [
         "resume",
         "home"
@@ -731,7 +731,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian smith has a b.s. in game programming [source: christian smith, ai engineer & develop",
+      "answer_preview": "according to the context, christian smith has a **b.s. in game programming** (from his profile listing under education).",
       "expect_source": [
         "resume",
         "bio"
@@ -961,7 +961,7 @@
         "home-1"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith distinguishes between developers and \"typists\": > \"so no, the devel",
+      "answer_preview": "based on the context provided, christian smith distinguishes between developers and \"typists\": from \"the job was never c",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -989,7 +989,7 @@
         "resume-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, aiii (artificial intelligence identification initiative) is: an apache-2.0 reference impl",
+      "answer_preview": "based on the context provided, aiii (artificial intelligence identification initiative) is: **an apache-2.0 reference im",
       "expect_source": [
         "aiii",
         "home"
@@ -1018,7 +1018,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on one rule: **resolve or re",
+      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on this rule: **resolve or r",
       "expect_source": [
         "aiii",
         "home"
@@ -1075,7 +1075,7 @@
         "resume-1"
       ],
       "refused": false,
-      "answer_preview": "according to the context, **rnv-mcp-identity implements an l1\u2013l3 identity and authorization layer** for mcp servers. [so",
+      "answer_preview": "according to the context, **rnv-mcp-identity implements an l1\u2013l3 identity and authorization layer** for mcp servers. the",
       "expect_source": [
         "aiii"
       ],
@@ -1133,7 +1133,7 @@
         "honest-and-wrong-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian has written **two** tests: 1. **the initial test** - a set of forty questions (",
+      "answer_preview": "based on the context provided, christian has written **two** tests: 1. **the initial test** - a set of questions he aske",
       "expect_source": [
         "home",
         "resume"

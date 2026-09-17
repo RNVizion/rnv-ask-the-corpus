@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-17T21:53:17+00:00",
-    "commit": "1937eb1",
+    "generated_at": "2026-09-17T22:32:05+00:00",
+    "commit": "94bb633",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -44,11 +44,13 @@
     "thresholds": {
       "retrieval_accuracy": 85.0,
       "ooc_refusal_accuracy": 90.0,
-      "false_refusal_rate": 10.0
+      "false_refusal_rate": 10.0,
+      "claim_accuracy": 100.0
     }
   },
   "metrics": {
     "total_cases": 60,
+    "limited": false,
     "scored_cases": 60,
     "error_cases": 0,
     "claude_calls": 60,
@@ -56,6 +58,8 @@
     "false_refusal_rate": 2.6,
     "ooc_refusal_accuracy": 100.0,
     "keyword_groundedness": 97.2,
+    "claim_cases": 2,
+    "claim_accuracy": 50.0,
     "overall_pass_rate": 95.0
   },
   "rows": [
@@ -78,13 +82,14 @@
         "squish-1"
       ],
       "refused": false,
-      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**. specifically: > \"squish is",
+      "answer_preview": "according to \"squish: the soul that speed can't generate,\" squish is **the feel of a thing**\u2014the weight, the response, a",
       "expect_source": [
         "squish"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -113,6 +118,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -141,6 +147,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -169,6 +176,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -190,7 +198,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "based on [\"the job was never coding\"](source), the answer lies in the human element: **the machine makes it run. the hum",
+      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -199,6 +207,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -220,13 +229,14 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functionally ",
+      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as apps that are functionally",
       "expect_source": [
         "squish"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -255,6 +265,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -283,6 +294,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -311,6 +323,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -339,6 +352,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -367,6 +381,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": null,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -395,6 +410,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -423,6 +439,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -444,13 +461,14 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
+      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
       "expect_source": [
         "i-lacked-the-tools"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -479,6 +497,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -508,6 +527,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -529,13 +549,14 @@
         "home-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith works across these fields as a renaissance man: 1. **software development",
+      "answer_preview": "based on the context provided, christian smith works across these fields as a \"modern-day renaissance man\": - **software",
       "expect_source": [
         "bio"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -565,6 +586,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -586,7 +608,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian is targeting **solutions engineer and ai engineer roles**, with a preference fo",
+      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, preferably remote or hybrid i",
       "expect_source": [
         "resume",
         "bio"
@@ -594,6 +616,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -623,6 +646,7 @@
       "retrieval_hit": false,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": false
     },
     {
@@ -652,6 +676,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -673,7 +698,7 @@
         "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. however, this is an interesting case beca",
+      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. however, this is an interesting case high",
       "expect_source": [
         "resume",
         "home"
@@ -681,6 +706,9 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": true,
+      "claim_detail": null,
+      "answer": "According to the r\u00e9sum\u00e9 source, Christian Smith has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong,\" where he discusses how his Ask the Corpus chatbot initially returned different numbers (seven, then eight) because it was counting the actual project cards displayed on his website rather than taking the stated number at face value. The discrepancy occurred because his publishing agent hadn't created a card for one of the projects yet, even though it had been shipped. By August, when the grid and number aligned, the correct answer of nine was confirmed.",
       "pass": true
     },
     {
@@ -710,6 +738,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -739,6 +768,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -760,13 +790,14 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and the sources s",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and specifically ",
       "expect_source": [
         "resume"
       ],
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -796,6 +827,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -817,7 +849,7 @@
         "ask-the-corpus-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's creation of a question-answering system t",
+      "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's creation of a question-answering system b",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -825,6 +857,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -854,6 +887,7 @@
       "retrieval_hit": true,
       "false_refusal": true,
       "keyword_hit": null,
+      "claim_ok": null,
       "pass": false
     },
     {
@@ -884,6 +918,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -912,6 +947,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -940,6 +976,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -968,6 +1005,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -997,6 +1035,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -1026,6 +1065,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -1054,6 +1094,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -1082,6 +1123,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -1112,6 +1154,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": true,
+      "claim_ok": null,
       "pass": true
     },
     {
@@ -1141,6 +1184,9 @@
       "retrieval_hit": false,
       "false_refusal": false,
       "keyword_hit": false,
+      "claim_ok": false,
+      "claim_detail": "missing \\b5,?000\\b",
+      "answer": "Based on the context provided, Christian has written **two** tests:\n\n1. **The initial test** - a set of questions he asked his assistant (Ask the Corpus) informally to check its behavior\n2. **A formal evaluation suite** - a second machine he built to judge the first, consisting of 40 questions (22 real questions drawn from his published work, and 18 traps drawn from things he hadn't published)\n\nThe context also mentions that Ask the Corpus is held by \"a continuous-integration gate, an evaluation suite that fails the build if retrieval accuracy slips,\" suggesting an ongoing automated testing system.\n\n[Source: Honest and Wrong]",
       "pass": false
     },
     {
@@ -1468,6 +1514,7 @@
       "retrieval_hit": true,
       "false_refusal": false,
       "keyword_hit": null,
+      "claim_ok": null,
       "pass": true
     },
     {

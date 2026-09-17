@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-17T21:44:20+00:00",
-    "commit": "9363272",
+    "generated_at": "2026-09-17T21:48:44+00:00",
+    "commit": "60c47f7",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -190,7 +190,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squishy",
+      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -586,7 +586,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, preferably remote or hybrid i",
+      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, with a preference for remote ",
       "expect_source": [
         "resume",
         "bio"
@@ -1133,7 +1133,7 @@
         "honest-and-wrong-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian has written **two** tests: 1. **the initial test** - a set of questions he aske",
+      "answer_preview": "based on the context provided, christian has written **two** tests: 1. **the initial test** - a set of forty questions (",
       "expect_source": [
         "home",
         "resume"

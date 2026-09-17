@@ -1,1 +1,0 @@
-grep -v '^gradio==' requirements.txt > /tmp/space-req.txt && python -c "from huggingface_hub import HfApi; print(HfApi().upload_file(path_or_fileobj='/tmp/space-req.txt', path_in_repo='requirements.txt', repo_id='RNVizion/ask-the-corpus', repo_type='space', commit_message='Pin to the CI-verified set; gradio stays on sdk_version'))"

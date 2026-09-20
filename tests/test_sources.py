@@ -29,7 +29,22 @@ from pathlib import Path
 
 import pytest
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+def _repo_root():
+    """Find the repo root by locating sources.json, not by counting directories.
+
+    This file was written into eval/ and moved to tests/ the next day. A hardcoded
+    parent.parent survived that move by luck, both being one level down, and would
+    break at any other depth — in a file whose entire job is to fail loudly about
+    a drifting artifact. Locate the artifact instead of assuming where it sits.
+    """
+    here = Path(__file__).resolve()
+    for d in here.parents:
+        if (d / "sources.json").is_file():
+            return d
+    raise RuntimeError(f"sources.json not found in any parent of {here}")
+
+
+REPO_ROOT = _repo_root()
 SOURCES_FILE = REPO_ROOT / "sources.json"
 
 SITE = "https://rnvizion.dev/"

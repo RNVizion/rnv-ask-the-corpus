@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-20T09:01:50+00:00",
-    "commit": "4fec183",
+    "generated_at": "2026-09-20T09:19:10+00:00",
+    "commit": "6affcfb",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -229,7 +229,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as apps that are functionally",
+      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functionally ",
       "expect_source": [
         "squish"
       ],
@@ -461,7 +461,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
+      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -549,7 +549,7 @@
         "home-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python, c+",
+      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python dev",
       "expect_source": [
         "bio"
       ],
@@ -608,7 +608,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, with a preference for remote ",
+      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, preferably remote or hybrid i",
       "expect_source": [
         "resume",
         "bio"
@@ -730,7 +730,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 source, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pyte",
+      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-qt**",
       "expect_source": [
         "resume",
         "bio"
@@ -909,7 +909,7 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't ne",
+      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
       "expect_source": [
         "ask-the-corpus",
         "home",
@@ -1057,7 +1057,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on this rule: **\"resolve or ",
+      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on one rule: **resolve or re",
       "expect_source": [
         "aiii",
         "home"

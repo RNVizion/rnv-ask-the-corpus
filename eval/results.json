@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-20T02:26:27+00:00",
-    "commit": "74d62ad",
+    "generated_at": "2026-09-20T02:30:49+00:00",
+    "commit": "67318b0",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -549,7 +549,7 @@
         "home-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python dev",
+      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python, c+",
       "expect_source": [
         "bio"
       ],
@@ -638,7 +638,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith that ",
+      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith. acco",
       "expect_source": [
         "resume",
         "bio"
@@ -790,7 +790,7 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and specifically ",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and the sources s",
       "expect_source": [
         "resume"
       ],
@@ -909,7 +909,7 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't ne",
+      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
       "expect_source": [
         "ask-the-corpus",
         "home",
@@ -998,7 +998,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code, not devel",
+      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **typists are exposed by ai writing code, not developer",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1116,7 +1116,7 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "according to the context, rnv-mcp-identity implements an **l1\u2013l3 identity-and-authorization layer for mcp servers**. [so",
+      "answer_preview": "according to the context, rnv-mcp-identity implements **l1\u2013l3 identity and authorization layers** for mcp servers. this ",
       "expect_source": [
         "aiii"
       ],
@@ -1653,7 +1653,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the context excerpts list the programming",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
       "refusal_correct": true,
       "pass": true
     },

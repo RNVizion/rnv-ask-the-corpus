@@ -13,6 +13,14 @@ name: eval
 # The cost of enumeration is that a new file under eval/ has to be added here or
 # it silently stops gating. That is the trade: a glob that is always right and
 # occasionally loops, against a list that never loops and occasionally forgets.
+# THE LIST FORGOT, on 2026-09-19: test_sources.py moved to tests/ and both this
+# list and the pytest path below still named eval/, so the new guard was
+# committed, green locally, and never executed by CI.
+#
+# tests/** IS GLOBBED, and safely, because the reason eval/ cannot be is specific
+# to eval/: the commit-back writes two files there. Nothing writes into tests/,
+# so the loop this header is built around cannot start from it. Glob wherever
+# nothing generated lands; enumerate only where something does.
 #
 # sources.json AND scripts/ingest.py ARE NOT PUSH TRIGGERS
 # A push to either starts rebuild-corpus.yml, which rebuilds the index, commits it,
@@ -33,7 +41,7 @@ on:
       - "eval/cases.jsonl"
       - "eval/thresholds.json"
       - "eval/test_eval.py"
-      - "eval/test_sources.py"
+      - "tests/**"
       - "eval/check_index_coverage.py"
       - ".github/workflows/eval.yml"
       - "requirements.txt"
@@ -47,7 +55,7 @@ on:
       - "eval/cases.jsonl"
       - "eval/thresholds.json"
       - "eval/test_eval.py"
-      - "eval/test_sources.py"
+      - "tests/**"
       - "eval/check_index_coverage.py"
       - "requirements.txt"
   workflow_dispatch:
@@ -101,12 +109,13 @@ jobs:
       # Reads the artifact the previous step wrote. No API key: the gate asserts
       # against the recorded run rather than performing a second one, so the
       # report and the gate can no longer describe different runs.
-      # The whole directory, not a named file: a new test file under eval/ starts
-      # gating the moment it lands, rather than when someone remembers to add it
-      # here. The trigger paths at the top of this file still have to be told;
-      # that half is a list, with the cost the header already names.
+      # BOTH test roots, named. `pytest eval/` collected nothing from tests/ when
+      # test_sources.py moved there, and reported success on the tests it could
+      # still see: a gate says nothing about what it never opened, so a guard that
+      # has stopped running is indistinguishable from one that is passing. Adding
+      # a third test root means editing this line and the trigger list above.
       - name: Gate on thresholds
-        run: pytest eval/ -v
+        run: pytest eval/ tests/ -v
 
       # Keeps the repo's record of eval state current. Without this the committed
       # report drifts behind the system it describes: it sat four days stale in

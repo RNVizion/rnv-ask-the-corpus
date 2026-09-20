@@ -126,3 +126,30 @@ def test_pending_entries_are_not_already_live(data):
     assert not stale, f"deployed, but still listed as pending: {stale}"
     for entry in pending:
         assert entry.get("id") and entry.get("url"), entry
+
+
+# ---------------------------------------------------------------------------
+# TEMPORARY - DELIBERATE RED. Remove in the very next commit.
+#
+# This file was committed on 2026-09-19, passed locally, and was not collected
+# by CI at all: the gate's pytest path and the trigger list both still named
+# eval/. The run was green. Ten local tampers all passed while the pipeline was
+# not opening the file. So green has never been evidence that these assertions
+# are reached - a break test run locally proves the assertion works, not that it
+# is reached.
+#
+# This function makes the pipeline go red once, from inside this file, so that
+# reachability is observed rather than inferred.
+#
+# EXPECTED: the run fails at "Gate the source-list contract", before any Claude
+# call is spent, naming this test, with the six real assertions passing above it.
+# IF THE RUN GOES GREEN, that is the finding: the file is still not collected.
+#
+# Named zz_ so it sorts last and the real results are visible in the same log.
+def test_zz_ci_reachability_probe():
+    assert False, (
+        "deliberate red: proving CI collects tests/test_sources.py. "
+        "If you are reading this in a CI log, the probe worked - revert this "
+        "function in the next commit."
+    )
+# ---------------------------------------------------------------------------

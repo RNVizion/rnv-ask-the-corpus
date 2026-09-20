@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-20T05:18:17+00:00",
-    "commit": "747307f",
+    "generated_at": "2026-09-20T05:22:53+00:00",
+    "commit": "97d740c",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -198,7 +198,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
+      "answer_preview": "based on \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squishy",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -229,7 +229,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functionally ",
+      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as apps that are functionally",
       "expect_source": [
         "squish"
       ],
@@ -608,7 +608,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, preferably remote or hybrid i",
+      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, with a preference for remote ",
       "expect_source": [
         "resume",
         "bio"
@@ -698,7 +698,7 @@
         "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian smith has shipped **nine projects**. this is stated in his r\u00e9sum\u00e9 summary: \"nine shi",
+      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. the r\u00e9sum\u00e9 states: \"nine shipped projects",
       "expect_source": [
         "resume",
         "home"
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the context, Christian Smith has shipped **nine projects**.\n\nThis is stated in his r\u00e9sum\u00e9 summary: \"Nine shipped projects and 5,000+ tests across the portfolio\" [Source: R\u00e9sum\u00e9 \u2014 Christian Smith].\n\nHowever, it's worth noting that in the blog post \"Honest and Wrong,\" Christian discusses how his Ask the Corpus chatbot initially gave inconsistent answers to this question (seven, then eight, then nine) because his published materials had contradictory information\u2014his r\u00e9sum\u00e9 claimed nine projects while his website only displayed eight project cards at different points in time.",
+      "answer": "According to the r\u00e9sum\u00e9 source, Christian Smith has shipped **nine projects**. The r\u00e9sum\u00e9 states: \"Nine shipped projects and 5,000+ tests across the portfolio, every project under cross-platform CI with its quality gates published rather than asserted.\"\n\nThis is also mentioned in his profile summary: \"nine projects shipped, in plain text, written by me, correct.\"",
       "pass": true
     },
     {
@@ -790,7 +790,7 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** according to one source, and specifically men",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and the sources s",
       "expect_source": [
         "resume"
       ],
@@ -998,7 +998,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code, not devel",
+      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **typists are exposed by ai writing code, not developer",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1057,7 +1057,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on this rule: **resolve or r",
+      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on one rule: **resolve or re",
       "expect_source": [
         "aiii",
         "home"

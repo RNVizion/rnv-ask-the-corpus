@@ -190,6 +190,18 @@ def claim_result(case, answer, refused):
     nowhere in the corpus, so it cannot have been read and can only have been
     fabricated; do not list a wrong-but-grounded figure there, because quoting one
     correctly is a right answer. Patterns are regexes over the normalised answer.
+
+    A "require" pattern carries the NOUN it counts, not just the figure. res-count
+    first required a bare word-boundary match on nine-or-9, which inside that
+    case's own served window was supplied by rnv-color-mcp's tool count, the text
+    transformer's file-format count, and four times over by an essay about the
+    count being wrong — so an answer reading "ten projects, built on nine
+    deterministic tools" scored a hit. That is this function's own reason for
+    existing, recurring one level up inside it. Keep the gap sized to the
+    phrasings the corpus actually produces; a wider one lets an unrelated noun
+    drift back into range. (Regex metacharacters stay out of this docstring: it is
+    not a raw string, and the backslashes in a pattern quoted here become control
+    characters. The patterns themselves live in cases.jsonl.)
     """
     claim = case.get("claim")
     if not claim:

@@ -57,8 +57,11 @@ The honesty claim is measured, not asserted. A fixed case set runs through the r
 |Retrieval accuracy            |in-corpus questions pull the right source            |≥ 85%|
 |Out-of-corpus refusal accuracy|questions outside the corpus get refused, not guessed|≥ 90%|
 |False-refusal rate            |in-corpus questions are not wrongly refused          |≤ 10%|
+|Public claims                 |figures published on the site are stated, not merely mentioned|100%|
 
 The third gate is the one that matters most and the one most retrieval demos skip. It’s easy to look honest by refusing more; measuring wrongful refusal is what keeps grounding from quietly becoming uselessness.
+
+The fourth is narrower and carries no slack; two cases guard figures published elsewhere on the site, and the build fails if an answer states one wrongly. It exists because checking that a figure *appears* in an answer is not checking that the answer *claims* it: a proxy found the right number inside a sentence asserting a different one, and scored it a hit.
 
 Scoring is deterministic rather than an LLM judge, down to sampling the model at temperature 0 so the same question cannot be answered on one run and refused on the next. Retrieval is matched by chunk-id prefix; a refusal is identified structurally, by whether the answer *leads* with the denial rather than merely contains it. That distinction is load-bearing, because one of the posts quotes the denial line verbatim, and a plain substring test scored correct answers about that post as refusals. The most interesting cases are traps — questions about posts that are drafted but not yet published. They’re out-of-corpus today, so a correct system refuses them; when the post ships, the case flips.
 

@@ -22,6 +22,14 @@ name: eval
 # so the loop this header is built around cannot start from it. Glob wherever
 # nothing generated lands; enumerate only where something does.
 #
+# THE TWO ROOTS RUN IN TWO STEPS, deliberately. tests/ holds contract tests over
+# sources.json: no network, no API key, about a second. They ran after the eval
+# until 2026-09-20, which meant a malformed source list cost 60 Claude calls
+# before anyone heard about it. They now run in the cheap band beside the
+# coverage guard. eval/ asserts against the report and can only run after it.
+# A third root costs three edits: one of the two pytest steps and both trigger
+# lists. Nothing discovers a root on its own; that has not changed.
+#
 # sources.json AND scripts/ingest.py ARE NOT PUSH TRIGGERS
 # A push to either starts rebuild-corpus.yml, which rebuilds the index, commits it,
 # and dispatches this workflow against the commit that holds it. Triggering here as
@@ -89,6 +97,14 @@ jobs:
           pip install pytest==9.1.1
 
 
+      # Same band as the coverage guard below, and for the same reason: no
+      # network, no API key, about a second. sources.json is the file the index
+      # is built from, so a malformed entry should stop the run before anything
+      # is spent on it. This is the tests/ root; the eval/ root is named at the
+      # gate step further down.
+      - name: Gate the source-list contract
+        run: pytest tests/ -v
+
       # About a second, no network, no API key. A doomed run fails here rather
       # than after spending one Claude call per case learning the same thing.
       - name: Check index covers the cases
@@ -109,13 +125,17 @@ jobs:
       # Reads the artifact the previous step wrote. No API key: the gate asserts
       # against the recorded run rather than performing a second one, so the
       # report and the gate can no longer describe different runs.
-      # BOTH test roots, named. `pytest eval/` collected nothing from tests/ when
-      # test_sources.py moved there, and reported success on the tests it could
-      # still see: a gate says nothing about what it never opened, so a guard that
-      # has stopped running is indistinguishable from one that is passing. Adding
-      # a third test root means editing this line and the trigger list above.
+      # eval/ ONLY. tests/ moved to the cheap band above on 2026-09-20; before
+      # that both roots were named here.
+      #
+      # The reason both were ever named on one line: `pytest eval/` collected
+      # nothing from tests/ when test_sources.py moved there, and reported
+      # success on the tests it could still see. A gate says nothing about what
+      # it never opened, so a guard that has stopped running is indistinguishable
+      # from one that is passing. Splitting the roots does not fix that; it only
+      # makes each step's -v output short enough to read.
       - name: Gate on thresholds
-        run: pytest eval/ tests/ -v
+        run: pytest eval/ -v
 
       # Keeps the repo's record of eval state current. Without this the committed
       # report drifts behind the system it describes: it sat four days stale in

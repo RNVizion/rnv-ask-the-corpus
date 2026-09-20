@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-20T05:22:53+00:00",
-    "commit": "97d740c",
+    "generated_at": "2026-09-20T09:01:50+00:00",
+    "commit": "4fec183",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -198,7 +198,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squishy",
+      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -549,7 +549,7 @@
         "home-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python dev",
+      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python, c+",
       "expect_source": [
         "bio"
       ],
@@ -730,7 +730,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-qt**",
+      "answer_preview": "based on the r\u00e9sum\u00e9 source, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pyte",
       "expect_source": [
         "resume",
         "bio"
@@ -909,7 +909,7 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
+      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't ne",
       "expect_source": [
         "ask-the-corpus",
         "home",
@@ -998,7 +998,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **typists are exposed by ai writing code, not developer",
+      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code, not devel",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1057,7 +1057,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on one rule: **resolve or re",
+      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on this rule: **\"resolve or ",
       "expect_source": [
         "aiii",
         "home"

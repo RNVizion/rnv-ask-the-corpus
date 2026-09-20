@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-17T22:46:09+00:00",
-    "commit": "cc29bf1",
+    "generated_at": "2026-09-20T02:26:27+00:00",
+    "commit": "74d62ad",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -111,7 +111,7 @@
         "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian first learned the word \"squish\" in a college classroom from his game programming pro",
+      "answer_preview": "according to the source \"squish: the soul that speed can't generate,\" christian first learned the word \"squish\" in a col",
       "expect_source": [
         "squish"
       ],
@@ -198,7 +198,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "based on [\"the job was never coding\"](source), the answer lies in the human element: **the machine makes it run. the hum",
+      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -461,7 +461,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
+      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -608,7 +608,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, with a preference for remote ",
+      "answer_preview": "based on the context provided, christian is targeting **solutions engineer and ai engineer roles**, with a preference fo",
       "expect_source": [
         "resume",
         "bio"
@@ -638,7 +638,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith. acco",
+      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith that ",
       "expect_source": [
         "resume",
         "bio"
@@ -668,7 +668,7 @@
         "home-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian has built the following ai systems: 1. **ask the corpus** - a retrieval-augment",
+      "answer_preview": "based on the context provided, christian smith has built the following ai systems: 1. **ask the corpus** - a retrieval-a",
       "expect_source": [
         "resume",
         "bio"
@@ -698,7 +698,7 @@
         "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. however, this is an interesting case high",
+      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. the r\u00e9sum\u00e9 states: \"nine shipped projects",
       "expect_source": [
         "resume",
         "home"
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9 source, Christian Smith has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 the number has varied in his documentation at different times. His r\u00e9sum\u00e9 states \"Nine shipped projects and 5,000+ tests across the portfolio,\" and his bio mentions \"nine shipped projects\" as well. The discrepancy arose because while he asserted nine projects in text, his project grid initially only displayed eight cards (his publishing agent project hadn't been added as a card yet, though it was shipped). Once the documentation was corrected to match, the number stabilized at nine.",
+      "answer": "According to the r\u00e9sum\u00e9 source, Christian Smith has shipped **nine projects**. The r\u00e9sum\u00e9 states: \"Nine shipped projects and 5,000+ tests across the portfolio, every project under cross-platform CI with its quality gates published rather than asserted.\"\n\nThis is also mentioned in his profile summary: \"nine projects shipped, in plain text, written by me, correct.\"",
       "pass": true
     },
     {
@@ -790,7 +790,7 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and the sources s",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and specifically ",
       "expect_source": [
         "resume"
       ],
@@ -909,7 +909,7 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
+      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't ne",
       "expect_source": [
         "ask-the-corpus",
         "home",
@@ -1116,7 +1116,7 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "according to the context, rnv-mcp-identity implements **l1\u2013l3 identity and authorization layers** for mcp servers. this ",
+      "answer_preview": "according to the context, rnv-mcp-identity implements an **l1\u2013l3 identity-and-authorization layer for mcp servers**. [so",
       "expect_source": [
         "aiii"
       ],
@@ -1176,7 +1176,7 @@
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian has written **5,000+ tests** across his portfolio. [source: christian smith, ai engi",
+      "answer_preview": "according to the context, christian smith has written **5,000+ tests** across his portfolio. [source: christian smith, a",
       "expect_source": [
         "home",
         "resume"
@@ -1186,7 +1186,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the context, Christian has written **5,000+ tests** across his portfolio.\n\n[Source: Christian Smith, AI Engineer & Developer and R\u00e9sum\u00e9 \u2014 Christian Smith]",
+      "answer": "According to the context, Christian Smith has written **5,000+ tests** across his portfolio.\n\n[Source: Christian Smith, AI Engineer & Developer and R\u00e9sum\u00e9 \u2014 Christian Smith]",
       "pass": true
     },
     {

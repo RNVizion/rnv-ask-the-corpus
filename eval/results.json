@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-20T02:30:49+00:00",
-    "commit": "67318b0",
+    "generated_at": "2026-09-20T02:48:18+00:00",
+    "commit": "f983f01",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -198,7 +198,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
+      "answer_preview": "based on [\"the job was never coding\"](source), the answer lies in the human element: **the machine makes it run. the hum",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -549,7 +549,7 @@
         "home-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python, c+",
+      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python dev",
       "expect_source": [
         "bio"
       ],
@@ -608,7 +608,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian is targeting **solutions engineer and ai engineer roles**, with a preference fo",
+      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, preferably remote or hybrid i",
       "expect_source": [
         "resume",
         "bio"
@@ -668,7 +668,7 @@
         "home-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith has built the following ai systems: 1. **ask the corpus** - a retrieval-a",
+      "answer_preview": "based on the context provided, christian has built the following ai systems: 1. **ask the corpus** - a retrieval-augment",
       "expect_source": [
         "resume",
         "bio"
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9 source, Christian Smith has shipped **nine projects**. The r\u00e9sum\u00e9 states: \"Nine shipped projects and 5,000+ tests across the portfolio, every project under cross-platform CI with its quality gates published rather than asserted.\"\n\nThis is also mentioned in his profile summary: \"nine projects shipped, in plain text, written by me, correct.\"",
+      "answer": "According to the r\u00e9sum\u00e9 source, Christian Smith has shipped **nine projects**. The r\u00e9sum\u00e9 states: \"Nine shipped projects and 5,000+ tests across the portfolio, every project under cross-platform CI with its quality gates published rather than asserted.\"\n\nThis is also mentioned in his About page, which notes \"nine projects shipped, in plain text.\"",
       "pass": true
     },
     {
@@ -1653,7 +1653,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the context excerpts list the programming",
       "refusal_correct": true,
       "pass": true
     },

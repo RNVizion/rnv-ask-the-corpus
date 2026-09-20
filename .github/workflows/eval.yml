@@ -33,6 +33,7 @@ on:
       - "eval/cases.jsonl"
       - "eval/thresholds.json"
       - "eval/test_eval.py"
+      - "eval/test_sources.py"
       - "eval/check_index_coverage.py"
       - ".github/workflows/eval.yml"
       - "requirements.txt"
@@ -46,6 +47,7 @@ on:
       - "eval/cases.jsonl"
       - "eval/thresholds.json"
       - "eval/test_eval.py"
+      - "eval/test_sources.py"
       - "eval/check_index_coverage.py"
       - "requirements.txt"
   workflow_dispatch:
@@ -99,8 +101,12 @@ jobs:
       # Reads the artifact the previous step wrote. No API key: the gate asserts
       # against the recorded run rather than performing a second one, so the
       # report and the gate can no longer describe different runs.
+      # The whole directory, not a named file: a new test file under eval/ starts
+      # gating the moment it lands, rather than when someone remembers to add it
+      # here. The trigger paths at the top of this file still have to be told;
+      # that half is a list, with the cost the header already names.
       - name: Gate on thresholds
-        run: pytest eval/test_eval.py -v
+        run: pytest eval/ -v
 
       # Keeps the repo's record of eval state current. Without this the committed
       # report drifts behind the system it describes: it sat four days stale in

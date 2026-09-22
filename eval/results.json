@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-20T09:19:10+00:00",
-    "commit": "6affcfb",
+    "generated_at": "2026-09-22T11:11:01+00:00",
+    "commit": "b0d77df",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -111,7 +111,7 @@
         "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the source \"squish: the soul that speed can't generate,\" christian first learned the word \"squish\" in a col",
+      "answer_preview": "according to the context, christian first learned the word \"squish\" in a college classroom from his game programming pro",
       "expect_source": [
         "squish"
       ],
@@ -185,20 +185,20 @@
       "question": "What turns software that merely works into software people love?",
       "retrieved": [
         "the-job-was-never-coding",
+        "resume",
         "the-job-was-never-coding",
         "ask-the-corpus",
-        "bio",
-        "resume"
+        "bio"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-1",
+        "resume-4",
         "the-job-was-never-coding-3",
         "ask-the-corpus-1",
-        "bio-2",
-        "resume-4"
+        "bio-2"
       ],
       "refused": false,
-      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
+      "answer_preview": "based on christian's writing, what turns software that merely works into software people love is **the human element\u2014mak",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -229,7 +229,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on \"squish: the soul that speed can't generate,\" christian describes hollow software as work that is functionally ",
+      "answer_preview": "based on the context from \"squish: the soul that speed can't generate,\" christian describes hollow software as the resul",
       "expect_source": [
         "squish"
       ],
@@ -608,7 +608,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, preferably remote or hybrid i",
+      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, with a preference for remote ",
       "expect_source": [
         "resume",
         "bio"
@@ -686,19 +686,19 @@
       "retrieved": [
         "bio",
         "resume",
-        "resume",
         "home",
-        "honest-and-wrong"
+        "honest-and-wrong",
+        "resume"
       ],
       "retrieved_chunks": [
         "bio-0",
         "resume-0",
-        "resume-4",
         "home-5",
-        "honest-and-wrong-2"
+        "honest-and-wrong-2",
+        "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9 source, christian smith has shipped **nine projects**. the r\u00e9sum\u00e9 states: \"nine shipped projects",
+      "answer_preview": "according to the r\u00e9sum\u00e9, christian smith has shipped **nine projects**. this is stated in the summary section: \"nine shi",
       "expect_source": [
         "resume",
         "home"
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9 source, Christian Smith has shipped **nine projects**. The r\u00e9sum\u00e9 states: \"Nine shipped projects and 5,000+ tests across the portfolio, every project under cross-platform CI with its quality gates published rather than asserted.\"\n\nThis is also mentioned in his profile summary: \"nine projects shipped, in plain text, written by me, correct.\"",
+      "answer": "According to the r\u00e9sum\u00e9, Christian Smith has shipped **nine projects**. \n\nThis is stated in the Summary section: \"Nine shipped projects and 5,000+ tests across the portfolio.\"\n\nHowever, the blog post \"Honest and Wrong\" provides an interesting caveat\u2014it describes how his retrieval system initially gave different answers (seven, then eight) because it was counting the actual project cards displayed on his site rather than taking the stated number at face value. The discrepancy occurred because his publishing agent for one project hadn't been added as a card yet, even though it was shipped. By August, when the grid and number aligned, the system correctly answered nine.\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong]",
       "pass": true
     },
     {
@@ -730,7 +730,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-qt**",
+      "answer_preview": "based on the r\u00e9sum\u00e9 source, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pyte",
       "expect_source": [
         "resume",
         "bio"
@@ -998,7 +998,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code, not devel",
+      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **typists are exposed by ai writing code, not developer",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1057,7 +1057,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on one rule: **resolve or re",
+      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on this rule: **resolve or r",
       "expect_source": [
         "aiii",
         "home"
@@ -1145,7 +1145,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith (rnvizion) has built: 1. **ask the corpus** - a retrieval-augmented chatb",
+      "answer_preview": "based on the context provided, christian has built several projects: 1. **ask the corpus** - a retrieval-augmented chatb",
       "expect_source": [
         "home",
         "resume",
@@ -1288,15 +1288,15 @@
       "retrieved": [
         "the-job-was-never-coding",
         "sloth",
-        "resume",
         "home",
+        "resume",
         "i-lacked-the-tools"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-0",
         "sloth-0",
-        "resume-4",
         "home-4",
+        "resume-4",
         "i-lacked-the-tools-0"
       ],
       "refused": true,
@@ -1358,15 +1358,15 @@
         "home",
         "i-lacked-the-tools",
         "i-lacked-the-tools",
-        "resume",
-        "home"
+        "home",
+        "squish"
       ],
       "retrieved_chunks": [
         "home-4",
         "i-lacked-the-tools-3",
         "i-lacked-the-tools-4",
-        "resume-4",
-        "home-2"
+        "home-2",
+        "squish-4"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",

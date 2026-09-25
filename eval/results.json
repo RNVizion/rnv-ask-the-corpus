@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-22T11:11:01+00:00",
-    "commit": "b0d77df",
+    "generated_at": "2026-09-25T23:24:41+00:00",
+    "commit": "cb7408d",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -111,7 +111,7 @@
         "honest-and-wrong-2"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian first learned the word \"squish\" in a college classroom from his game programming pro",
+      "answer_preview": "according to the source \"squish: the soul that speed can't generate,\" christian first learned the word \"squish\" in a col",
       "expect_source": [
         "squish"
       ],
@@ -185,20 +185,20 @@
       "question": "What turns software that merely works into software people love?",
       "retrieved": [
         "the-job-was-never-coding",
-        "resume",
         "the-job-was-never-coding",
         "ask-the-corpus",
+        "resume",
         "bio"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-1",
-        "resume-4",
         "the-job-was-never-coding-3",
         "ask-the-corpus-1",
+        "resume-4",
         "bio-2"
       ],
       "refused": false,
-      "answer_preview": "based on christian's writing, what turns software that merely works into software people love is **the human element\u2014mak",
+      "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -217,19 +217,19 @@
       "retrieved": [
         "bio",
         "honest-and-wrong",
-        "resume",
         "squish",
-        "the-job-was-never-coding"
+        "the-job-was-never-coding",
+        "home"
       ],
       "retrieved_chunks": [
         "bio-0",
         "honest-and-wrong-6",
-        "resume-3",
         "squish-2",
-        "the-job-was-never-coding-3"
+        "the-job-was-never-coding-3",
+        "home-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context from \"squish: the soul that speed can't generate,\" christian describes hollow software as the resul",
+      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian uses \"hollow\" to describe software that is t",
       "expect_source": [
         "squish"
       ],
@@ -461,7 +461,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
+      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -487,10 +487,10 @@
         "i-lacked-the-tools-5",
         "the-job-was-never-coding-3",
         "home-1",
-        "resume-0"
+        "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't set out to",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't initially ",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -549,7 +549,7 @@
         "home-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python dev",
+      "answer_preview": "based on the context, christian smith works across these fields as a renaissance man: 1. **software development** - pyth",
       "expect_source": [
         "bio"
       ],
@@ -566,16 +566,16 @@
       "retrieved": [
         "bio",
         "i-lacked-the-tools",
-        "resume",
         "home",
-        "home"
+        "home",
+        "resume"
       ],
       "retrieved_chunks": [
         "bio-0",
         "i-lacked-the-tools-0",
-        "resume-4",
         "home-5",
-        "home-3"
+        "home-3",
+        "resume-4"
       ],
       "refused": false,
       "answer_preview": "according to the \"about christian smith\" source, christian works at meta as a sales and support specialist in the best b",
@@ -608,7 +608,7 @@
         "i-lacked-the-tools-1"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian is targeting **solutions engineer and ai engineer roles**, with a preference for remote ",
+      "answer_preview": "based on the context provided, christian is targeting **solutions engineer and ai engineer roles**, with a preference fo",
       "expect_source": [
         "resume",
         "bio"
@@ -624,21 +624,21 @@
       "kind": "in_corpus",
       "question": "What is rnv-color-mcp?",
       "retrieved": [
+        "resume",
         "home",
         "i-lacked-the-tools",
         "home",
-        "i-lacked-the-tools",
-        "resume"
+        "i-lacked-the-tools"
       ],
       "retrieved_chunks": [
+        "resume-4",
         "home-4",
         "i-lacked-the-tools-4",
         "home-3",
-        "i-lacked-the-tools-2",
-        "resume-4"
+        "i-lacked-the-tools-2"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, **rnv color mcp** is a model context protocol (mcp) server built by christian smith. acco",
+      "answer_preview": "based on the context provided, **rnv-color-mcp** is a model context protocol (mcp) server built by christian smith. acco",
       "expect_source": [
         "resume",
         "bio"
@@ -698,7 +698,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9, christian smith has shipped **nine projects**. this is stated in the summary section: \"nine shi",
+      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is an interesting case highlighted in hi",
       "expect_source": [
         "resume",
         "home"
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9, Christian Smith has shipped **nine projects**. \n\nThis is stated in the Summary section: \"Nine shipped projects and 5,000+ tests across the portfolio.\"\n\nHowever, the blog post \"Honest and Wrong\" provides an interesting caveat\u2014it describes how his retrieval system initially gave different answers (seven, then eight) because it was counting the actual project cards displayed on his site rather than taking the stated number at face value. The discrepancy occurred because his publishing agent for one project hadn't been added as a card yet, even though it was shipped. By August, when the grid and number aligned, the system correctly answered nine.\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong]",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his website initially displayed eight project cards while claiming nine in the text. His publishing agent was designed to count what it could actually verify rather than take the stated number at face value. Once the missing project card (the RNV Publishing Agent) was added to the grid, the count and assertion aligned at nine.\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong]",
       "pass": true
     },
     {
@@ -730,7 +730,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9 source, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pyte",
+      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools (from [source: r\u00e9sum\u00e9 \u2014 christian smith]): - **pytest** ",
       "expect_source": [
         "resume",
         "bio"
@@ -790,7 +790,7 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and the sources s",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and specifically ",
       "expect_source": [
         "resume"
       ],
@@ -815,11 +815,11 @@
         "bio-0",
         "home-0",
         "bio-2",
-        "resume-3",
+        "resume-4",
         "home-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works in ar/vr at meta as a sales and support specialist in the best buy retail program.",
+      "answer_preview": "based on the context provided, christian works in ar/vr at meta as a sales and support specialist in the best buy retail",
       "expect_source": [
         "resume",
         "bio"
@@ -998,7 +998,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **typists are exposed by ai writing code, not developer",
+      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code, not devel",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1017,17 +1017,17 @@
         "the-job-was-never-coding",
         "bio",
         "squish",
-        "resume"
+        "aiii"
       ],
       "retrieved_chunks": [
         "aiii-3",
         "the-job-was-never-coding-1",
         "bio-2",
         "squish-3",
-        "resume-1"
+        "aiii-5"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, aiii (artificial intelligence identification initiative) is: **an apache-2.0 reference im",
+      "answer_preview": "based on the context provided, aiii (artificial intelligence identification initiative) is: a working implementation and",
       "expect_source": [
         "aiii",
         "home"
@@ -1045,19 +1045,19 @@
       "retrieved": [
         "aiii",
         "the-job-was-never-coding",
-        "resume",
         "bio",
-        "bio"
+        "bio",
+        "resume"
       ],
       "retrieved_chunks": [
         "aiii-3",
         "the-job-was-never-coding-1",
-        "resume-1",
         "bio-2",
-        "bio-1"
+        "bio-1",
+        "resume-1"
       ],
       "refused": false,
-      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on this rule: **resolve or r",
+      "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on one rule: **\"resolve or r",
       "expect_source": [
         "aiii",
         "home"
@@ -1116,7 +1116,7 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "according to the context, rnv-mcp-identity implements **l1\u2013l3 identity and authorization layers** for mcp servers. this ",
+      "answer_preview": "according to the context, **rnv-mcp-identity implements an l1\u2013l3 identity-and-authorization layer for mcp servers**. thi",
       "expect_source": [
         "aiii"
       ],
@@ -1145,7 +1145,7 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian has built several projects: 1. **ask the corpus** - a retrieval-augmented chatb",
+      "answer_preview": "based on the context provided, christian smith (rnvizion) has built: 1. **ask the corpus** - a retrieval-augmented chatb",
       "expect_source": [
         "home",
         "resume",
@@ -1196,15 +1196,15 @@
       "retrieved": [
         "the-job-was-never-coding",
         "home",
-        "bio",
         "i-lacked-the-tools",
+        "bio",
         "squish"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-1",
         "home-1",
-        "bio-1",
         "i-lacked-the-tools-5",
+        "bio-1",
         "squish-2"
       ],
       "refused": true,
@@ -1289,15 +1289,15 @@
         "the-job-was-never-coding",
         "sloth",
         "home",
-        "resume",
-        "i-lacked-the-tools"
+        "i-lacked-the-tools",
+        "fit-over-default"
       ],
       "retrieved_chunks": [
         "the-job-was-never-coding-0",
         "sloth-0",
         "home-4",
-        "resume-4",
-        "i-lacked-the-tools-0"
+        "i-lacked-the-tools-0",
+        "fit-over-default-1"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1333,15 +1333,15 @@
       "question": "Who is the CEO of Microsoft?",
       "retrieved": [
         "aiii",
-        "resume",
         "bio",
+        "resume",
         "resume",
         "home"
       ],
       "retrieved_chunks": [
         "aiii-2",
-        "resume-3",
         "bio-0",
+        "resume-3",
         "resume-0",
         "home-5"
       ],
@@ -1435,7 +1435,7 @@
         "home-3",
         "resume-0",
         "aiii-1",
-        "resume-4"
+        "resume-1"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
@@ -1536,7 +1536,7 @@
         "squish-4"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions \"the essay about bu",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions an essay christian ",
       "refusal_correct": true,
       "pass": true,
       "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."
@@ -1642,18 +1642,18 @@
         "bio",
         "home",
         "bio",
-        "squish",
-        "the-job-was-never-coding"
+        "resume",
+        "squish"
       ],
       "retrieved_chunks": [
         "bio-0",
         "home-1",
         "bio-2",
-        "squish-4",
-        "the-job-was-never-coding-3"
+        "resume-4",
+        "squish-4"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the context excerpts list the programming",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
       "refusal_correct": true,
       "pass": true
     },
@@ -1689,14 +1689,14 @@
         "bio",
         "home",
         "home",
-        "bio"
+        "squish"
       ],
       "retrieved_chunks": [
         "fit-over-default-1",
         "bio-0",
         "home-2",
         "home-3",
-        "bio-1"
+        "squish-3"
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the context excerpts discuss christian's ",

@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-25T23:24:41+00:00",
-    "commit": "cb7408d",
+    "generated_at": "2026-09-26T03:52:55+00:00",
+    "commit": "e20e5ed",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -461,7 +461,7 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
+      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -490,7 +490,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't initially ",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't set out to",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his website initially displayed eight project cards while claiming nine in the text. His publishing agent was designed to count what it could actually verify rather than take the stated number at face value. Once the missing project card (the RNV Publishing Agent) was added to the grid, the count and assertion aligned at nine.\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong]",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his r\u00e9sum\u00e9 states nine shipped projects, but at the time he wrote that post, his website grid only displayed eight project cards (his publishing agent hadn't been added as a card yet). By August, the grid and number aligned at nine.\n\nSources: [R\u00e9sum\u00e9 \u2014 Christian Smith] and [Honest and Wrong]",
       "pass": true
     },
     {
@@ -790,7 +790,7 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** (as stated in his profile), and specifically ",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** according to his profile, and specifically me",
       "expect_source": [
         "resume"
       ],
@@ -909,7 +909,7 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
+      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't ne",
       "expect_source": [
         "ask-the-corpus",
         "home",

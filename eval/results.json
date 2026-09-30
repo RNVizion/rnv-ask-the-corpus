@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-30T03:45:15+00:00",
-    "commit": "9a026b0",
+    "generated_at": "2026-09-30T03:49:48+00:00",
+    "commit": "a674f00",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -698,7 +698,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is clarified in the \"honest and wrong\" b",
+      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is an interesting case highlighted in hi",
       "expect_source": [
         "resume",
         "home"
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is clarified in the \"Honest and Wrong\" blog post, which explains that while his r\u00e9sum\u00e9 states nine shipped projects, the actual grid of project cards on his site initially showed eight (because his publishing agent project hadn't been added as a card yet, despite being shipped). The post describes how his retrieval system caught this discrepancy by counting what it could actually see rather than taking the stated number at face value.\n\nSources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his website initially displayed eight project cards while claiming nine in the text. His publishing agent was designed to count what it could actually verify rather than take the stated number at face value. Once the missing project card (the RNV Publishing Agent) was added to the grid, the count and assertion aligned at nine.\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong]",
       "pass": true
     },
     {
@@ -879,7 +879,7 @@
         "sloth-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the excerpts discuss the refusal ex",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the excerpts discuss christian's re",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -1116,7 +1116,7 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "according to the context, rnv-mcp-identity implements **l1\u2013l3 identity and authorization layers** for mcp servers. this ",
+      "answer_preview": "according to the context, rnv-mcp-identity implements an **l1\u2013l3 identity and authorization layer** for mcp servers. thi",
       "expect_source": [
         "aiii"
       ],

@@ -19,7 +19,7 @@ class SkipSource(Exception):
 
 
 def load_sources():
-    """Read the live source list from sources.json (the '_pending' list is ignored)."""
+    """Read the source list from sources.json."""
     data = json.loads(SOURCES_FILE.read_text(encoding="utf-8"))
     return data.get("sources", [])
 

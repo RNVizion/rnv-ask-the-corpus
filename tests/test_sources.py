@@ -17,9 +17,17 @@ fails loudly, in the same run, instead of quietly disagreeing with a program in
 another repository.
 
 These assertions are read off the current file and off `discover.py`, not
-invented. What they cannot see: whether a URL is live, whether the agent still
-derives ids the same way, or whether a pending entry has since deployed. The
-last of those has one cheap proxy, asserted below.
+invented. What they cannot see: whether a URL is live, or whether the agent
+still derives ids the same way.
+
+Every assertion here gates a commit. The file runs right after discovery
+writes, before that write is committed; at the head of every ship, before an
+index is built; and in the eval's cheap band. So it holds only checks on what a
+writer writes. A reminder to a human does not belong here: a check on the old
+pending list sat in this file until 2026-09-29, and it failed precisely when
+discovery had correctly registered a live post, so in front of a commit it
+would have held that post back until someone edited a field nothing read. The
+list was retired rather than the check moved.
 
 No API key, no network, no index.
 """
@@ -107,22 +115,3 @@ def test_scope_flags_are_known(data):
     unknown = [(s["id"], s["scope"]) for s in data["sources"]
                if "scope" in s and s["scope"] not in KNOWN_SCOPES]
     assert not unknown, f"unknown scope: {unknown}; ingest.py implements {KNOWN_SCOPES}"
-
-
-def test_pending_entries_are_not_already_live(data):
-    """The pending list is a note to a human: pages drafted but not deployed. The
-    ingester ignores it, so an entry that has since deployed sits there forever,
-    which is what happened to the-job-was-never-coding (deployed 2026-07-15,
-    removed from pending twelve days later).
-
-    The cheap proxy: once a page is live, discover.py registers it from the feed,
-    so a pending URL that also appears in `sources` means the move never happened.
-    This cannot catch a pending entry whose URL never existed at all — the-margin
-    sat there from a working slug that was never published, found by a reader in
-    another chat rather than by this file."""
-    pending = data.get("_pending_not_yet_deployed", [])
-    live = {norm(s["url"]) for s in data["sources"]}
-    stale = [p for p in pending if norm(p.get("url", "")) in live]
-    assert not stale, f"deployed, but still listed as pending: {stale}"
-    for entry in pending:
-        assert entry.get("id") and entry.get("url"), entry

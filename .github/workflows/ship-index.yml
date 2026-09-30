@@ -53,6 +53,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # The contract on sources.json, before an index is built from it. Every
+      # writer's change reaches the Space through this job: discovery's (already
+      # checked before its commit, so this is a second look), the publishing
+      # agent's push, and any hand edit. Until 2026-09-29 the contract first ran
+      # inside the eval this job dispatches, after the index was already live.
+      # Same pytest pin as eval.yml and check-source-edits.yml.
+      - name: Gate the source-list contract
+        run: |
+          pip install pytest==9.1.1
+          pytest tests/ -v
+
       # Wipes chroma/ and rebuilds it from the live URLs. Exits 1 if any declared
       # source did not land, so a partial index is never committed or shipped.
       - name: Rebuild the index from the live site

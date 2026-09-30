@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-26T03:52:55+00:00",
-    "commit": "e20e5ed",
+    "generated_at": "2026-09-30T03:45:15+00:00",
+    "commit": "9a026b0",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -549,7 +549,7 @@
         "home-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian smith works across these fields as a renaissance man: 1. **software development** - pyth",
+      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python dev",
       "expect_source": [
         "bio"
       ],
@@ -698,7 +698,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is an interesting case highlighted in hi",
+      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is clarified in the \"honest and wrong\" b",
       "expect_source": [
         "resume",
         "home"
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his r\u00e9sum\u00e9 states nine shipped projects, but at the time he wrote that post, his website grid only displayed eight project cards (his publishing agent hadn't been added as a card yet). By August, the grid and number aligned at nine.\n\nSources: [R\u00e9sum\u00e9 \u2014 Christian Smith] and [Honest and Wrong]",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is clarified in the \"Honest and Wrong\" blog post, which explains that while his r\u00e9sum\u00e9 states nine shipped projects, the actual grid of project cards on his site initially showed eight (because his publishing agent project hadn't been added as a card yet, despite being shipped). The post describes how his retrieval system caught this discrepancy by counting what it could actually see rather than taking the stated number at face value.\n\nSources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong",
       "pass": true
     },
     {
@@ -730,7 +730,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools (from [source: r\u00e9sum\u00e9 \u2014 christian smith]): - **pytest** ",
+      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-qt**",
       "expect_source": [
         "resume",
         "bio"
@@ -879,7 +879,7 @@
         "sloth-1"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the excerpts discuss christian's re",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the excerpts discuss the refusal ex",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -1116,7 +1116,7 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "according to the context, **rnv-mcp-identity implements an l1\u2013l3 identity-and-authorization layer for mcp servers**. thi",
+      "answer_preview": "according to the context, rnv-mcp-identity implements **l1\u2013l3 identity and authorization layers** for mcp servers. this ",
       "expect_source": [
         "aiii"
       ],
@@ -1536,7 +1536,7 @@
         "squish-4"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions an essay christian ",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions \"the essay about bu",
       "refusal_correct": true,
       "pass": true,
       "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."

@@ -44,6 +44,18 @@ jobs:
       - name: Discover new posts from the feed
         run: python scripts/discover.py
 
+      # Checks the write discovery just made, before anything fetches it or
+      # commits it. No network, no API key, about a second. On failure nothing
+      # below runs: the new entry and every page's refreshed hash stay
+      # uncommitted, and the next scheduled run tries again, red, until the entry
+      # is fixed. Deliberate: an off-contract entry is a defect that waiting will
+      # not fix, because the feed re-sends it every run. Same pytest pin as
+      # eval.yml and ship-index.yml; change all three together.
+      - name: Gate the source-list contract
+        run: |
+          pip install pytest==9.1.1
+          pytest tests/ -v
+
       - name: Check tracked sources for edits
         id: check
         run: python scripts/check_edits.py

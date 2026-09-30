@@ -18,6 +18,14 @@ name: ship index
 # workflow_dispatch is the documented exception, so the gate is started explicitly,
 # once, against main with the new index on it.
 #
+# WHEN IT DOES NEITHER
+# When main already holds an index with the same content, there is nothing to
+# commit or gate. Until 2026-09-30 that case was decided by comparing bytes, and
+# every rebuild writes fresh ids and timestamps, so it never fired: four of the
+# first six committed rebuilds held the same text as the index they replaced, and
+# each spent a full eval and a Space redeploy. scripts/compare_index.py decides it
+# now, on what the index says.
+#
 # WHAT IS AND IS NOT GATED
 # The index deploys without waiting for the eval, as it always has: a new post
 # should reach the demo even while a case needs attention, and the eval's verdict is
@@ -77,6 +85,11 @@ jobs:
       # on main while this ran, this index describes an older list, and the push
       # that changed it has queued its own rebuild; stand down rather than commit a
       # stale index over a newer declaration.
+      #
+      # If main's index already says the same thing, commit nothing. If the
+      # comparison cannot say, warn and decide on bytes, which commits: a mistake
+      # here costs one unneeded ship, never a skipped one. Equal content also means
+      # equal chunk ids, so main's index passes the --strict check above as well.
       - name: Commit the index
         id: commit
         run: |
@@ -92,21 +105,40 @@ jobs:
             if [ "$(git rev-parse origin/main:sources.json)" != "$built_from" ]; then
               echo "::notice::sources.json changed on main during this rebuild; the queued run will ship it"
               echo "committed=false" >> "$GITHUB_OUTPUT"
+              echo "deploy=false" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             git reset -q --hard origin/main
+            # reset restores main's tracked files but leaves the rebuild's segment
+            # directory beside them, untracked; clear it so chroma/ is main's alone
+            git clean -q -f -d -x -- chroma
+
+            verdict=0
+            python scripts/compare_index.py chroma "$tmp/chroma" || verdict=$?
+            if [ "$verdict" -eq 0 ]; then
+              echo "nothing to commit or gate"
+              echo "committed=false" >> "$GITHUB_OUTPUT"
+              echo "deploy=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [ "$verdict" -ne 1 ]; then
+              echo "::warning::could not compare the rebuilt index with main's, so deciding on bytes; every rebuild will ship until this is fixed"
+            fi
+
             rm -rf chroma
             cp -r "$tmp/chroma" chroma
             git add -A chroma
             if git diff --cached --quiet; then
-              echo "index unchanged; nothing to commit"
+              echo "index unchanged byte for byte; nothing to commit"
               echo "committed=false" >> "$GITHUB_OUTPUT"
+              echo "deploy=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             git commit -q -m "corpus: rebuild index [skip ci]"
             if git push -q origin HEAD:main; then
               echo "committed $(git rev-parse --short HEAD)"
               echo "committed=true" >> "$GITHUB_OUTPUT"
+              echo "deploy=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             echo "push rejected, main moved; retrying ($attempt/3)"
@@ -121,8 +153,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run eval.yml --ref main
 
+      # Runs whether or not anything was committed, against main's index either
+      # way. When the Space already holds it, deploy_space.py uploads nothing, says
+      # "Space already matches", and nothing restarts. When an earlier deploy
+      # failed, this is how the Space catches up: rerunning a failed ship used to
+      # redeploy only because every rebuild looked changed.
       - name: Deploy the index and check the live app answers
-        if: steps.commit.outputs.committed == 'true'
+        if: steps.commit.outputs.deploy == 'true'
         env:
           HF_TOKEN: ${{ secrets.CORPUS_CI }}
         run: python scripts/deploy_space.py --index --smoke

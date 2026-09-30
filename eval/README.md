@@ -23,7 +23,7 @@ The refusal test checks structure rather than substring, because a plain `in` te
 
 The suite no longer grows because a source arrived. **Admission requires that a case teach the suite something it cannot already see:** a new content shape, a new failure mode, or a public claim that depends on it. `home-tests` guards the published 5,000+ floor and `res-count` guards the nine-project figure; those earn their places. "A new post shipped" does not.
 
-**The total is stable; the split is not.** A trap flips `out_of_corpus` → `in_corpus` when its post publishes — edited, not added — so the count holds at 60 while the split slides. `trap-compass` is the one flip still armed, waiting on the unpublished "Without a Compass"; `trap-margin` flipped on 2026-08-21 when its post went live. The split is not printed here, for the same reason it is not printed anywhere else: That is why the split is machine-checked in `rnv-brand/profile.json` and never printed on a public surface: **publish a figure only if it changes on a human decision the publisher makes.**
+**The total is stable; the split is not.** A trap flips `out_of_corpus` → `in_corpus` when its post publishes — edited, not added — so the count holds at 60 while the split slides. `trap-compass` is the one flip still armed, waiting on the unpublished "Without a Compass"; `trap-margin` flipped on 2026-08-21 when its post went live. The split is machine-checked in `rnv-brand/profile.json` and never printed on a public surface: **publish a figure only if it changes on a human decision the publisher makes.** Where this file needs it to size a gate, below, it is dated.
 
 ```
 {"id": "...", "kind": "in_corpus"|"out_of_corpus", "question": "...",
@@ -42,22 +42,24 @@ Patterns are regexes over the normalised answer. Every `require` must match. `fo
 
 The bar is 100% with no slack, and the count of claim cases is asserted before the percentage, so deleting the blocks cannot leave the guard passing on an empty set.
 
-**Every source in `sources.json` currently carries at least one case** — ten sources, ten covered, first met on August 5, 2026 when `fit-over-default` gained `fod-two-systems` and `trap-fod-openai`. Treat that as the current state, not an invariant: under the freeze, **a future source may deliberately go uncovered**, and the coverage guard reports it as a note rather than a failure. An uncovered source is a decision to be able to defend, not a gap to close by reflex — but it does mean the corpus holds content nothing is watching, so make the call knowingly.
+**Not every source carries a case, and under the freeze that is expected.** Full coverage was first met on August 5, 2026, when `fit-over-default` gained `fod-two-systems` and `trap-fod-openai`. It no longer holds by default: on 2026-09-29, 11 of 13 sources carry a case, and `honest-and-wrong` and `the-warning-not-the-gate` carry none. The coverage guard reports an uncovered source as a note rather than a failure. An uncovered source is a decision to be able to defend, not a gap to close by reflex — but it does mean the corpus holds content nothing is watching, so make the call knowingly.
 
 Keep notes short. They're free text for humans, but this is a data file, not a document: a note that runs past a few hundred characters belongs in the Ecosystem Master with a pointer here. Long lines also stop syntax highlighting in most editors, which is a useful smell.
 
-The most interesting cases are the **traps**: questions about pending posts (`The Margin, Not the Price`), unpublished essays (`Without a Compass`), and personal details that live in private docs. They're out-of-corpus *today*, so a correct system refuses them.
+The most interesting cases are the **traps**: questions about unpublished essays (`Without a Compass`) and personal details that live in private docs. `The Margin, Not the Price` was one until it published and its trap flipped. They're out-of-corpus *today*, so a correct system refuses them.
 
 ## How much slack each gate has
 
 Worth knowing before you add a risky case, because the bars are percentages and the set is small:
 
-| Gate | Bar | At current counts | Tolerates |
+| Gate | Bar | At 39 / 21 (2026-09-29) | Tolerates |
 |---|---|---|---|
-| Retrieval accuracy | ≥ 85% | 38 in-corpus | 5 misses |
-| False-refusal rate | ≤ 10% | 38 in-corpus | 3 false refusals |
-| Out-of-corpus refusal | ≥ 90% | 22 out-of-corpus | 2 misses |
+| Retrieval accuracy | ≥ 85% | 39 in-corpus | 5 misses |
+| False-refusal rate | ≤ 10% | 39 in-corpus | 3 false refusals |
+| Out-of-corpus refusal | ≥ 90% | 21 out-of-corpus | 2 misses |
 | Public claims | 100% | the cases carrying a `claim` block | nothing |
+
+The split slid from 38/22 on 2026-08-21 without moving a single tolerance. When `trap-compass` flips it goes to 40/20, and then they do move: 6, 4 and 2. Both sets are computed through the one-decimal rounding `evaluate.py` gates on.
 
 Two consequences. **One false refusal is currently spent** — `atc-refusal`, diagnosed below — so there is real but finite room. And the **out-of-corpus gate is the tightest**: it tolerated a single miss back when the set was 18, which is how a stale trap case once sat there passing at 17/18 with nothing left over. Adjacent-but-absent questions ("what is Meta's stock price") are the valuable next tier, but they're also the ones most likely to draw a hedged answer instead of the denial line. Add them deliberately, and check the margin first.
 
@@ -70,7 +72,7 @@ python eval/evaluate.py                    # writes eval/report.md, gates on thr
 python eval/evaluate.py --report-only      # report without failing
 python eval/evaluate.py --limit 10         # sample while iterating
 python eval/why.py "<question>" "<phrase>" # rank a question, locate a phrase, see if its chunk made the window
-pytest eval/test_eval.py -v                # the CI gate
+pytest tests/ eval/ -v                     # both CI gates: the source contract, then the metrics
 ```
 
 It runs from the repo root because `app.py` opens `chroma/` by relative path.
@@ -79,24 +81,25 @@ Run the coverage guard before anything that spends money. It reads the index dir
 
 ## CI
 
-`.github/workflows/eval.yml` runs on any change to `app.py`, `scripts/ingest.py`, `sources.json`, `chroma/**`, `requirements.txt`, the workflow file itself, or one of five enumerated files under `eval/` (`evaluate.py`, `cases.jsonl`, `thresholds.json`, `test_eval.py`, `check_index_coverage.py`), plus manual dispatch. The paths are enumerated rather than globbed; a new gating file under `eval/` has to be added to that list by hand or it silently stops gating. Steps:
+`.github/workflows/eval.yml` runs on a push to `main` that changes `app.py`, `chroma/**`, `requirements.txt`, the workflow file itself, anything under `tests/`, or one of five enumerated files under `eval/` (`evaluate.py`, `cases.jsonl`, `thresholds.json`, `test_eval.py`, `check_index_coverage.py`), plus manual dispatch. `sources.json` and `scripts/ingest.py` trigger it on pull requests only: on `main`, a push to either starts `rebuild-corpus.yml`, which rebuilds and commits the index and then dispatches this workflow against that commit. The `eval/` paths are enumerated rather than globbed because the commit-back writes into `eval/`; a new gating file there has to be added to that list by hand or it silently stops gating. `tests/` is globbed, because nothing generated lands in it. Steps:
 
 1. **Install deps**
-2. **`check_index_coverage.py`** — the guard; fails fast, before any Claude spend
-3. **`evaluate.py --report-only`** — always writes the report
-4. **`pytest eval/test_eval.py -v`** — the gate
-5. **Commit `report.md` and `results.json` back to `main`** — on every run including failures; ours-wins, `[skip ci]`
-6. Upload `report.md` as an artifact, on every run including failures
+2. **`pytest tests/ -v`** — the source-list contract; no network, no API key, about a second
+3. **`check_index_coverage.py`** — the coverage guard; fails fast, before any Claude spend
+4. **`evaluate.py --report-only`** — always writes the report
+5. **`pytest eval/ -v`** — the metric gate, asserting against that report
+6. **Commit `report.md` and `results.json` back to `main`** — on every run including failures; ours-wins, `[skip ci]`
+7. Upload `report.md` as an artifact, on every run including failures
 
-**CI does not ingest.** It evaluates the **committed `chroma/`**, which is itself a trigger path. The invariant is not "the index is current" but **"the index contains every source the cases reference"** — an index a post behind is harmless; an index missing a source a case expects is fatal and reads as a broken bot. The guard enforces exactly that, and nothing else does.
+**The eval does not ingest.** It evaluates the **committed `chroma/`**, which is itself a trigger path. The invariant is not "the index is current" but **"the index contains every source the cases reference"** — an index a post behind is harmless; an index missing a source a case expects is fatal and reads as a broken bot. The guard enforces exactly that, and `ship-index.yml` runs the same guard with `--strict` before it commits a rebuilt index.
 
 The workflow reads the **`EVAL_KEY`** repository Actions secret and injects it as the `ANTHROPIC_API_KEY` environment variable. That's a distinct credential from the Space and Codespaces secrets that share the env-var name; keeping it separate is what makes eval spend attributable on its own.
 
-Note the second-order trigger: `check-source-edits.yml` commits `sources.json` when discovery registers a new post, and `sources.json` is a trigger path here. So publishing fires the eval automatically. That's the good news; the caveat is in the maintenance rules.
+**Publishing fires the eval, but not through a trigger path.** `check-source-edits.yml` commits `sources.json` with the default `GITHUB_TOKEN`, and a push made with that token starts no workflow. This paragraph used to say the opposite and was never true: a discovery commit fired nothing, so the committed index drifted behind `sources.json` until the next human push ran the eval against it and took the red, on 2026-08-21 and again on 2026-09-14. Since 2026-09-17, `ship-index.yml` dispatches this workflow explicitly, once, against the commit holding the rebuilt index. The caveat is in the maintenance rules.
 
 ## Thresholds
 
-The gate lives in `eval/thresholds.json`: retrieval ≥ 85%, out-of-corpus refusal ≥ 90%, false-refusal ≤ 10%. Edit that file to tune the bar; `evaluate.py` and the CI pytest both read it, and fall back to the same defaults if it's missing. Raise the bar as the corpus grows.
+The gate lives in `eval/thresholds.json`: retrieval ≥ 85%, out-of-corpus refusal ≥ 90%, false-refusal ≤ 10%, public claims 100%. Edit that file to tune the bar; `evaluate.py` and the CI pytest both read it, and fall back to the same defaults if it's missing. Raise the bar as the corpus grows.
 
 One trap: thresholds are read key by key with a default fallback, so a **misspelled gate name silently uses the default** rather than erroring. If a threshold change seems to have no effect, check the spelling first.
 
@@ -106,9 +109,9 @@ Five things will fail this suite on a system that's working perfectly. All five 
 
 1. **Flip a trap when its post publishes.** A pending-post case is a correct refusal today. The moment the post is live and ingested, the bot answers it correctly and the case scores as a failure. Change `out_of_corpus` → `in_corpus` and add an `expect_source`, in the same change that publishes the post.
 2. **Keep the denial line in sync.** `evaluate.py` hardcodes the exact refusal string and scores refusals by matching it. If the wording in `app.py`'s system prompt changes and `DENIAL` doesn't change with it, out-of-corpus accuracy collapses toward zero. Change both or neither.
-3. **A new source needs its own cases.** Discovery fires the eval when it registers a source, but it runs the *existing* cases. New content is gated only in the sense that nothing else regressed; it isn't covered until it has cases of its own. The quickest audit is to diff the ids in `sources.json` against the `expect_source` values here.
-4. **A new source also perturbs the cases you already have.** At `top_k = 5` over roughly 49 chunks, an added source competes for slots across a dozen-plus cases — it took one inside the `atc-refusal` window. Adding a source changes the behaviour of cases that are already gated, not just the coverage of ones that aren't.
-5. **Count-dependent cases go stale.** `res-count` asserts a project count that changes whenever a project ships. Keywords aren't gated, so a stale value only skews the directional metric, but fix it when you notice. `home-tests` is the same shape and deliberately keyed to the public **5,000+ floor**, so it changes when the floor steps, not when the underlying number moves.
+3. **A new source needs its own cases.** Discovery fires the eval when it registers a source, but it runs the *existing* cases. New content is gated only in the sense that nothing else regressed; it isn't covered until it has cases of its own. The quickest audit is `python eval/check_index_coverage.py`, which prints uncovered sources as a note. Prefer it to a hand diff: `expect_source` is a string in some cases and a list in others, and a script that iterates a string audits its characters. That is exactly how this audit went wrong on 2026-09-29, reporting two covered sources as uncovered.
+4. **A new source also perturbs the cases you already have.** At `top_k = 5` over 64 chunks (2026-09-29), an added source competes for slots across a dozen-plus cases — it took one inside the `atc-refusal` window. Adding a source changes the behaviour of cases that are already gated, not just the coverage of ones that aren't.
+5. **Count-dependent cases go stale, and now they fail loudly.** `res-count` asserts a project count that changes whenever a project ships, and its `claim` block is gated at 100%, so a stale count **fails the build**. Update the case in the same change that ships the project. This rule used to say a stale value only skewed the ungated keyword metric; that stopped being true when `claim` landed on 2026-09-17, and the same sentence in the case's own note was corrected on 2026-09-19 while this copy was not. `home-tests` is the same shape and deliberately keyed to the public **5,000+ floor**, so it changes when the floor steps, not when the underlying number moves.
 
 **Retired rule, kept for the reasoning.** "A stale local index reads as a broken bot" used to live here: a run once read 73% retrieval and 24.3% false refusal, and a single re-ingest took the identical cases to 97.3% and 5.4% — the bot had been correctly refusing content it genuinely didn't have. `check_index_coverage.py` now catches that class before a run starts, which is why it's a guard and not a rule.
 
@@ -130,7 +133,7 @@ Deterministic scoring is this suite's strength and its one recurring trap. A che
 
 One in-corpus case refuses: **`atc-refusal`** — *"What does Christian say made the refusal the design goal?"* Retrieval hits, and it refuses anyway.
 
-**The corpus does contain the answer.** "The Honest Machine" states it in one sentence under "The part that matters," and repeats it in the dek and `og:description`. But a retrieval trace ranks the chunk holding that sentence, `ask-the-corpus-2`, at **position 8**, and the app serves top 5. What reached the model was the essay's closing section — which asserts the machine refuses without saying what made refusal the goal — plus four topically adjacent chunks from other posts. **Given that context, refusing was correct.** `false_refusal` is scoring the pipeline here, not the model's honesty.
+**The corpus does contain the answer.** "The Honest Machine" states it in one sentence under "The part that matters," and repeats it in the dek and `og:description`. But a retrieval trace on the 2026-08-04 index ranked the chunk holding that sentence, `ask-the-corpus-2`, at **position 8**, and the app serves top 5. It has fallen further as sources were added; the rank moves whenever one lands, so re-measure with `why.py` before quoting it. What reached the model was the essay's closing section — which asserts the machine refuses without saying what made refusal the goal — plus four topically adjacent chunks from other posts. **Given that context, refusing was correct.** `false_refusal` is scoring the pipeline here, not the model's honesty.
 
 **The pattern worth internalising: short chunks outrank long ones.** Ranks 1 and 2 are 126 and 47 words; the 300-word chunks cluster below them. Mean pooling over 300 words averages more topics together and pulls the vector toward the corpus centroid. The short chunks are tail remainders left by the 250-word step — short by accident, winning by construction. That's a chunking artifact presenting as a retrieval preference, and the real fix is structure-aware chunking, not a wider `TOP_K`.
 

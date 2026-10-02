@@ -6,6 +6,7 @@ import gradio as gr
 import chromadb
 from sentence_transformers import SentenceTransformer
 from anthropic import Anthropic
+from engine.brand import WEB   # rnv-brand, pinned in requirements.txt
 
 # ---- config (the guardrail knobs) ----
 MODEL = "claude-haiku-4-5"      # cheap + fast; the whole cost story
@@ -229,20 +230,50 @@ def health(request: gr.Request) -> str:
     return "ok"
 
 
-CSS = """
-.gradio-container {
-    background: #0a0a0f;
-    --button-primary-background-fill: #d2bc93;
-    --button-primary-background-fill-hover: #c4ab7e;
-    --button-primary-text-color: #0a0a0f;
-    --button-primary-border-color: #d2bc93;
-}
-h1, h2 { color: #d2bc93 !important; }
-.gradio-container button.primary {
-    background: #d2bc93 !important;
-    color: #0a0a0f !important;
-    border-color: #d2bc93 !important;
-}
+def _dark_only(theme):
+    """The theme with every light value replaced by its dark one.
+
+    The demo has one appearance. Gradio picks light or dark from the visitor's
+    device unless the address says otherwise, and the CSS below only darkens the
+    ground, so a device set to Light drew Gradio's light text on it: 1.33:1 for
+    the answers, 1.06:1 for the example questions. Measured 2026-09-30, and seen
+    by nobody whose device is dark. Copying the dark values over the light ones
+    means the device setting, the address and the Settings menu all draw the same
+    page. Nothing is hardcoded here; the values stay Gradio's own.
+    """
+    for name in list(vars(theme)):
+        if name.endswith("_dark") and getattr(theme, name) is not None:
+            setattr(theme, name[: -len("_dark")], getattr(theme, name))
+    return theme
+
+
+THEME = _dark_only(gr.themes.Default())
+
+
+# Colour comes from the brand register, never from a literal in this file. The
+# demo sits on the website surface, so it reads the website palette: the site's
+# ground and its accent, with the ground as the text on gold, which is what
+# rnvizion.dev's own primary button does (color: var(--bg)).
+#
+# There is no hover colour. The rule below sets the button's background with
+# !important, which also wins over Gradio's hover rule, so the hover variable
+# this block used to set was never drawn. Until 2026-09-30 it held a darker gold
+# written by hand, which the register does not contain.
+GROUND, GOLD = WEB["bg"], WEB["accent"]
+
+CSS = f"""
+.gradio-container {{
+    background: {GROUND};
+    --button-primary-background-fill: {GOLD};
+    --button-primary-text-color: {GROUND};
+    --button-primary-border-color: {GOLD};
+}}
+h1, h2 {{ color: {GOLD} !important; }}
+.gradio-container button.primary {{
+    background: {GOLD} !important;
+    color: {GROUND} !important;
+    border-color: {GOLD} !important;
+}}
 """
 
 with gr.Blocks(title="Ask the Corpus") as demo:
@@ -258,4 +289,4 @@ with gr.Blocks(title="Ask the Corpus") as demo:
     gr.api(health, api_name="health", api_visibility="undocumented")
 
 if __name__ == "__main__":
-    demo.launch(css=CSS,server_name="0.0.0.0", server_port=7860)
+    demo.launch(css=CSS, theme=THEME, server_name="0.0.0.0", server_port=7860)

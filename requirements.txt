@@ -1,5 +1,7 @@
 # Pinned 2026-08-06. Rationale, evidence, and the bump policy live in the corpus
-# decision log (entry #3); this file stays short enough to read at a glance.
+# decision log, in the entry "requirements.txt is pinned"; this file stays short
+# enough to read at a glance. Named, not numbered: when the log was renumbered on
+# 2026-09-20, the number that stood here began pointing at another decision.
 #
 # Two tiers. The direct dependencies are ours to choose. The four transitive ones
 # are pinned because they decide what a vector is: the embedding path runs
@@ -19,6 +21,9 @@ requests==2.34.2
 anthropic==0.120.2
 gradio==6.22.0
 huggingface_hub==1.26.0
+# app.py's colours, from the brand register. Pinned to a commit, so this line
+# says which register revision the demo mirrors; move it to take a brand change.
+rnv-brand @ git+https://github.com/RNVizion/rnv-brand@5b644576008eca7beec0b82a345a22bd62604f69
 
 # --- transitive: these decide embedding values ---
 transformers==5.14.1

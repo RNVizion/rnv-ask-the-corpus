@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-30T03:49:48+00:00",
-    "commit": "a674f00",
+    "generated_at": "2026-10-02T18:03:51+00:00",
+    "commit": "31b33f5",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his website initially displayed eight project cards while claiming nine in the text. His publishing agent was designed to count what it could actually verify rather than take the stated number at face value. Once the missing project card (the RNV Publishing Agent) was added to the grid, the count and assertion aligned at nine.\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong]",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" (Source: Honest and Wrong). He notes that while his r\u00e9sum\u00e9 states nine shipped projects, his website grid of project cards only displayed eight at the time he wrote that post\u2014because his publishing agent (one of the nine projects) didn't have a card yet. He later updated the grid to match the number, and by August, \"the grid and the number agreed, and it answered nine.\"\n\nThe nine projects mentioned in his r\u00e9sum\u00e9 include: Ask the Corpus, RNV Publishing Agent, rnv-color-mcp, Engineering essay series, RNV Text Transformer, RNV Color Palette Manager, RNV Color Picker, RNV Icon Builder, and RNV Color Mixer.",
       "pass": true
     },
     {
@@ -790,7 +790,7 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** according to his profile, and specifically me",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** according to his profile, though the specific",
       "expect_source": [
         "resume"
       ],
@@ -998,7 +998,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code, not devel",
+      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **typists are exposed by ai writing code, not developer",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1176,7 +1176,7 @@
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "according to the context, christian smith has written **5,000+ tests** across his portfolio. [source: christian smith, a",
+      "answer_preview": "according to the context excerpts, christian smith has written **5,000+ tests** across his portfolio. this is stated in ",
       "expect_source": [
         "home",
         "resume"
@@ -1186,7 +1186,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the context, Christian Smith has written **5,000+ tests** across his portfolio.\n\n[Source: Christian Smith, AI Engineer & Developer and R\u00e9sum\u00e9 \u2014 Christian Smith]",
+      "answer": "According to the context excerpts, Christian Smith has written **5,000+ tests** across his portfolio.\n\nThis is stated in multiple sources:\n- [Source: Christian Smith, AI Engineer & Developer]: \"5,000+ Tests Written\"\n- [Source: R\u00e9sum\u00e9 \u2014 Christian Smith]: \"Nine shipped projects and 5,000+ tests across the portfolio\"",
       "pass": true
     },
     {

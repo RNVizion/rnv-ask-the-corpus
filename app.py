@@ -234,12 +234,14 @@ def _dark_only(theme):
     """The theme with every light value replaced by its dark one.
 
     The demo has one appearance. Gradio picks light or dark from the visitor's
-    device unless the address says otherwise, and the CSS below only darkens the
-    ground, so a device set to Light drew Gradio's light text on it: 1.33:1 for
-    the answers, 1.06:1 for the example questions. Measured 2026-09-30, and seen
-    by nobody whose device is dark. Copying the dark values over the light ones
-    means the device setting, the address and the Settings menu all draw the same
-    page. Nothing is hardcoded here; the values stay Gradio's own.
+    device unless the address says otherwise, and until 2026-10-02 this file's
+    CSS darkened only the ground, so a device set to Light drew Gradio's light
+    text on it: 1.33:1 for the answers, 1.06:1 for the example questions.
+    Measured 2026-09-30, and seen by nobody whose device is dark. Copying the
+    dark values over the light ones means the device setting, the address and
+    the Settings menu all draw the same page. Nothing is hardcoded here: the
+    values it copies are Gradio's own, and _on_register below replaces the ones
+    the page draws.
     """
     for name in list(vars(theme)):
         if name.endswith("_dark") and getattr(theme, name) is not None:
@@ -247,33 +249,108 @@ def _dark_only(theme):
     return theme
 
 
-THEME = _dark_only(gr.themes.Default())
-
-
-# Colour comes from the brand register, never from a literal in this file. The
-# demo sits on the website surface, so it reads the website palette: the site's
-# ground and its accent, with the ground as the text on gold, which is what
-# rnvizion.dev's own primary button does (color: var(--bg)).
+# Colour comes from the brand register, never from a literal in this file.
 #
-# There is no hover colour. The rule below sets the button's background with
-# !important, which also wins over Gradio's hover rule, so the hover variable
-# this block used to set was never drawn. Until 2026-09-30 it held a darker gold
-# written by hand, which the register does not contain.
-GROUND, GOLD = WEB["bg"], WEB["accent"]
+# This table says which register key each thing the page draws takes. The demo
+# sits on the website surface, and a third-party widget on a brand surface
+# carries the site's cool ramp: ruled 2026-10-02, and mapped by the register's
+# owner on 2026-10-04, role by role, from how rnvizion.dev itself uses each key.
+# Until then the page took its ground and its gold from the register and
+# everything else from Gradio, a blue link and an orange loader among them.
+#
+# Text on gold is the site's ground, which is what rnvizion.dev's own primary
+# button does (color: var(--bg)).
+#
+# The names are Gradio's theme values. Each is set together with its _dark twin,
+# where it has one.
+ROLES = {
+    "bg": [
+        "body_background_fill", "background_fill_primary",
+        "button_primary_text_color", "button_primary_text_color_hover",
+    ],
+    "bg-2": [
+        "background_fill_secondary", "block_background_fill",
+        "block_label_background_fill", "panel_background_fill",
+        "button_secondary_background_fill",
+    ],
+    "bg-3": [
+        "input_background_fill", "input_background_fill_focus",
+        "input_background_fill_hover", "code_background_fill",
+        "color_accent_soft", "button_secondary_background_fill_hover",
+    ],
+    "border": [
+        "border_color_primary", "block_border_color",
+        "block_label_border_color", "panel_border_color",
+        "input_border_color", "input_border_color_hover",
+        "border_color_accent_subdued", "button_secondary_border_color",
+    ],
+    "text": [
+        "body_text_color", "button_secondary_text_color",
+        "button_secondary_text_color_hover",
+    ],
+    "text-dim": [
+        "body_text_color_subdued", "block_label_text_color",
+        "block_title_text_color", "block_info_text_color",
+        "input_placeholder_color",
+    ],
+    "accent": [
+        "input_border_color_focus", "border_color_accent",
+        "link_text_color", "link_text_color_active",
+        "link_text_color_hover", "link_text_color_visited",
+        "button_primary_background_fill", "button_primary_background_fill_hover",
+        "button_primary_border_color", "button_primary_border_color_hover",
+        "button_secondary_border_color_hover", "loader_color", "color_accent",
+    ],
+}
+
+# The focus ring is a shadow, not a colour: Gradio draws one pixel of its own grey
+# and a black inset. It is switched off, and the gold focus border carries the
+# state.
+NO_SHADOW = ("input_shadow_focus",)
+
+
+def _on_register(theme):
+    """The theme with every value the page draws taken from the brand register.
+
+    Raises at import if Gradio no longer has one of the names. Setting a name the
+    theme does not know is silent: the page would go back to Gradio's grey with
+    every gate green, because no gate renders the page. The eval imports this
+    file, so a name that a Gradio bump renamed stops there, before any deploy. A
+    key the register no longer has stops the same way.
+    """
+    known = vars(theme)
+    names = [name for group in ROLES.values() for name in group] + list(NO_SHADOW)
+    unknown = [name for name in names if name not in known]
+    if unknown:
+        raise RuntimeError(
+            "Gradio's theme has no value named: " + ", ".join(unknown)
+            + ". The demo's colours are set by name; see ROLES in app.py."
+        )
+    for key, group in ROLES.items():
+        for name in group:
+            for target in (name, name + "_dark"):
+                if target in known:
+                    setattr(theme, target, WEB[key])
+    for name in NO_SHADOW:
+        for target in (name, name + "_dark"):
+            if target in known:
+                setattr(theme, target, "none")
+    return theme
+
+
+THEME = _on_register(_dark_only(gr.themes.Default()))
+
+# Two things the theme has no value for, so they are the only CSS: the heading
+# colour, and the text of inline code in an answer. Both read the register.
+#
+# The button, the ground and the hover used to be set here as well, with
+# !important. The theme sets them now, hover included, so there is one place
+# that says what colour the button is.
+GOLD, CODE = WEB["accent"], WEB["code"]
 
 CSS = f"""
-.gradio-container {{
-    background: {GROUND};
-    --button-primary-background-fill: {GOLD};
-    --button-primary-text-color: {GROUND};
-    --button-primary-border-color: {GOLD};
-}}
 h1, h2 {{ color: {GOLD} !important; }}
-.gradio-container button.primary {{
-    background: {GOLD} !important;
-    color: {GROUND} !important;
-    border-color: {GOLD} !important;
-}}
+.gradio-container .prose code {{ color: {CODE}; }}
 """
 
 with gr.Blocks(title="Ask the Corpus") as demo:

@@ -23,7 +23,7 @@ gradio==6.22.0
 huggingface_hub==1.26.0
 # app.py's colours, from the brand register. Pinned to a commit, so this line
 # says which register revision the demo mirrors; move it to take a brand change.
-rnv-brand @ git+https://github.com/RNVizion/rnv-brand@5b644576008eca7beec0b82a345a22bd62604f69
+rnv-brand @ git+https://github.com/RNVizion/rnv-brand@e9217dbcac6714227ef8471f40fc071baada7688
 
 # --- transitive: these decide embedding values ---
 transformers==5.14.1

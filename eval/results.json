@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-10-02T18:03:51+00:00",
-    "commit": "31b33f5",
+    "generated_at": "2026-10-04T22:41:06+00:00",
+    "commit": "24010fa",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -229,7 +229,7 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian uses \"hollow\" to describe software that is t",
+      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian describes hollow software as the result of s",
       "expect_source": [
         "squish"
       ],
@@ -490,7 +490,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't set out to",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't initially ",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -549,7 +549,7 @@
         "home-4"
       ],
       "refused": false,
-      "answer_preview": "based on the context, christian works across these fields as a renaissance man: 1. **software development** - python dev",
+      "answer_preview": "based on the context, christian smith works across these fields as a renaissance man: 1. **software development** - pyth",
       "expect_source": [
         "bio"
       ],
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" (Source: Honest and Wrong). He notes that while his r\u00e9sum\u00e9 states nine shipped projects, his website grid of project cards only displayed eight at the time he wrote that post\u2014because his publishing agent (one of the nine projects) didn't have a card yet. He later updated the grid to match the number, and by August, \"the grid and the number agreed, and it answered nine.\"\n\nThe nine projects mentioned in his r\u00e9sum\u00e9 include: Ask the Corpus, RNV Publishing Agent, rnv-color-mcp, Engineering essay series, RNV Text Transformer, RNV Color Palette Manager, RNV Color Picker, RNV Icon Builder, and RNV Color Mixer.",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" (Source: Honest and Wrong). He notes that while his r\u00e9sum\u00e9 states nine shipped projects, his website grid only displayed eight project cards at the time, creating a contradiction. His retrieval system caught this discrepancy and counted what it could actually enumerate (eight) rather than taking the written claim at face value. By August, when the grid and number were reconciled, the answer became consistently nine.",
       "pass": true
     },
     {
@@ -730,7 +730,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-qt**",
+      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools (from [source: r\u00e9sum\u00e9 \u2014 christian smith]): - **pytest** ",
       "expect_source": [
         "resume",
         "bio"
@@ -998,7 +998,7 @@
         "home-5"
       ],
       "refused": false,
-      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **typists are exposed by ai writing code, not developer",
+      "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code, not devel",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1116,7 +1116,7 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "according to the context, rnv-mcp-identity implements an **l1\u2013l3 identity and authorization layer** for mcp servers. thi",
+      "answer_preview": "according to the context, rnv-mcp-identity implements **l1\u2013l3 identity and authorization layers** for mcp servers. this ",
       "expect_source": [
         "aiii"
       ],
@@ -1176,7 +1176,7 @@
         "resume-0"
       ],
       "refused": false,
-      "answer_preview": "according to the context excerpts, christian smith has written **5,000+ tests** across his portfolio. this is stated in ",
+      "answer_preview": "according to the context, christian smith has written **5,000+ tests** across his portfolio. [source: christian smith, a",
       "expect_source": [
         "home",
         "resume"
@@ -1186,7 +1186,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the context excerpts, Christian Smith has written **5,000+ tests** across his portfolio.\n\nThis is stated in multiple sources:\n- [Source: Christian Smith, AI Engineer & Developer]: \"5,000+ Tests Written\"\n- [Source: R\u00e9sum\u00e9 \u2014 Christian Smith]: \"Nine shipped projects and 5,000+ tests across the portfolio\"",
+      "answer": "According to the context, Christian Smith has written **5,000+ tests** across his portfolio.\n\n[Source: Christian Smith, AI Engineer & Developer and R\u00e9sum\u00e9 \u2014 Christian Smith]",
       "pass": true
     },
     {
@@ -1536,7 +1536,7 @@
         "squish-4"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions \"the essay about bu",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions an essay about \"bui",
       "refusal_correct": true,
       "pass": true,
       "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."

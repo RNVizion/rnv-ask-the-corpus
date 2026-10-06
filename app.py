@@ -1,3 +1,4 @@
+import inspect
 import sys
 import time
 from collections import defaultdict, deque
@@ -238,10 +239,16 @@ def _dark_only(theme):
     CSS darkened only the ground, so a device set to Light drew Gradio's light
     text on it: 1.33:1 for the answers, 1.06:1 for the example questions.
     Measured 2026-09-30, and seen by nobody whose device is dark. Copying the
-    dark values over the light ones means the device setting, the address and
-    the Settings menu all draw the same page. Nothing is hardcoded here: the
-    values it copies are Gradio's own, and _on_register below replaces the ones
-    the page draws.
+    dark values over the light ones means the device setting and the address
+    draw the same page, wherever Gradio colours by a theme value. Nothing is
+    hardcoded here: the values it copies are Gradio's own, and _on_register
+    below replaces the ones the page draws.
+
+    It does not reach what Gradio colours by its dark class and not by a theme
+    value. Two such places are known: the syntax in a fenced code block, which
+    the CSS below switches off, and the "Use via API" panel. The footer no
+    longer links to that panel, or to the Settings menu and its theme switch;
+    see LAUNCH.
     """
     for name in list(vars(theme)):
         if name.endswith("_dark") and getattr(theme, name) is not None:
@@ -340,17 +347,49 @@ def _on_register(theme):
 
 THEME = _on_register(_dark_only(gr.themes.Default()))
 
-# Two things the theme has no value for, so they are the only CSS: the heading
-# colour, and the text of inline code in an answer. Both read the register.
+# What the theme has no value for is set here, and this is all the CSS there is.
+# Every colour in it reads the register.
+#
+# Gradio can render the page on the server or in the browser, and the two put
+# this stylesheet on opposite sides of Gradio's own. Rendered on the server,
+# Gradio's stylesheets come after this one, so a rule here that only ties with
+# one of Gradio's loses; rendered in the browser, they come before it and the
+# same rule wins. The Space renders on the server (read from its HTML,
+# 2026-10-05). So a rule here that competes with one of Gradio's carries
+# !important, and a render in one mode does not show what the other draws.
+#
+#   The heading colour.
+#
+#   The text of inline code in an answer. The text of a fenced code block takes
+#   the same colour, through the same rule. This one holds in both modes as it
+#   is.
+#
+#   The syntax in a fenced code block. Gradio colours it in a palette of its
+#   own, one set on a Light device and another on a Dark one, and no theme
+#   value reaches either. Ruled 2026-10-05: switched off, so a block reads in
+#   the one code colour on every device. The rule also undoes the one case
+#   where Gradio dims a token and does not colour it.
+#
+#   A horizontal rule and a table's borders in an answer. Gradio draws the rule
+#   in a grey of its own and the table's borders in the text colour. Both take
+#   the register's border: mapped by the register's owner on 2026-10-05.
+#
+#   The footer's separator dots. Gradio leaves them standing when the links
+#   they separated are gone; see LAUNCH.
 #
 # The button, the ground and the hover used to be set here as well, with
 # !important. The theme sets them now, hover included, so there is one place
 # that says what colour the button is.
-GOLD, CODE = WEB["accent"], WEB["code"]
+GOLD, CODE, BORDER = WEB["accent"], WEB["code"], WEB["border"]
 
 CSS = f"""
 h1, h2 {{ color: {GOLD} !important; }}
 .gradio-container .prose code {{ color: {CODE}; }}
+.gradio-container .prose pre code span.token {{ color: inherit !important; opacity: 1 !important; }}
+.gradio-container .prose hr {{ border-top-color: {BORDER} !important; }}
+.gradio-container .prose table, .gradio-container .prose tr,
+.gradio-container .prose th, .gradio-container .prose td {{ border-color: {BORDER} !important; }}
+.gradio-container footer .divider {{ display: none !important; }}
 """
 
 with gr.Blocks(title="Ask the Corpus") as demo:
@@ -365,5 +404,40 @@ with gr.Blocks(title="Ask the Corpus") as demo:
     # Called by scripts/deploy_space.py after every deploy. Hidden from the API page.
     gr.api(health, api_name="health", api_visibility="undocumented")
 
+
+def _launchable(arguments):
+    """The arguments the page is launched with, checked against Gradio's launch().
+
+    Raises at import if launch() no longer takes one of them. The eval imports
+    this file and never launches it, so an argument that a Gradio bump renamed
+    would otherwise pass the eval and stop the Space at start, after the deploy.
+    It checks the names, not what Gradio does with the values.
+    """
+    takes = inspect.signature(gr.Blocks.launch).parameters
+    unknown = [name for name in arguments if name not in takes]
+    if unknown:
+        raise RuntimeError(
+            "Gradio's launch() takes no argument named: " + ", ".join(unknown)
+            + ". See LAUNCH in app.py."
+        )
+    return arguments
+
+
+# What the page is launched with.
+#
+# footer_links says which of Gradio's three footer links the page shows. Two of
+# them open panels of Gradio's own, "Use via API" and Settings, which draw
+# colours that are not the register's; the first also follows the visitor's
+# device. Ruled 2026-10-05: the footer links to neither, and "Built with Gradio"
+# stays. Only the links go: the API still answers, and scripts/deploy_space.py
+# calls it after every deploy.
+LAUNCH = _launchable({
+    "css": CSS,
+    "theme": THEME,
+    "server_name": "0.0.0.0",
+    "server_port": 7860,
+    "footer_links": ["gradio"],
+})
+
 if __name__ == "__main__":
-    demo.launch(css=CSS, theme=THEME, server_name="0.0.0.0", server_port=7860)
+    demo.launch(**LAUNCH)

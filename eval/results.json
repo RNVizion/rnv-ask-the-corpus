@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-10-04T22:41:06+00:00",
-    "commit": "24010fa",
+    "generated_at": "2026-10-06T05:20:47+00:00",
+    "commit": "e54cc65",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -490,7 +490,7 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't initially ",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't set out to",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -708,7 +708,7 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" (Source: Honest and Wrong). He notes that while his r\u00e9sum\u00e9 states nine shipped projects, his website grid only displayed eight project cards at the time, creating a contradiction. His retrieval system caught this discrepancy and counted what it could actually enumerate (eight) rather than taking the written claim at face value. By August, when the grid and number were reconciled, the answer became consistently nine.",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his r\u00e9sum\u00e9 states nine shipped projects, but at the time he wrote that post, his website grid only displayed eight project cards (his publishing agent hadn't been added as a card yet). By August, the grid and the number aligned at nine.\n\nThe nine projects listed on his r\u00e9sum\u00e9 are:\n1. Ask the Corpus\n2. RNV Publishing Agent\n3. rnv-color-mcp\n4. AIII\n5. Engineering essay series\n6. RNV Text Transformer\n7. RNV Color Palette Manager\n8. RNV Color Picker\n9. RNV Icon Builder\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith, Honest and Wrong]",
       "pass": true
     },
     {
@@ -730,7 +730,7 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools (from [source: r\u00e9sum\u00e9 \u2014 christian smith]): - **pytest** ",
+      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-qt**",
       "expect_source": [
         "resume",
         "bio"
@@ -790,7 +790,7 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** according to his profile, though the specific",
+      "answer_preview": "based on the context provided, christian smith holds **10 certifications** according to his profile, and specifically me",
       "expect_source": [
         "resume"
       ],

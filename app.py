@@ -1,4 +1,5 @@
 import inspect
+import re
 import sys
 import time
 from collections import defaultdict, deque
@@ -199,12 +200,270 @@ def _log_failure(err):
     print(f"{stamp} answer failed: {err}", file=sys.stderr, flush=True)
 
 
+# ---- what the page may draw ----
+#
+# The model's answer is drawn by Gradio's Markdown component, which reads it with
+# a Markdown parser in the browser and lets raw HTML through a sanitiser. That
+# sanitiser removes scripts and event handlers. It keeps a picture on another
+# host, which the visitor's browser then requests; an inline style, which can
+# carry a colour of its own or lay an element over the page; and a form.
+# Ruled 2026-10-06: an answer draws Markdown and nothing else, and no picture
+# from another host. _drawable below is where that is decided, in text, before
+# the browser sees it.
+#
+# It carries nothing today: the corpus is the operator's own pages. It is the
+# route a document someone else wrote would take, so it lands before one exists.
+
+# The characters a backslash makes literal to the browser's Markdown parser.
+_LITERAL = frozenset("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
+# The line that opens a fenced code block: the fence, and before it nothing but
+# white space and the markers of a quote or a list item it sits in.
+_FENCE = re.compile(r"^((?:[ \t]*(?:>|(?:[-+*]|\d{1,9}[.)])(?=[ \t])))*[ \t]*)(`{3,}|~{3,})(.*)$")
+_QUOTED = re.compile(r"[ \t]{0,3}>[ ]?")
+_BULLETS = re.compile(r"(?:[-+*][ \t]*)+$")
+_ITEM = re.compile(r"(?:[-+*]|\d{1,9}[.)])(?:[ \t]|$)")
+_TICKS = re.compile(r"`+")
+# A web address written out in angle brackets, which is Markdown's own way to make
+# a link of one. Only characters _prose passes through as they are; only where
+# the address ends at the bracket, before a space, the end, or closing
+# punctuation; and only if it ends in a letter, a digit or one of / # = % + -,
+# because the browser's parser drops other marks from the end of a bare address.
+_ANGLED = re.compile(r"<(https?://[A-Za-z0-9](?:[A-Za-z0-9._:/?#@%&=+,;-]*[A-Za-z0-9/#=%+-])?)>(?=[?!.,:;*_'\")]*(?:\s|\Z))")
+
+
+def _drawable(text):
+    """The answer as the page may draw it: Markdown, with no raw HTML and no picture.
+
+    Two readers have to agree for this to hold: this function, and the parser in
+    the browser. It is built not to rely on them reading the answer the same
+    way: it writes a new answer in which the parser should find nothing but
+    Markdown however it reads it. That has been wrong three times and mended
+    three times; what it now rests on is testing, not proof.
+
+      Outside code, what is known to begin something other than Markdown is
+      written so that it cannot. Every "<" is written as an entity, so no tag
+      can begin. The "!" of "![", which begins a picture, is written as an
+      entity: the link stays and the picture does not. So is the colon of "]:",
+      because that pair makes a link definition, whose quoted title may run on
+      across blank lines and swallow a fence; and the first of any three
+      tildes, which would open one.
+
+      A "[" is left as it is, so that a link can be written, unless the first
+      "]" after it would be inside code. The browser's parser lets the name of
+      a link definition run from a "[" across lines, blank lines and a fence to
+      the next "]", and takes the lot for a definition if a colon follows: so
+      a "[" before a block whose text holds "]:" would carry the opening fence
+      away and leave the block's text to be read as Markdown, tags and all.
+      Such a "[" is written as an entity. Measured: this is how two readers got
+      a picture past an earlier draft that had no such rule.
+
+      One "<" is dropped and not written as an entity: the one before a web
+      address in angle brackets, which Markdown reads as a link. The address is
+      written bare, which the browser's parser links just the same, and no
+      bracket is left to become part of the link. Nothing is added to the answer
+      to do it.
+
+      Nothing here rests on a backslash. The browser's parser turns a bare web
+      address into a link and takes every character up to the next space or "<"
+      with it, a backslash included, which sets the character after it free. So a
+      backslash pair in the answer is written as the entity of the character it
+      made literal, and this function adds no backslash of its own.
+
+      A fenced code block is written again at the left margin, after a blank
+      line, inside a fence of backticks longer than any run of them in its body,
+      and with nothing after the opening fence: no language label. Its body is
+      kept, "<" and all, less the indentation and the quote markers of the list
+      item or the quote it sat in: inside a fence the browser draws it as text.
+      Every other backtick outside code is an entity, or one of a pair around
+      inline code on a single line, so nothing else can open or close a fence.
+      Where a block ends is this function's own reading: a line holding only
+      the fence ends it however far the line is indented, where the browser's
+      parser allows three spaces. A block that holds such a line is cut there.
+
+      So a block that sat in a list item or a quote leaves it. That is the cost
+      of not trusting the browser to agree where the item or the quote ends. A
+      list number that shared the opening line stays behind, so that a list
+      numbered in order carries on from the right number; a bullet next to the
+      fence is dropped. What was indented under the block is brought out to the
+      margin with it, and a blank line ends it there, so that the next item of
+      the list is not run into it.
+
+      Inline code keeps its backticks when it is one pair of single backticks on
+      one line and holds neither "<" nor "![". If the browser read a span
+      holding either as prose it would be a tag or a picture, so that span is
+      drawn as plain text, character for character, and loses only its code
+      face. Written with two backticks, or across a line end, its backticks are
+      entities like any others, and show.
+
+    No language label means the browser loads no syntax grammar. That is ruled as
+    well (2026-10-06): the syntax colours were already off, and one grammar in the
+    pinned Gradio, cpp, blanked the whole answer when it loaded without the one it
+    is built on. A block labelled mermaid was not drawn as code at all: Gradio
+    sets it aside for a diagram, and on the pinned version what reached the page
+    was its text, outside any code box, and no diagram.
+
+    The eval does not pass through here: it scores answer_with_status, the text
+    the model wrote. _DRAWN below checks this function at import.
+    """
+    lines = re.sub(r"\r\n?|[\u2028\u2029]", "\n", text).replace("\x00", "").split("\n")
+    out, opened, prose, i, shift, under = [], [], [], 0, 0, False
+
+    def flush():
+        if prose:
+            out.append("\n")
+            _prose("\n".join(prose), out, opened)
+            prose.clear()
+
+    while i < len(lines):
+        opens = _FENCE.match(lines[i])
+        if opens and not (opens.group(2)[0] == "`" and "`" in opens.group(3)):
+            before, run = opens.group(1), opens.group(2)
+            quotes = before.count(">")
+            margin = len(_QUOTED.sub("", before[before.rindex(">"):], 1) if quotes else before)
+            closes = re.compile((r"^[ \t>]*" if quotes else r"^[ \t]*") + re.escape(run) + r"[~`]*[ \t]*$")
+            j = i + 1
+            while j < len(lines) and not closes.match(lines[j]):
+                j += 1
+            body = [_unwrapped(line, quotes, margin) for line in lines[i + 1:j]]
+            longest = max((len(run_) for line in body for run_ in _TICKS.findall(line)), default=0)
+            fence = "`" * max(3, longest + 1)
+            kept = _BULLETS.sub("", before).rstrip()
+            if kept.strip(" \t>"):
+                prose.append(kept)                  # a list number on the opening line
+            flush()
+            if any("]" in line for line in body):
+                _shut(out, opened)
+            out.append("\n" + "\n".join(["", fence, *body, fence, ""]))
+            i, shift, under = j + 1, margin, False
+        else:
+            line = lines[i]
+            indent = len(line) - len(line.lstrip(" \t"))
+            if shift and line.strip() and not indent:
+                shift = 0                           # back at the margin: nothing more was under the block
+                if under:
+                    prose.append("")                # and what was under it ends here, as it did in the item
+            under = bool(shift and indent and line.strip()) and not _ITEM.match(line, indent)
+            prose.append(line[min(shift, indent):])
+            i += 1
+    flush()
+    return "".join(out)[1:]
+
+
+def _unwrapped(line, quotes, margin):
+    """A line of a fenced block's body, without the quote markers and the indentation of where the block sat."""
+    for _ in range(quotes):
+        marker = _QUOTED.match(line)
+        if not marker:
+            break
+        line = line[marker.end():]
+    return line[min(margin, len(line) - len(line.lstrip(" \t"))):]
+
+
+def _entity(ch):
+    return "&lt;" if ch == "<" else f"&#{ord(ch)};"
+
+
+def _shut(out, opened):
+    """Write as entities the "[" that are still open, because code holding a "]" comes next."""
+    for at in opened:
+        out[at] = _entity("[")
+    opened.clear()
+
+
+def _prose(s, out, opened):
+    """Text outside fenced code, written onto out so that it can only be Markdown.
+
+    opened is where on out each "[" stands that no "]" outside code has yet followed.
+    """
+    i, n = 0, len(s)
+    while i < n:
+        c = s[i]
+        if c == "\\" and s[i + 1:i + 2] in _LITERAL:
+            out.append(_entity(s[i + 1]))   # the character the backslash made literal
+            i += 2
+        elif c == "`":
+            k = i
+            while k < n and s[k] == "`":
+                k += 1
+            j = k
+            while j < n and s[j] not in "`\n":
+                j += 1
+            span = k - i == 1 and k < j < n and s[j] == "`" and s[j + 1:j + 2] != "`"
+            if not span:
+                out.append(_entity("`") * (k - i))
+                i = k
+            elif "<" in s[k:j] or "![" in s[k:j]:
+                out.append("".join(_entity(ch) if ch in _LITERAL else ch for ch in s[k:j]))
+                i = j + 1
+            else:
+                if "]" in s[k:j]:
+                    _shut(out, opened)
+                out.append(s[i:j + 1])
+                i = j + 1
+        elif c == "<":
+            angled = _ANGLED.match(s, i)
+            if angled:
+                out.append(angled.group(1))     # the address, bare: nothing _prose would change
+                i = angled.end()
+            else:
+                out.append(_entity(c))
+                i += 1
+        elif c == "!" and s[i + 1:i + 2] == "[":
+            out.append(_entity(c))
+            i += 1
+        elif c == "[":
+            opened.append(len(out))
+            out.append(c)
+            i += 1
+        elif c == "]":
+            opened.clear()
+            colon = s[i + 1:i + 2] == ":"
+            out.append("]" + _entity(":") if colon else c)
+            i += 2 if colon else 1
+        elif c == "~" and s[i:i + 3] == "~~~":
+            out.append(_entity(c))
+            i += 1
+        else:
+            out.append(c)
+            i += 1
+
+
+# What _drawable must make of these, checked when this file is imported. The eval
+# imports it, so an edit that changes what the function writes for one of them
+# fails there and not on the page. It is a handful of texts on the function's
+# main moves and no more: an edit can change what it writes for some other
+# text and pass. And it checks the function, not the browser's parser: that is
+# measured by rendering, again after any change to the function or to the
+# gradio pin.
+_DRAWN = (
+    ("**bold**, a [link](https://rnvizion.dev/) and `code`", "**bold**, a [link](https://rnvizion.dev/) and `code`"),
+    ("<img src=x> ![p](u) \\<b>", "&lt;img src=x> &#33;[p](u) &lt;b>"),
+    ("`<article>` and - ~~~", "&lt;article&#62; and - &#126;~~"),
+    ("<https://rnvizion.dev/blog/>. <https://rnvizion.dev>x", "https://rnvizion.dev/blog/. &lt;https://rnvizion.dev>x"),
+    ('[x]: u "t" ``', '[x]&#58; u "t" &#96;&#96;'),
+    ("```cpp\nint a = 1 < 2;\n```", "\n```\nint a = 1 < 2;\n```\n"),
+    ("  ~~~\n  a ``` b\n  ~~~", "\n````\na ``` b\n````\n"),
+    ("> ```py\n>     a\n> ```\n1. ```\n   b\n   ```\n   c", "\n```\n    a\n```\n\n1.\n\n```\nb\n```\n\nc"),
+    ("[a](u) [b\n\n```\n]: c\n```", "[a](u) &#91;b\n\n\n```\n]: c\n```\n"),
+)
+# The fixed replies must reach the page as they are written. The first two come
+# back before the limiter and the pipeline are touched.
+_FIXED = (answer_with_status("")[0], answer_with_status("x" * (MAX_INPUT + 1))[0], DENIAL, ERROR_MESSAGE, RATE_LIMIT_MESSAGE)
+for _given, _expected in _DRAWN + tuple((fixed, fixed) for fixed in _FIXED):
+    if _drawable(_given) != _expected:
+        raise RuntimeError("_drawable no longer writes what _DRAWN says it must, for: " + repr(_given))
+
+
 def answer(question, request: gr.Request = None):
-    """What Gradio calls. Visitors see the same text as before; failures are now logged."""
+    """What Gradio calls, from the page and from the API. A failure is logged.
+
+    The text goes through _drawable first, which is where what the page may
+    draw is decided. A caller of the API gets that same text, entities included.
+    """
     text, err = answer_with_status(question, request)
     if err:
         _log_failure(err)
-    return text
+    return _drawable(text)
 
 
 HEALTH_QUESTION = SUGGESTED[0]
@@ -347,8 +606,9 @@ def _on_register(theme):
 
 THEME = _on_register(_dark_only(gr.themes.Default()))
 
-# What the theme has no value for is set here, and this is all the CSS there is.
-# Every colour in it reads the register.
+# What the theme has no value for is set here, and one value of the theme's own
+# that Gradio's base stylesheet overrides on one device (the last rule). This
+# is all the CSS there is. Every colour in it reads the register.
 #
 # Gradio can render the page on the server or in the browser, and the two put
 # this stylesheet on opposite sides of Gradio's own. Rendered on the server,
@@ -368,7 +628,10 @@ THEME = _on_register(_dark_only(gr.themes.Default()))
 #   own, one set on a Light device and another on a Dark one, and no theme
 #   value reaches either. Ruled 2026-10-05: switched off, so a block reads in
 #   the one code colour on every device. The rule also undoes the one case
-#   where Gradio dims a token and does not colour it.
+#   where Gradio dims a token and does not colour it. An answer now
+#   reaches the page with no language label (_drawable; ruled 2026-10-06), so
+#   Gradio loads no grammar and makes no token. The rule stays, so that the
+#   ruling does not rest on one function.
 #
 #   A horizontal rule and a table's borders in an answer. Gradio draws the rule
 #   in a grey of its own and the table's borders in the text colour. Both take
@@ -376,6 +639,13 @@ THEME = _on_register(_dark_only(gr.themes.Default()))
 #
 #   The footer's separator dots. Gradio leaves them standing when the links
 #   they separated are gone; see LAUNCH.
+#
+#   The fallback list of the code typeface. Rendered on the server, Gradio's
+#   base stylesheet replaces the theme's list on a Light device and not on a
+#   Dark one, so the two fell to different faces for a glyph the first face
+#   lacks. Ruled 2026-10-06: both take the theme's list. This names no face of
+#   its own, and which faces the demo should use is not ruled. It is set on the
+#   container, where no rule of Gradio's sets it, so it competes with nothing.
 #
 # The button, the ground and the hover used to be set here as well, with
 # !important. The theme sets them now, hover included, so there is one place
@@ -390,6 +660,7 @@ h1, h2 {{ color: {GOLD} !important; }}
 .gradio-container .prose table, .gradio-container .prose tr,
 .gradio-container .prose th, .gradio-container .prose td {{ border-color: {BORDER} !important; }}
 .gradio-container footer .divider {{ display: none !important; }}
+.gradio-container {{ --font-mono: {THEME.font_mono}; }}
 """
 
 with gr.Blocks(title="Ask the Corpus") as demo:
@@ -397,11 +668,18 @@ with gr.Blocks(title="Ask the Corpus") as demo:
     gr.Markdown("Ask a question about Christian Smith's work. Answers come only from his published work on rnvizion.dev: his writing and his profile. If it's not there, it says so.")
     inp = gr.Textbox(label="Your question", placeholder="What is squish?", lines=2, max_lines=4)
     btn = gr.Button("Ask", variant="primary")
-    out = gr.Markdown()
+    # No maths in an answer. Gradio lifts whatever sits between two "$$" out of
+    # the text before its Markdown parser runs, and puts it back afterwards as it
+    # was, tags and all; a "$$" inside a code block can carry the block's closing
+    # fence away with it. An empty list switches that pass off. _drawable relies
+    # on it: measured on the first 83 of its test answers, with the default list
+    # two of them got a picture's request through.
+    out = gr.Markdown(latex_delimiters=[])
     gr.Examples(SUGGESTED, inputs=inp)
     btn.click(answer, inputs=inp, outputs=out)
     inp.submit(answer, inputs=inp, outputs=out)
-    # Called by scripts/deploy_space.py after every deploy. Hidden from the API page.
+    # Called by scripts/deploy_space.py after a deploy that changes the Space, and
+    # by the cron's health job on every pass. Hidden from the API page.
     gr.api(health, api_name="health", api_visibility="undocumented")
 
 
@@ -430,7 +708,7 @@ def _launchable(arguments):
 # colours that are not the register's; the first also follows the visitor's
 # device. Ruled 2026-10-05: the footer links to neither, and "Built with Gradio"
 # stays. Only the links go: the API still answers, and scripts/deploy_space.py
-# calls it after every deploy.
+# calls it after a deploy that changes the Space.
 LAUNCH = _launchable({
     "css": CSS,
     "theme": THEME,

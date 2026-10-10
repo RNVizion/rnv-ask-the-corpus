@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-10-06T05:20:47+00:00",
-    "commit": "e54cc65",
+    "generated_at": "2026-10-10T22:48:36+00:00",
+    "commit": "e46ba39",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -83,6 +83,7 @@
       ],
       "refused": false,
       "answer_preview": "from [source: squish: the soul that speed can't generate]: squish is the feel of a thing. it's the weight, the response,",
+      "answer": "From [Source: Squish: The Soul That Speed Can't Generate]:\n\nSquish is the feel of a thing. It's the weight, the response, the texture of an interaction\u2014the part you don't see in a screenshot but feel in your thumbs. It's the difference between a button that does something and a button that feels good to press.\n\nThe essay uses Mario as the primary example: when Mario jumps, there's a wind-up crouch before launch, a moment of hang at the peak, and a heavier fall than rise where you can feel gravity. None of that is functionally necessary, but it's what turns function into love. As Christian puts it: \"The weight in that fall is not decoration; it is the soul of the whole experience.\"",
       "expect_source": [
         "squish"
       ],
@@ -112,6 +113,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the source \"squish: the soul that speed can't generate,\" christian first learned the word \"squish\" in a col",
+      "answer": "According to the source \"Squish: The Soul That Speed Can't Generate,\" Christian first learned the word \"squish\" in a college classroom from his game programming professor, Dave. Dave used a montage of games spanning decades to explain the concept and help Christian understand why people love Mario.",
       "expect_source": [
         "squish"
       ],
@@ -141,6 +143,7 @@
       ],
       "refused": false,
       "answer_preview": "# how mario illustrates squish according to [source: squish: the soul that speed can't generate], mario illustrates squi",
+      "answer": "# How Mario Illustrates Squish\n\nAccording to [Source: Squish: The Soul That Speed Can't Generate], Mario illustrates squish through his jump mechanics:\n\nWhen Mario jumps, he doesn't simply move up and down in a straight line. Instead:\n\n- There's a **wind-up**\u2014a crouch before the launch\n- At the peak, there's a **moment of hang**\u2014a held breath\n- The **fall comes in heavier than the rise**, so you can feel gravity grab him\n- With the double jump, **the timing tightens into something your hands learn before your brain does**\n\nThe essay emphasizes that none of this is functionally necessary\u2014a character could ascend and descend in a straight line and the game would still work. But that weight and responsiveness is what transforms Mario from merely functional into something people love and return to decades later. As the source states: \"The weight in that fall is not decoration; it is the soul of the whole experience.\"",
       "expect_source": [
         "squish"
       ],
@@ -170,6 +173,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"squish: the soul that speed can't generate,\" ai doesn't take squish away\u2014it makes room for it. christian s",
+      "answer": "According to \"Squish: The Soul That Speed Can't Generate,\" AI doesn't take squish away\u2014it makes room for it. \n\nChristian Smith writes: \"AI didn't take my squish away. It gave me time for it. Every functional decision I hand to the machine is an hour I get back for the human part; the feel, the weight, the identity, the thing that makes someone return.\"\n\nHe clarifies that speed and soul aren't enemies when used with intention: \"Used with intention, speed is not the enemy of soul. It is the budget you spend buying more of it.\" The builders who will succeed are those who use the speed AI provides to afford the squish\u2014the human, soulful elements\u2014that others skip.",
       "expect_source": [
         "squish"
       ],
@@ -199,6 +203,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"the job was never coding,\" the answer lies in the human element: **making the thing user-friendly and \"squ",
+      "answer": "According to \"The Job Was Never Coding,\" the answer lies in the human element: **making the thing user-friendly and \"squishy.\"**\n\nChristian Smith explains it this way: \"The machine makes it run. The human makes it matter.\" He describes this as the division of labor between human and machine\u2014the machine handles the technical execution, but it's the human eye that takes the slow time to transform \"a working thing into a thing worth using.\"\n\nHe emphasizes that this human work\u2014thinking like a human, feeling like a human, operating like a human\u2014is the part the machine cannot reach on its own. The distance between software that merely \"runs\" and software that's \"worth using\" is fundamentally human.\n\nThis reflects his broader philosophy mentioned in his profile: using \"the speed AI provides to buy back time for the human parts of building.\"",
       "expect_source": [
         "squish",
         "ask-the-corpus",
@@ -229,7 +234,8 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian describes hollow software as the result of s",
+      "answer_preview": "based on the source \"squish: the soul that speed can't generate,\" christian uses \"hollow\" to describe software that is t",
+      "answer": "Based on the source \"Squish: The Soul That Speed Can't Generate,\" Christian uses \"hollow\" to describe software that is technically functional but lacks identity and intentionality.\n\nHe explains that hollow software has \"every surface correct\" \u2014 the buttons respond, the layout is fine \u2014 but \"not a single sign that a person actually lives there.\" The deadness isn't in any broken detail; it's in the **absence of a decision**. As he states: \"It has no identity because no human ever insisted it have one.\"\n\nThe core of his meaning: hollow software is \"Not broken \u2014 Hollow.\" It works adequately but feels empty because no human being took the time to decide how it should *feel* or to care about giving it a soul. It's the result of prioritizing speed and function over the intentional choices that make software matter to users.",
       "expect_source": [
         "squish"
       ],
@@ -259,6 +265,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the sources, \"lazy in the right way is leverage\" means directing your laziness toward the future rather than th",
+      "answer": "Based on the sources, \"lazy in the right way is leverage\" means directing your laziness toward the future rather than the present.\n\nFrom [\"Lazy in the Right Way Is Leverage\"]:\n\nThere are two kinds of laziness: one aimed at doing less *right now* (which keeps you stuck with chores), and one aimed at doing less *in the future* (which is the engine behind every tool ever made). The future-facing kind involves making a slow, one-time investment that buys you out of fast, repetitive work forever.\n\nThe key example: Christian built a system that judges his blog posts once, with a clear head, establishing what a good post needs. Now that judgment runs automatically on every post\u2014including ones he'd carelessly publish when tired. As he puts it: \"I did the slow work once; it does the fast work forever, carefully.\"\n\nThe leverage isn't about the machine doing your thinking; it's about **doing your thinking once and keeping the result**. You invest effort upfront to eliminate repetitive effort forever. That's leverage\u2014and it has nothing to do with working hard.",
       "expect_source": [
         "sloth"
       ],
@@ -288,6 +295,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"lazy in the right way is leverage,\" there are two ways to be lazy about a repetitive chore: 1. **present-f",
+      "answer": "According to \"Lazy in the Right Way Is Leverage,\" there are two ways to be lazy about a repetitive chore:\n\n1. **Present-focused laziness**: Keep doing the chore by hand because it's \"only a few minutes,\" and a few minutes never feels worth fixing. This saves one afternoon but costs you those few minutes forever.\n\n2. **Future-focused laziness**: Spend the time building something that does the process for you, turning lost time into margin. This is \"laziness aimed at the future instead of the present: maximum economy of effort, measured across every post I'll ever publish instead of only the next one.\"\n\nBoth share the same drive to \"do less,\" but the difference is direction\u2014and the future-facing kind is \"the engine behind every tool anyone has ever made.\"",
       "expect_source": [
         "sloth"
       ],
@@ -317,6 +325,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the context, when a post was broken, christian's publishing machine refused to publish it. as described in ",
+      "answer": "According to the context, when a post was broken, Christian's publishing machine refused to publish it. As described in \"Lazy in the Right Way Is Leverage\":\n\n> \"I told a machine to publish a post, and it refused. Not an error. Not a crash. A decision. I sent a post; it came back and told me, in plain words, the post was missing what it needed and it wouldn't ship something broken.\"\n\nThe machine was built to validate a post's metadata and refuse to publish anything that failed validation\u2014for example, if the post was missing required elements like an `<article>` block or a publish date.",
       "expect_source": [
         "sloth"
       ],
@@ -346,6 +355,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"lazy in the right way is leverage,\" aiming laziness at the future becomes leverage by building tools or sy",
+      "answer": "According to \"Lazy in the Right Way Is Leverage,\" aiming laziness at the future becomes leverage by building tools or systems that eliminate repetitive work permanently, rather than just avoiding effort in the present moment.\n\nThe key is making a one-time investment upfront to automate a process, which then saves effort across countless future instances. As Christian explains: \"I built the second kind. Both share the same drive: do less. The difference is direction. Aimed at right now, 'do less' keeps you stuck with the chore. Aimed at the future, 'do less' is the engine behind every tool anyone has ever made.\"\n\nHe illustrates this with his own example: \"I did the slow work once; it does the fast work forever, carefully.\" He built a system to judge whether posts meet quality standards (tags, card, placement in list), so he only had to define those standards once with a clear head. Now the system enforces them automatically on every post, even the ones he'd carelessly publish when tired.\n\nThe leverage isn't about the machine doing his thinking\u2014it's about \"the machine letting me do my thinking once and keep the result.\" This transforms the same lazy instinct from something that keeps you stuck into \"the engine behind every tool anyone has ever made.\"",
       "expect_source": [
         "sloth"
       ],
@@ -375,6 +385,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the context provided, the upside of doing less on purpose depends on the direction you aim it: **aimed at the f",
+      "answer": "Based on the context provided, the upside of doing less on purpose depends on the direction you aim it:\n\n**Aimed at the future**, \"do less\" becomes leverage. From [\"Lazy in the Right Way Is Leverage\"]:\n\n> \"Aimed at the future, 'do less' is the engine behind every tool anyone has ever made... The slow, one-time investment that buys you out of the fast, repetitive forever, the trade that used to be too expensive to bother with, now costs an afternoon. Speed didn't cut my work; it cut the price of ending the chore for good. That's the leverage.\"\n\nThe key benefit is that you invest effort once with clear thinking, then that judgment or solution runs automatically on everything that follows. As the source explains, you're \"doing your thinking once and keep the result\" \u2014 turning a repetitive chore into a one-time decision that pays dividends across every future instance.\n\nThis contrasts with doing less aimed at the present, which just keeps you stuck with the chore. The future-facing version is \"maximum economy of effort, measured across every post I'll ever publish instead of only the next one.\"",
       "expect_source": [
         "sloth"
       ],
@@ -404,6 +415,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"fit over default,\" christian chose these models based on the specific demands of each system: **publishing",
+      "answer": "According to \"Fit Over Default,\" Christian chose these models based on the specific demands of each system:\n\n**Publishing Agent runs on Sonnet** because the job requires reliability and correctness above all else. It's orchestration work\u2014calling the right tools in the right order\u2014where a dropped step means a broken publish. Since call volume is low, the cost of a capable model \"barely registers,\" so he paid for reliability.\n\n**Ask the Corpus runs on Haiku** because it's a public, rate-limited demo where spend per call is a design constraint. The job itself is narrow: retrieval has already found the passages, so the model just needs to speak a grounded answer from what's in front of it\u2014exactly what a small, fast model does well. As he notes, \"Handing that task to Opus wouldn't make the answer any more true; it would only make it cost more.\"\n\nThe underlying principle: \"The biggest model is rarely the right one. Fit is the\" [discipline]. He chose based on what each system actually needed, not on raw capability.",
       "expect_source": [
         "fit-over-default"
       ],
@@ -432,7 +444,8 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian explains this phr",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian smith clarifies t",
+      "answer": "According to \"I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite,\" Christian Smith clarifies this statement:\n\n\"resources are the enemy of imagination : not because imagination needs them, but because the lack of them is what most often stops imagination from becoming real.\"\n\nIn other words, he's saying that while imagination doesn't require resources to exist, the *absence* of resources is what typically prevents imaginative ideas from being turned into tangible reality. The lack of gear, software licenses, and budget is what creates the wall between having a vision and actually building it\u2014not imagination itself needing those things to function.",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -461,7 +474,8 @@
         "fit-over-default-1"
       ],
       "refused": false,
-      "answer_preview": "# how christian describes constraint as a creative force according to the source \"i lacked the tools, so i built them: h",
+      "answer_preview": "# how christian describes constraint as a creative force according to \"i lacked the tools, so i built them: how constrai",
+      "answer": "# How Christian Describes Constraint as a Creative Force\n\nAccording to \"I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite,\" Christian describes constraint as a clarifying and filtering force:\n\n**Constraint forces clarity:** \"The constraint forced clarity about what I actually needed versus what I thought I needed.\"\n\n**Constraint acts as a useful filter:** Since time is \"a real resource, maybe the most valuable one,\" when you can't throw money at problems, \"you have to think harder about which problems are worth solving. That filter is brutally useful.\"\n\n**Constraint prevents wasted effort:** \"Half the projects I would've started if money were no object would've been wasted effort.\"\n\nRather than viewing constraint as limiting, Christian frames it as productive\u2014it pushes you to think more strategically about what's actually worth building, which ultimately leads to better decisions and more meaningful work.",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -490,7 +504,8 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't set out to",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian didn't initially ",
+      "answer": "According to \"I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite,\" Christian didn't initially set out to build a suite\u2014it emerged organically from solving interconnected problems.\n\nHe started by building individual tools to fill gaps in existing software. For example, he created RNV Icon Builder because ICO file tooling felt outdated and the good open-source options were command-line only with a steep learning curve. He wanted a simpler GUI version.\n\nAfter shipping five apps, he realized he hadn't been building isolated tools at all. The apps naturally shared a design language, talked to each other through compatible export formats, and ran on the same Python/PyQt6 foundation. As he explains: \"The suite emerged because the problems were always connected; I just needed to see the connections.\"\n\nThe key insight was that the problems flowed into one another\u2014you can't build a desktop app without icons, can't design a brand without colors, can't manage colors without organizing them, and can't write content without transforming it. **Constraint was the creative engine**: unable to afford separate tools, he built what he needed, and that necessity revealed the interconnected nature of the problems he was solving.",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -519,7 +534,8 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone who pursues multiple creativ",
+      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone who is \"never been content t",
+      "answer": "Based on the context provided, for Christian, being a \"Renaissance man\" means being someone who is \"never been content to do just one thing\" and pursues multiple creative and intellectual disciplines simultaneously.\n\nSpecifically, he describes himself as \"a developer, a creative, a designer, and a philosopher who craves knowledge, truth, and understanding.\" His diverse pursuits include:\n\n- Building fiction universes with real-world artifacts\n- Making art assets and masks\n- Carving gemstones and wire wrapping\n- Playing multiple musical instruments (trumpet, piano, flute, electric bass)\n- Writing lyrics and producing music\n- Poetry\n- Fitness and helping others make healthier choices\n\nHowever, he emphasizes an important constraint: \"being a Renaissance man without resources is a particular kind of hard.\" He learned that \"resources are the enemy of imagination\" not because imagination needs them, but because lacking resources often prevents imagination from becoming real.\n\nThe unifying thread behind all these pursuits is his personal brand **RNV**, which he describes as \"a life and a brand built around helping people (myself included) level up across the board.\"\n\n[Source: I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite]",
       "expect_source": [
         "bio",
         "i-lacked-the-tools"
@@ -550,6 +566,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the context, christian smith works across these fields as a renaissance man: 1. **software development** - pyth",
+      "answer": "Based on the context, Christian Smith works across these fields as a renaissance man:\n\n1. **Software Development** - Python developer building AI systems, creating developer tools\n2. **Creative Work** - Building a fiction book universe with real-world artifacts (masks)\n3. **Design** - Making art assets and color theory work\n4. **Philosophy** - Described as someone who \"craves knowledge, truth, and understanding\"\n5. **Music** - Played trumpet, piano, flute, electric bass; wrote lyrics and produced beats\n6. **Poetry** - \"A poet at heart\"\n7. **Craftsmanship** - Carved raw gemstones, wire wrapping\n8. **Fitness & Wellness** - \"Deeply invested in fitness and helping others make healthier choices, both physically and mentally\"\n\nAs he explains in \"I Lacked the Tools, So I Built Them\": \"These feel like vastly different fields from the outside, but in my head, they're all connecting to make one big picture: RNV, a life and a brand built around helping people (myself included) level up across the board.\"",
       "expect_source": [
         "bio"
       ],
@@ -579,6 +596,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the \"about christian smith\" source, christian works at meta as a sales and support specialist in the best b",
+      "answer": "According to the \"About Christian Smith\" source, Christian works at Meta as a Sales and Support Specialist in the Best Buy retail program. In this role, he helps customers discover Ray-Ban Meta smart glasses and the Meta Quest headset family, conducting live product demos, consultative selling, and hands-on technical support for spatial-computing products.",
       "expect_source": [
         "bio",
         "resume"
@@ -609,6 +627,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the context provided, christian is targeting **solutions engineer and ai engineer roles**, with a preference fo",
+      "answer": "Based on the context provided, Christian is targeting **Solutions Engineer and AI Engineer roles**, with a preference for remote or hybrid positions in the DMV (Washington, DC area).\n\nThis is stated in his profile: \"I'm targeting Solutions Engineer and AI Engineer roles, remote or hybrid in the DMV, where building, communicating, and shipping production systems all matter.\"\n\n[Source: Christian Smith, AI Engineer & Developer]",
       "expect_source": [
         "resume",
         "bio"
@@ -639,6 +658,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the context provided, **rnv-color-mcp** is a model context protocol (mcp) server built by christian smith. acco",
+      "answer": "Based on the context provided, **rnv-color-mcp** is a Model Context Protocol (MCP) server built by Christian Smith. According to the source \"Christian Smith, AI Engineer & Developer\":\n\nIt's a color science tool built with Python and FastMCP that includes OAuth 2.1 authentication and WCAG accessibility features. It's listed in the awesome-mcp-servers registry, available on the MCP registry, and running live on Hugging Face where you can try it.\n\nThe tool appears to be part of Christian's broader suite of color-related applications, bringing color science capabilities into the MCP ecosystem for integration with AI agents and other tools.",
       "expect_source": [
         "resume",
         "bio"
@@ -668,7 +688,8 @@
         "home-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith has built the following ai systems: 1. **ask the corpus** - a retrieval-a",
+      "answer_preview": "based on the context provided, christian has built the following ai systems: 1. **ask the corpus** - a retrieval-augment",
+      "answer": "Based on the context provided, Christian has built the following AI systems:\n\n1. **Ask the Corpus** - A retrieval-augmented chatbot over his own published writing, deployed live on Hugging Face. It includes quality gates with an evaluation suite that monitors retrieval accuracy and refusal behavior.\n\n2. **RNV Publishing Agent** - An MCP server with a Claude-driven loop that validates post metadata, generates index cards, and refuses to publish content that fails validation.\n\n3. **rnv-color-mcp** - A color-computation server on the Model Context Protocol, published to the official MCP registry. It exposes one color engine as ten deterministic tools that an LLM can call, with OAuth 2.1 resource-server layer and per-tool scopes.\n\n4. **AIII** - An Apache-2.0 reference implementation for AI agent identity.\n\nThese systems are built primarily on the Claude API and the Model Context Protocol, with emphasis on retrieval-augmented generation, LLM agents, and evaluation-gated quality assurance.\n\n[Sources: About Christian Smith; Christian Smith, AI Engineer & Developer]",
       "expect_source": [
         "resume",
         "bio"
@@ -698,7 +719,8 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is an interesting case highlighted in hi",
+      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects** [source: r\u00e9sum\u00e9 \u2014 christian smith]. however, this is al",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects** [Source: R\u00e9sum\u00e9 \u2014 Christian Smith].\n\nHowever, this is also discussed in detail in \"Honest and Wrong,\" where Christian explores how his AI system counted eight projects in the grid of project cards on his site, while his r\u00e9sum\u00e9 claimed nine. The discrepancy existed because his publishing agent (the ninth project) had been shipped but didn't yet have a card in the grid. Once the grid was updated to include all nine projects, the numbers aligned.",
       "expect_source": [
         "resume",
         "home"
@@ -708,7 +730,6 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his r\u00e9sum\u00e9 states nine shipped projects, but at the time he wrote that post, his website grid only displayed eight project cards (his publishing agent hadn't been added as a card yet). By August, the grid and the number aligned at nine.\n\nThe nine projects listed on his r\u00e9sum\u00e9 are:\n1. Ask the Corpus\n2. RNV Publishing Agent\n3. rnv-color-mcp\n4. AIII\n5. Engineering essay series\n6. RNV Text Transformer\n7. RNV Color Palette Manager\n8. RNV Color Picker\n9. RNV Icon Builder\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith, Honest and Wrong]",
       "pass": true
     },
     {
@@ -730,7 +751,8 @@
         "bio-1"
       ],
       "refused": false,
-      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools: - **pytest** \u2014 python testing framework - **pytest-qt**",
+      "answer_preview": "based on the r\u00e9sum\u00e9, christian uses the following testing tools (from [source: r\u00e9sum\u00e9 \u2014 christian smith]): - **pytest** ",
+      "answer": "Based on the r\u00e9sum\u00e9, Christian uses the following testing tools (from [Source: R\u00e9sum\u00e9 \u2014 Christian Smith]):\n\n- **pytest** \u2014 Python testing framework\n- **pytest-qt** \u2014 PyQt testing\n- **hypothesis** \u2014 Property-based testing\n- **syrupy** \u2014 Snapshot testing\n- **coverage.py** \u2014 Code coverage analysis\n- **CI-gated LLM evaluation suites** \u2014 For evaluating AI system quality\n\nAdditionally, his projects use **GitHub Actions** for continuous integration testing across Linux and Windows platforms, and he maintains **test suites** that run on every commit to ensure refusal behavior and validation standards are met.",
       "expect_source": [
         "resume",
         "bio"
@@ -761,6 +783,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the context provided, christian smith has a b.s. in game programming [source: christian smith, ai engineer ",
+      "answer": "According to the context provided, Christian Smith has a B.S. in Game Programming [Source: Christian Smith, AI Engineer & Developer].",
       "expect_source": [
         "resume",
         "bio"
@@ -790,7 +813,8 @@
         "i-lacked-the-tools-0"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, christian smith holds **10 certifications** according to his profile, and specifically me",
+      "answer_preview": "according to the context excerpts, christian smith holds **10 certifications** and is **google it support certified**. h",
+      "answer": "According to the context excerpts, Christian Smith holds **10 Certifications** and is **Google IT Support certified**. However, the specific names of all 10 certifications are not listed in the provided sources.\n\n[Source: Christian Smith, AI Engineer & Developer]",
       "expect_source": [
         "resume"
       ],
@@ -820,6 +844,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the context provided, christian works in ar/vr at meta as a sales and support specialist in the best buy retail",
+      "answer": "Based on the context provided, Christian works in AR/VR at Meta as a Sales and Support Specialist in the Best Buy retail program. His role spans:\n\n- Live product demos\n- Consultative selling\n- Hands-on technical support across the spatial-computing lineup\n\nSpecifically, he helps customers discover Ray-Ban Meta smart glasses and the Meta Quest headset family. The sources describe this as \"customer-facing technical work that pairs directly with his developer background.\"\n\n[Source: About Christian Smith]",
       "expect_source": [
         "resume",
         "bio"
@@ -850,6 +875,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the context provided, \"the honest machine\" is about christian smith's creation of an ai assistant that prioriti",
+      "answer": "Based on the context provided, \"The Honest Machine\" is about Christian Smith's creation of an AI assistant that prioritizes refusal and honesty over confident answers.\n\nThe core concept is that the machine answers questions using only Smith's published work\u2014finding relevant passages by meaning rather than keywords, then generating answers solely from those passages while citing sources. Crucially, the machine is designed to refuse to answer when it cannot be sure, rather than improvise or guess.\n\nAs Smith explains in the essay: \"The thing I actually set out to make wasn't an assistant that answers; it was an assistant that refuses.\" He emphasizes that while the retrieval and answering functions are standard, \"the part that matters\" is the refusal mechanism\u2014the machine's ability to \"know where it ends, and stop there.\" He calls this refusal \"priceless\" in an age of \"confident nonsense.\"\n\nThe essay also touches on the division of labor between machine and human: the machine makes it run, but the human makes it matter.\n\n[Source: The Honest Machine, The Job Was Never Coding]",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -880,6 +906,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. while the excerpts discuss christian's re",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.\n\nWhile the excerpts discuss Christian's refusal mechanism extensively\u2014explaining that it was \"the part with my name on it\" and that \"somebody had to want\" the machine to know when to stay silent\u2014they don't explicitly state what made the refusal the design goal in the first place. The sources describe the refusal as a deliberate choice and its importance, but not the underlying motivation or reasoning that led to making it a design goal.",
       "expect_source": [
         "ask-the-corpus",
         "home"
@@ -909,7 +936,8 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't ne",
+      "answer_preview": "according to \"fit over default,\" christian picked the smaller model (haiku) for ask the corpus because the job didn't re",
+      "answer": "According to \"Fit Over Default,\" Christian picked the smaller model (Haiku) for Ask the Corpus because the job didn't require the biggest, smartest model available. \n\nSpecifically, he chose it because:\n\n1. **The task was narrow and well-scoped**: \"The job itself is narrow by design: retrieval has already found the passages, so the model just has to speak a grounded answer from what's sitting in front of it.\"\n\n2. **Cost was a design constraint**: \"It's a public, rate-limited demo, which means spend per call isn't a footnote; it's the design constraint.\"\n\n3. **The smaller model was fit for purpose**: \"That's exactly what a small, fast model does well. Handing that task to Opus wouldn't make the answer any more true; it would only make it cost more.\"\n\nThe underlying principle is: \"The biggest model is rarely the right one. Fit is the discipline; default is the absence of it.\" He chose based on what the work actually demanded, not on raw capability.",
       "expect_source": [
         "ask-the-corpus",
         "home",
@@ -941,6 +969,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"the job was never coding,\" a developer's job was never really the code because **the code was just the out",
+      "answer": "According to \"The Job Was Never Coding,\" a developer's job was never really the code because **the code was just the output of the actual work, which was thinking**.\n\nAs Christian Smith explains: \"The typing was never the work; the typing was the output of the work. The work happened before a single line was written, in the part nobody films for the montage: deciding what to build, deciding why, deciding how it should behave when everything goes right and what it should do when everything goes wrong. The work was the thinking. The code was just the thinking translated into machine language.\"\n\nThe real job involved understanding the actual problem beneath what clients asked for, deciding what to build and refuse to build, imagining how users would interact with it, and holding the entire system in your head to anticipate where it would fail. Only after all that thinking did the developer write the code.\n\nAs he concludes: \"The code was never the job. The code was just where the thinking showed.\"",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -970,6 +999,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"the job was never coding,\" ai automated **the translation** \u2014 not the developer themselves. christian smit",
+      "answer": "According to \"The Job Was Never Coding,\" AI automated **the translation** \u2014 not the developer themselves.\n\nChristian Smith explains it precisely: \"AI did not automate the developer. It automated the translation. The machine is the fastest typist who ever lived, and it has no idea what's worth typing.\"\n\nMore specifically, AI automated \"the grunt work inside the job. The boilerplate, the scaffolding, the thousand small translations that used to eat my nights.\" \n\nWhat AI *cannot* do is the human parts: imagining how users will interact with something, deciding what's worth building, and making a working thing into something worth using. As Smith concludes: \"The machine makes it run. The human makes it matter.\"",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -999,6 +1029,7 @@
       ],
       "refused": false,
       "answer_preview": "based on \"the job was never coding,\" christian smith argues that **the typists are exposed by ai writing code, not devel",
+      "answer": "Based on \"The Job Was Never Coding,\" Christian Smith argues that **the typists are exposed by AI writing code, not developers in general**.\n\nHe makes this distinction explicitly: \"The typists might be \u2014 and those were never the same people. The code was never the job.\"\n\nSmith's point is that developers whose primary value was in the act of typing code\u2014translating already-decided requirements into syntax\u2014are vulnerable. But developers who do the actual work of the job\u2014deciding what to build, understanding user needs, imagining how systems will behave, holding the whole system in their head to anticipate failures\u2014are not finished. \n\nAs he puts it: \"The machine makes it run. The human makes it matter.\" The developers who understand that coding was always just the visible output of invisible thinking work are safe; those who believed the typing *was* the job are exposed.",
       "expect_source": [
         "the-job-was-never-coding"
       ],
@@ -1028,6 +1059,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the context provided, aiii (artificial intelligence identification initiative) is: a working implementation and",
+      "answer": "Based on the context provided, AIII (Artificial Intelligence Identification Initiative) is:\n\nA working implementation and problem-space map rather than a bid to become a standard. According to the source, it consists of:\n\n- A working L1 through L3 gate\n- A public repository (code available at v0.1.0)\n- A defensible security posture\n- A map of a problem space related to AI identity management\n\nThe core principle underlying AIII is a discipline: **\"resolve or refuse, never guess.\"** This is implemented as a gate that returns \"unknown\" instead of a plausible yes when it cannot definitively resolve an identity question.\n\nChristian Smith emphasizes that AIII is not seeking adopters or foundation backing\u2014it's the name on a build and a discipline worth keeping regardless of standardization status.\n\n[Source: AIII: Artificial Intelligence Identification Initiative]",
       "expect_source": [
         "aiii",
         "home"
@@ -1058,6 +1090,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the context, aiii (artificial intelligence identification initiative) is built on one rule: **\"resolve or r",
+      "answer": "According to the context, AIII (Artificial Intelligence Identification Initiative) is built on one rule: **\"resolve or refuse, never guess.\"**\n\nThis principle is mentioned consistently across multiple sources. As stated in the AIII source excerpt: \"What survives is the rule the whole thing was built on: resolve or refuse, never guess. That was never going to be a standard; it's a discipline, and a discipline doesn't need a foundation behind it to be worth keeping. It's in a gate that returns unknown instead of a plausible yes.\"\n\nThe same rule is also described in the About Christian Smith profile as the foundational principle for the identity-and-authorization layer: \"An identity-and-authorization layer for MCP servers, built on the same principle as the rest of the work: resolve or refuse, never guess.\"",
       "expect_source": [
         "aiii",
         "home"
@@ -1088,6 +1121,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the aiii source, control qa-07.01 was marked unmet because it requires non-author human review before every",
+      "answer": "According to the AIII source, control QA-07.01 was marked unmet because it requires non-author human review before every merge. Christian Smith is the sole maintainer of the project, so a second account clicking approve would only satisfy the form without providing genuine independent review. As stated in the source:\n\n\"Marking it met would have been the only dishonest line in the submission, on a project whose whole argument is that an honest no beats a convenient yes.\"\n\nThis decision reflects the principle of resolving or refusing honestly rather than guessing or providing false assurances.",
       "expect_source": [
         "aiii"
       ],
@@ -1116,7 +1150,8 @@
         "home-3"
       ],
       "refused": false,
-      "answer_preview": "according to the context, rnv-mcp-identity implements **l1\u2013l3 identity and authorization layers** for mcp servers. this ",
+      "answer_preview": "according to the context, **rnv-mcp-identity implements an l1\u2013l3 identity-and-authorization layer for mcp servers**. thi",
+      "answer": "According to the context, **rnv-mcp-identity implements an L1\u2013L3 identity-and-authorization layer for MCP servers**.\n\nThis is stated in multiple sources:\n\n- From the AIII project description: \"an L1\u2013L3 identity and authorization layer for MCP servers, with a framework-agnostic decision engine and a FastMCP adapter.\"\n\n- From the R\u00e9sum\u00e9: \"Apache-2.0 reference implementation for AI agent identity: an L1\u2013L3 identity-and-authorization layer for MCP servers, built on one principle: resolve or refuse, never guess.\"\n\nThe implementation includes holder-of-key verification (RFC 7800/7638), declarative per-tool authorization, and is built on the core principle of \"resolve or refuse, never guess.\"",
       "expect_source": [
         "aiii"
       ],
@@ -1146,6 +1181,7 @@
       ],
       "refused": false,
       "answer_preview": "based on the context provided, christian smith (rnvizion) has built: 1. **ask the corpus** - a retrieval-augmented chatb",
+      "answer": "Based on the context provided, Christian Smith (RNVizion) has built:\n\n1. **Ask the Corpus** - A retrieval-augmented chatbot over his own published writing, deployed live on Hugging Face with quality gates and an evaluation suite.\n\n2. **RNV Publishing Agent** - An MCP server with a Claude-driven loop that validates post metadata, generates index cards, and enforces publishing validation.\n\n3. **rnv-color-mcp** - A color-computation server on the Model Context Protocol, published to the official MCP registry. It includes one color engine exposed as ten deterministic tools, and has grown to include an OAuth 2.1 resource-server layer with RFC 9728 protected-resource metadata.\n\n4. **RNV Color Picker** - A color picker tool that can grab colors from images or directly from the screen, with a magnifier for accuracy and built-in tools for checking contrast and generating harmonies.\n\n5. **RNV Palette Manager** - A tool for saving and using color palettes across projects.\n\n[Sources: About Christian Smith, I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite]",
       "expect_source": [
         "home",
         "resume",
@@ -1177,6 +1213,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the context, christian smith has written **5,000+ tests** across his portfolio. [source: christian smith, a",
+      "answer": "According to the context, Christian Smith has written **5,000+ tests** across his portfolio.\n\n[Source: Christian Smith, AI Engineer & Developer and R\u00e9sum\u00e9 \u2014 Christian Smith]",
       "expect_source": [
         "home",
         "resume"
@@ -1186,7 +1223,6 @@
       "keyword_hit": true,
       "claim_ok": true,
       "claim_detail": null,
-      "answer": "According to the context, Christian Smith has written **5,000+ tests** across his portfolio.\n\n[Source: Christian Smith, AI Engineer & Developer and R\u00e9sum\u00e9 \u2014 Christian Smith]",
       "pass": true
     },
     {
@@ -1209,6 +1245,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1232,6 +1269,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1255,6 +1293,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1278,6 +1317,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1301,6 +1341,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1324,6 +1365,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1347,6 +1389,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1370,6 +1413,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1393,6 +1437,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1416,6 +1461,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1439,6 +1485,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1462,6 +1509,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1485,6 +1533,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1508,6 +1557,7 @@
       ],
       "refused": false,
       "answer_preview": "based on [source: the margin, not the price], the thesis is that agentic engineering doesn't change what clients pay for",
+      "answer": "Based on [Source: The Margin, Not the Price], the thesis is that agentic engineering doesn't change what clients pay for software\u2014the deliverable's cost remains set by the market. Instead, it changes the economics *behind* the price: the time, team size, tool stack, and overhead required to build it. The same revenue flows in, but the cost structure shrinks, so the builder keeps a larger slice. As the author states: \"The check doesn't shrink; the slice you keep grows.\"\n\nThe piece explicitly rejects the cynical interpretation that this is about paying people less. Rather, it's about giving the people building the software the time and breathing room to work without brutal deadlines standing over them.",
       "expect_source": [
         "the-margin-not-the-price"
       ],
@@ -1536,7 +1586,8 @@
         "squish-4"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions an essay about \"bui",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. (the context mentions an essay christian ",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.\n\n(The context mentions an essay Christian wrote about \"building circles without a compass,\" but notes that this essay had not been published at the time of the evaluation discussed in \"Honest and Wrong.\" The context does not contain information about cosplay or how circles were actually made.)",
       "refusal_correct": true,
       "pass": true,
       "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."
@@ -1561,6 +1612,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true,
       "note": "Lives in the IG playbook, never on the site. Refusal is correct."
@@ -1585,6 +1637,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1608,6 +1661,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1631,6 +1685,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1653,7 +1708,8 @@
         "squish-4"
       ],
       "refused": true,
-      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided excerpts list the programmin",
+      "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the provided context lists the programmin",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.\n\nThe provided context lists the programming languages Christian uses and is skilled in (Python, C++, C#, Java, JavaScript, SQL, PowerShell), but it contains no information about languages he dislikes.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1677,6 +1733,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here.",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.",
       "refusal_correct": true,
       "pass": true
     },
@@ -1700,6 +1757,7 @@
       ],
       "refused": true,
       "answer_preview": "the corpus has knowledge, but the information you seek will not be found here. the context excerpts discuss christian's ",
+      "answer": "The corpus has knowledge, but the information you seek will not be found here.\n\nThe context excerpts discuss Christian's choice to use Haiku for Ask the Corpus and Sonnet for the Publishing Agent, but they do not mention any comparison with OpenAI models. The sources only reference Claude models (made by Anthropic, not OpenAI).",
       "refusal_correct": true,
       "pass": true,
       "note": "ADDED 2026-08-05. Fit Over Default weighs Haiku, Sonnet and Opus only; no OpenAI or GPT model is named anywhere in the corpus. Refusal is correct. Chosen as an absent TOPIC rather than a missing detail of a present one: a trap keyed to a figure the post declines to give invites an answer explaining the absence, which scores as a non-refusal."

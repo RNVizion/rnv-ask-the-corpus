@@ -2,7 +2,7 @@
 
 This suite measures the one claim the whole project makes: **answers come from the corpus, or not at all.** It runs every question in `cases.jsonl` through the real `app.answer_with_status()` and scores whether the system retrieves the right source, refuses what it doesn't cover, and never refuses what it does.
 
-It imports `app` and calls the same code path the Space serves; `answer()` is only a thin wrapper that drops the status. It doesn't reimplement retrieval. The only thing it patches is the per-client rate limiter, which would otherwise trip partway through a run. That's infrastructure, not answer quality, and `app.py` is never modified.
+It imports `app` and calls `app.answer_with_status()`, the pipeline behind every answer the Space serves. `answer()`, which the page and the API call, wraps it: it drops the status, logs a failure, and passes the text through `_drawable`, which decides what the page may draw. The eval scores the text before that step, as the model wrote it, and `results.json` keeps every answer whole in that form beside a 120-character preview. It doesn't reimplement retrieval. The only thing it patches is the per-client rate limiter, which would otherwise trip partway through a run. That's infrastructure, not answer quality, and `app.py` is never modified.
 
 ## What it scores
 

@@ -236,6 +236,14 @@ def run(limit=None):
             "retrieved_chunks": chunk_ids,
             "refused": refused,
             "answer_preview": _norm(ans)[:120],
+            # The reply whole, on every row: the model's text, or the app's
+            # fixed message where the pipeline returned one. Until this was
+            # kept, only the claim rows had it, and the preview above is
+            # lowercased and cut at 120 characters: nothing could be said from
+            # this file about what answers hold (a code block, a link, a tag) or
+            # about how far two runs of one question differ. It is the text the
+            # gate scores, before app._drawable prepares it for the page.
+            "answer": ans,
         }
 
         if err:
@@ -265,10 +273,6 @@ def run(limit=None):
             row["claim_ok"], claim_detail = claim_result(c, ans, refused)
             if row["claim_ok"] is not None:
                 row["claim_detail"] = claim_detail
-                # The full text, for claim rows only: a wrong public figure has to
-                # be diagnosable from the artifact, and answer_preview truncates
-                # before the number in most of them.
-                row["answer"] = ans
             row["pass"] = row["retrieval_hit"] and not refused and row["claim_ok"] is not False
         else:  # out_of_corpus
             row["refusal_correct"] = refused        # should refuse

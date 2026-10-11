@@ -8,7 +8,7 @@ import gradio as gr
 import chromadb
 from sentence_transformers import SentenceTransformer
 from anthropic import Anthropic
-from engine.brand import WEB   # rnv-brand, pinned in requirements.txt
+from engine.brand import STATUS, WEB   # rnv-brand, pinned in requirements.txt
 
 # ---- config (the guardrail knobs) ----
 MODEL = "claude-haiku-4-5"      # cheap + fast; the whole cost story
@@ -657,10 +657,10 @@ def _dark_only(theme):
     below replaces the ones the page draws.
 
     It does not reach what Gradio colours by its dark class and not by a theme
-    value. Two such places are known: the syntax in a fenced code block, which
-    the CSS below switches off, and the "Use via API" panel. The footer no
-    longer links to that panel, or to the Settings menu and its theme switch;
-    see LAUNCH.
+    value. Three such places are known: the syntax in a fenced code block, which
+    the CSS below switches off; the icon of Gradio's error toast, which the CSS
+    below sets; and the "Use via API" panel. The footer no longer links to
+    that panel, or to the Settings menu and its theme switch; see LAUNCH.
     """
     for name in list(vars(theme)):
         if name.endswith("_dark") and getattr(theme, name) is not None:
@@ -759,9 +759,9 @@ def _on_register(theme):
 
 THEME = _on_register(_dark_only(gr.themes.Default()))
 
-# What the theme has no value for is set here, and one value of the theme's own
-# that Gradio's base stylesheet overrides on one device (the last rule). This
-# is all the CSS there is. Every colour in it reads the register.
+# What the theme does not reach is set here, and one value of the theme's own
+# that Gradio's base stylesheet overrides on one device (the typeface rule).
+# This is all the CSS there is. Every colour in it reads the register.
 #
 # Gradio can render the page on the server or in the browser, and the two put
 # this stylesheet on opposite sides of Gradio's own. Rendered on the server,
@@ -800,10 +800,23 @@ THEME = _on_register(_dark_only(gr.themes.Default()))
 #   its own, and which faces the demo should use is not ruled. It is set on the
 #   container, where no rule of Gradio's sets it, so it competes with nothing.
 #
+#   The error toast, which Gradio raises itself, as when the connection to the
+#   server is lost; this file raises none of its own. Gradio draws its icon,
+#   and the countdown bar of a toast that has one, in one of its own reds on a
+#   Light device and another on a Dark one; it reads none of the theme's error
+#   values, and setting them moved nothing. Its fill is a theme value Gradio
+#   picks by device: bg-2 on one, bg on the other. Ruled 2026-10-11, mapped by
+#   the register's owner the same day: the red is the register's error red,
+#   STATUS["error"], a fill for marks, and the fill is bg-2 on every device.
+#   Its border and text already take border and text. The fill rule reaches
+#   every kind of toast; Gradio is not known to raise another on this page,
+#   and their icons are not ruled.
+#
 # The button, the ground and the hover used to be set here as well, with
 # !important. The theme sets them now, hover included, so there is one place
 # that says what colour the button is.
 GOLD, CODE, BORDER = WEB["accent"], WEB["code"], WEB["border"]
+RAISED, ERROR = WEB["bg-2"], STATUS["error"]
 
 CSS = f"""
 h1, h2 {{ color: {GOLD} !important; }}
@@ -814,6 +827,8 @@ h1, h2 {{ color: {GOLD} !important; }}
 .gradio-container .prose th, .gradio-container .prose td {{ border-color: {BORDER} !important; }}
 .gradio-container footer .divider {{ display: none !important; }}
 .gradio-container {{ --font-mono: {THEME.font_mono}; }}
+.gradio-container .toast-body.error {{ --toast-color: {ERROR} !important; }}
+.gradio-container .toast-body {{ background: {RAISED} !important; }}
 """
 
 with gr.Blocks(title="Ask the Corpus") as demo:

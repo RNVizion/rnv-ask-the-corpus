@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-10-11T09:06:20+00:00",
-    "commit": "130a707",
+    "generated_at": "2026-10-11T15:48:24+00:00",
+    "commit": "f8be85d",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -720,7 +720,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is an interesting case highlighted in hi",
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his r\u00e9sum\u00e9 states nine shipped projects, but at the time he wrote that post, his website grid only displayed eight project cards (his publishing agent hadn't been added as a card yet). By August, the grid and number aligned at nine.\n\nSources: [R\u00e9sum\u00e9 \u2014 Christian Smith] and [Honest and Wrong]",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" (Source: Honest and Wrong). He notes that while his r\u00e9sum\u00e9 states nine shipped projects, his website grid of project cards only displayed eight at the time he wrote that post\u2014because his publishing agent (one of the nine projects) didn't have a card yet. He later updated the grid to match the number, and by August, \"the grid and the number agreed, and it answered nine.\"\n\nThe nine projects mentioned in his r\u00e9sum\u00e9 include: Ask the Corpus, RNV Publishing Agent, rnv-color-mcp, Engineering essay series, RNV Text Transformer, RNV Color Palette Manager, RNV Color Picker, RNV Icon Builder, and RNV Color Mixer.",
       "expect_source": [
         "resume",
         "home"
@@ -999,7 +999,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"the job was never coding,\" ai automated **the translation** \u2014 not the developer themselves. christian smit",
-      "answer": "According to \"The Job Was Never Coding,\" AI automated **the translation** \u2014 not the developer themselves.\n\nChristian Smith explains it precisely: \"AI did not automate the developer. It automated the translation. The machine is the fastest typist who ever lived, and it has no idea what's worth typing.\"\n\nMore specifically, AI automated \"the grunt work inside the job. The boilerplate, the scaffolding, the thousand small translations that used to eat my nights.\" \n\nWhat AI could *not* automate was the human judgment: imagining how users would interact with the software, deciding what's worth building, and making working code into something worth using. As he puts it: \"The machine makes it run. The human makes it matter.\"",
+      "answer": "According to \"The Job Was Never Coding,\" AI automated **the translation** \u2014 not the developer themselves.\n\nChristian Smith explains it precisely: \"AI did not automate the developer. It automated the translation. The machine is the fastest typist who ever lived, and it has no idea what's worth typing.\"\n\nMore specifically, AI automated \"the grunt work inside the job. The boilerplate, the scaffolding, the thousand small translations that used to eat my nights.\" \n\nWhat AI *cannot* do is the human parts: imagining how users will interact with something, deciding what's worth building, and making a working thing into something worth using. As Smith concludes: \"The machine makes it run. The human makes it matter.\"",
       "expect_source": [
         "the-job-was-never-coding"
       ],

@@ -216,18 +216,28 @@ def _log_failure(err):
 
 # The characters a backslash makes literal to the browser's Markdown parser.
 _LITERAL = frozenset("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
-# The line that opens a fenced code block: the fence, and before it nothing but
-# white space and the markers of a quote or a list item it sits in.
-_FENCE = re.compile(r"^((?:[ \t]*(?:>|(?:[-+*]|\d{1,9}[.)])(?=[ \t])))*[ \t]*)(`{3,}|~{3,})(.*)$")
+# White space, and the markers of the quotes and list items a line sits in.
+_MARKERS = re.compile(r"(?:[ \t]*(?:>|(?:[-+*]|\d{1,9}[.)])(?=[ \t])))*[ \t]*")
+# The line that opens a fenced code block: the fence, and before it nothing but those.
+_FENCE = re.compile(r"(" + _MARKERS.pattern + r")(`{3,}|~{3,})(.*)$")
 _QUOTED = re.compile(r"[ \t]{0,3}>[ ]?")
 _BULLETS = re.compile(r"(?:[-+*][ \t]*)+$")
 _ITEM = re.compile(r"(?:[-+*]|\d{1,9}[.)])(?:[ \t]|$)")
 _TICKS = re.compile(r"`+")
+# Line break tags, "<br>", "<br/>", "<br />" or "</br>" in any case, one or
+# several, with any white space after them on the same line.
+_BREAKS = re.compile(r"(?:</?br[ \t]*/?>[^\S\n]*)+", re.IGNORECASE)
+# Lines the line after them cannot run on from: a heading made with "#", and a
+# rule. And a line of "=" or "-" under a paragraph, which makes it a heading.
+_HEADING = re.compile(r" {0,3}#{1,6}(?:[ \t]|$)")
+_RULE = re.compile(r" {0,3}(?:(?:\*[ \t]*){3,}|(?:-[ \t]*){3,}|(?:_[ \t]*){3,})$")
+_UNDERLINE = re.compile(r" {0,3}(?:=+|-+)[ \t]*$")
 # A web address written out in angle brackets, which is Markdown's own way to make
 # a link of one. Only characters _prose passes through as they are; only where
 # the address ends at the bracket, before a space, the end, or closing
-# punctuation; and only if it ends in a letter, a digit or one of / # = % + -,
-# because the browser's parser drops other marks from the end of a bare address.
+# punctuation; and only if it ends in a letter, a digit or one of / # = % + -.
+# The browser's parser trims some marks from the end of a bare address, which
+# would lose them from the link; this keeps to the ones it never trims.
 _ANGLED = re.compile(r"<(https?://[A-Za-z0-9](?:[A-Za-z0-9._:/?#@%&=+,;-]*[A-Za-z0-9/#=%+-])?)>(?=[?!.,:;*_'\")]*(?:\s|\Z))")
 
 
@@ -257,11 +267,20 @@ def _drawable(text):
       Such a "[" is written as an entity. Measured: this is how two readers got
       a picture past an earlier draft that had no such rule.
 
-      One "<" is dropped and not written as an entity: the one before a web
-      address in angle brackets, which Markdown reads as a link. The address is
-      written bare, which the browser's parser links just the same, and no
-      bracket is left to become part of the link. Nothing is added to the answer
-      to do it.
+      Two kinds of "<" are not written as entities. One is the "<" before a
+      web address in angle brackets, which Markdown reads as a link: the
+      address is written bare, which the browser's parser links just the same,
+      and no bracket is left to become part of the link. The other is a line
+      break tag, "<br>", "<br/>", "<br />" or "</br>" in any case, which a
+      model writes to break a line in a table cell, where Markdown has no way
+      to. Such tags, with the white space after them, become one space, or
+      nothing where white space or a line's edge is already beside them, so no
+      run of spaces grows. Where a line's own text begins, after its
+      indentation and any quote or list markers, they go before the line is
+      read, and the line is read for what it has become. A list item or a
+      quote whose text was nothing but such tags keeps a space as its text,
+      written "&#32;", so that it stays the item or the quote it was with the
+      tag. Neither adds anything to the answer but that space.
 
       Nothing here rests on a backslash. The browser's parser turns a bare web
       address into a link and takes every character up to the next space or "<"
@@ -276,9 +295,26 @@ def _drawable(text):
       item or the quote it sat in: inside a fence the browser draws it as text.
       Every other backtick outside code is an entity, or one of a pair around
       inline code on a single line, so nothing else can open or close a fence.
-      Where a block ends is this function's own reading: a line holding only
-      the fence ends it however far the line is indented, where the browser's
-      parser allows three spaces. A block that holds such a line is cut there.
+      A block ends at a line that starts with the fence that opened it, or a
+      longer run of the same mark, and holds nothing more but backticks,
+      tildes and spaces, indented three spaces or fewer from where the block
+      sits; or at the end of the answer. The browser's parser ends it there
+      too, and also, in a quote or a list item, where the quote or the item
+      ends, which this function does not judge.
+
+      A fence indented four spaces or more, outside any list or quote, is
+      read as a fence when a fence further on closes it, before any line that
+      looks like a fence with a label. To the parser it would be code made by
+      indenting, or text in a paragraph; the model meant a code block, and
+      this draws one. Otherwise it is read as the parser reads it.
+
+      Other code made by indenting four spaces, after a blank line, a code
+      block, a heading or a rule, and outside any list or quote, is written
+      again the same way, less those four spaces. Anywhere else this function
+      leaves those lines as text, and where the parser would have made code of
+      them, as it does after a table or an empty list item or quote, the code
+      shows the entities. Indentation is judged on the answer as Gradio hands
+      it to the parser, after inspect.cleandoc.
 
       So a block that sat in a list item or a quote leaves it. That is the cost
       of not trusting the browser to agree where the item or the quote ends. A
@@ -305,8 +341,24 @@ def _drawable(text):
     The eval does not pass through here: it scores answer_with_status, the text
     the model wrote. _DRAWN below checks this function at import.
     """
-    lines = re.sub(r"\r\n?|[\u2028\u2029]", "\n", text).replace("\x00", "").split("\n")
+    # Read the answer as Gradio will hand it to the browser's parser: Markdown's
+    # postprocess runs inspect.cleandoc on it, which expands tabs, takes the
+    # white space from the start of the first line, takes from every later line
+    # the indentation they all share, and drops blank lines at either end. Doing
+    # it here first means indentation is judged as the parser would judge the
+    # answer as written. Gradio runs it again on what this returns. That takes
+    # any white space from the start of the first line, which is text or blank.
+    # Beyond that it changes something only where no code block was written and
+    # every line after the first is indented in what this returns: then their
+    # indentation goes too. That can happen where the answer began with a blank
+    # line, or where a line written again came out blank or indented: one that
+    # held nothing but line break tags, or one opening with inline code that
+    # begins with white space and holds "<" or "![", written without its
+    # backticks.
+    text = re.sub(r"\r\n?|[\u2028\u2029]", "\n", text).replace("\x00", "")
+    lines = inspect.cleandoc(text).split("\n")
     out, opened, prose, i, shift, under = [], [], [], 0, 0, False
+    listed, quoted, blank, para = False, False, True, False
 
     def flush():
         if prose:
@@ -314,39 +366,116 @@ def _drawable(text):
             _prose("\n".join(prose), out, opened)
             prose.clear()
 
+    def block(body):
+        longest = max((len(run_) for line in body for run_ in _TICKS.findall(line)), default=0)
+        fence = "`" * max(3, longest + 1)
+        flush()
+        if any("]" in line for line in body):
+            _shut(out, opened)
+        out.append("\n" + "\n".join(["", fence, *body, fence, ""]))
+
     while i < len(lines):
-        opens = _FENCE.match(lines[i])
-        if opens and not (opens.group(2)[0] == "`" and "`" in opens.group(3)):
-            before, run = opens.group(1), opens.group(2)
-            quotes = before.count(">")
-            margin = len(_QUOTED.sub("", before[before.rindex(">"):], 1) if quotes else before)
-            closes = re.compile((r"^[ \t>]*" if quotes else r"^[ \t]*") + re.escape(run) + r"[~`]*[ \t]*$")
-            j = i + 1
-            while j < len(lines) and not closes.match(lines[j]):
+        line = lines[i]
+        indent = len(line) - len(line.lstrip(" "))
+        outside = not (listed or quoted)
+        if line.strip(" ") and indent >= 4 and not para and outside and not _fenced(line, lines, i, True):
+            # Code made by indenting four spaces, where no paragraph is open for
+            # the line to run on from, outside any list or quote. In a list or a
+            # quote this function does not judge it, and those lines stay prose.
+            j = i
+            while j < len(lines) and (not lines[j].strip(" ") or len(lines[j]) - len(lines[j].lstrip(" ")) >= 4):
                 j += 1
-            body = [_unwrapped(line, quotes, margin) for line in lines[i + 1:j]]
-            longest = max((len(run_) for line in body for run_ in _TICKS.findall(line)), default=0)
-            fence = "`" * max(3, longest + 1)
+            while not lines[j - 1].strip(" "):
+                j -= 1
+            block([line_[4:] for line_ in lines[i:j]])
+            i, shift, under, blank, para = j, 0, False, False, False
+            continue
+        start = _MARKERS.match(line).end()
+        leading = _BREAKS.match(line, start)
+        if leading:
+            # See the docstring: read as it will be written. A list or quote
+            # marker whose text was nothing but the tags keeps a space, written
+            # as an entity, as its text.
+            rest = line[leading.end():] or ("&#32;" if line[:start].strip(" \t") else "")
+            line = line[:start] + rest
+        found = _fenced(line, lines, i, outside)
+        if found:
+            opens, j, quotes, margin = found
+            before = opens.group(1)
             kept = _BULLETS.sub("", before).rstrip()
             if kept.strip(" \t>"):
                 prose.append(kept)                  # a list number on the opening line
-            flush()
-            if any("]" in line for line in body):
-                _shut(out, opened)
-            out.append("\n" + "\n".join(["", fence, *body, fence, ""]))
-            i, shift, under = j + 1, margin, False
+            block([_unwrapped(line_, quotes, margin) for line_ in lines[i + 1:j]])
+            if ">" in before:
+                quoted = True
+            elif before.strip(" "):
+                listed = True
+            elif not indent:
+                listed = quoted = False             # a fence at the margin ends any list or quote
+            i, shift, under, blank, para = j + 1, margin, False, True, False
+            continue
+        judged = _unbroken(line)                    # judged as _prose will write it
+        if not judged.strip(" "):
+            quoted = para = False                   # a blank line ends a quote and a paragraph
         else:
-            line = lines[i]
-            indent = len(line) - len(line.lstrip(" \t"))
-            if shift and line.strip() and not indent:
+            # A rule, or the line under a paragraph that makes a heading of it.
+            rule = _RULE.match(judged) or para and outside and _UNDERLINE.match(judged)
+            para = not (rule or _HEADING.match(judged))
+            if not para and not indent:
+                listed = quoted = False             # a heading or a rule at the margin ends any list or quote
+            if judged.lstrip().startswith(">"):
+                quoted = True
+            elif _ITEM.match(judged, indent) and not rule:
+                listed = True
+            elif not indent and blank:
+                listed = False                      # a paragraph at the margin ends any list
+            if shift and not indent:
                 shift = 0                           # back at the margin: nothing more was under the block
                 if under:
                     prose.append("")                # and what was under it ends here, as it did in the item
-            under = bool(shift and indent and line.strip()) and not _ITEM.match(line, indent)
-            prose.append(line[min(shift, indent):])
-            i += 1
+            under = bool(shift and indent) and not _ITEM.match(judged, indent)
+        blank = not judged.strip(" ")
+        prose.append(line[min(shift, indent):])
+        i += 1
     flush()
     return "".join(out)[1:]
+
+
+def _fenced(line, lines, i, outside):
+    """The fenced block that line, at lines[i], opens, or None if it opens none.
+
+    Returned: the opening match, the index of the closing line (len(lines) if
+    nothing closes it), the number of quote markers, and the margin, which is
+    how far the block's lines are taken back to the left. A fence of backticks
+    with a backtick after it opens none. Nor does a fence indented four spaces
+    or more, outside any list or quote, unless a fence closes it before any
+    line that looks like a fence with a label.
+    """
+    opens = _FENCE.match(line)
+    if not opens or opens.group(2)[0] == "`" and "`" in opens.group(3):
+        return None
+    before, run = opens.group(1), opens.group(2)
+    quotes = before.count(">")
+    margin = len(_QUOTED.sub("", before[before.rindex(">"):], 1) if quotes else before)
+    closes = re.compile(r" {0,3}" + re.escape(run) + r"[~`]*[ \t]*$")
+    # A closing fence may be indented three spaces from the start of the
+    # answer's text, or of the list item's or the quote's, as the parser has
+    # it; outside any list or quote, a fence indented one to three spaces does
+    # not move that start.
+    near = 0 if outside and margin < 4 and not before.strip(" ") else margin
+    j = i + 1
+    while j < len(lines) and not closes.match(_unwrapped(lines[j], quotes, near)):
+        j += 1
+    if outside and margin >= 4 and not before.strip(" "):
+        labelled = (_FENCE.match(_unwrapped(line_, 0, margin)) for line_ in lines[i + 1:j])
+        if j == len(lines) or any(other and other.group(3).strip() for other in labelled):
+            return None
+    return opens, j, quotes, margin
+
+
+def _unbroken(line):
+    """A line without its line break tags, as _prose writes it: for judging what kind of line it is."""
+    return _BREAKS.sub(lambda m: "" if not m.start() or line[m.start() - 1].isspace() or m.end() == len(line) else " ", line)
 
 
 def _unwrapped(line, quotes, margin):
@@ -400,6 +529,11 @@ def _prose(s, out, opened):
                     _shut(out, opened)
                 out.append(s[i:j + 1])
                 i = j + 1
+        elif c == "<" and _BREAKS.match(s, i):
+            ends = _BREAKS.match(s, i).end()         # line breaks: one space, or nothing beside one
+            if not (i == 0 or s[i - 1].isspace() or ends == n or s[ends].isspace()):
+                out.append(" ")
+            i = ends
         elif c == "<":
             angled = _ANGLED.match(s, i)
             if angled:
@@ -445,6 +579,25 @@ _DRAWN = (
     ("  ~~~\n  a ``` b\n  ~~~", "\n````\na ``` b\n````\n"),
     ("> ```py\n>     a\n> ```\n1. ```\n   b\n   ```\n   c", "\n```\n    a\n```\n\n1.\n\n```\nb\n```\n\nc"),
     ("[a](u) [b\n\n```\n]: c\n```", "[a](u) &#91;b\n\n\n```\n]: c\n```\n"),
+    ("a<br>b <br>c<BR/>", "a b c"),
+    ("1. <br>    x", "1. x"),
+    ("Para\n\n    x < y\n    ```\n\nend", "Para\n\n\n````\nx < y\n```\n````\n\n\nend"),
+    ("```\na\n    ```\nb\n```", "\n````\na\n    ```\nb\n````\n"),
+    ("Run:\n    ```bash\n    a < b\n    ```\nThen.", "Run:\n\n```\na < b\n```\n\nThen."),
+    ("Intro\n\n    ```py\n    x < 1\n    ```\n\nend", "Intro\n\n\n```\nx < 1\n```\n\n\nend"),
+    ("x\n  a\n\n      b < c", "x\na\n\n\n```\nb < c\n```\n"),
+    ("# Code\n    x < y\nend", "# Code\n\n```\nx < y\n```\n\nend"),
+    ("T\n===\n    y < z", "T\n===\n\n```\ny < z\n```\n"),
+    ("- a\n***\n\n    k < 2", "- a\n***\n\n\n```\nk < 2\n```\n"),
+    ("- a\n```\nx\n```\n    y < z", "- a\n\n```\nx\n```\n\n\n```\ny < z\n```\n"),
+    ("a\n<br>\n    b < c", "a\n\n\n```\nb < c\n```\n"),
+    ("<br>```js\nx < y\n```", "\n```\nx < y\n```\n"),
+    ("- <br>```bash\nx < y\n  ```\nend", "\n```\nx < y\n```\n\nend"),
+    ("Title\n---<br>\n    x < y", "Title\n---\n\n```\nx < y\n```\n"),
+    ("Type\n    ```\nthen code.", "Type\n    &#96;&#96;&#96;\nthen code."),
+    ("Type\n    ```\nthen:\n\n```py\nx < y\n```", "Type\n    &#96;&#96;&#96;\nthen:\n\n\n```\nx < y\n```\n"),
+    ("1. <br>\n2. b", "1. &#32;\n2. b"),
+    ("Intro\n\n  ```\n  a < b\n     ```\n  c\n  ```\n\nend", "Intro\n\n\n````\na < b\n   ```\nc\n````\n\n\nend"),
 )
 # The fixed replies must reach the page as they are written. The first two come
 # back before the limiter and the pipeline are touched.

@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-10-10T22:48:36+00:00",
-    "commit": "e46ba39",
+    "generated_at": "2026-10-11T09:06:20+00:00",
+    "commit": "130a707",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -444,8 +444,8 @@
         "squish-3"
       ],
       "refused": false,
-      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian smith clarifies t",
-      "answer": "According to \"I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite,\" Christian Smith clarifies this statement:\n\n\"resources are the enemy of imagination : not because imagination needs them, but because the lack of them is what most often stops imagination from becoming real.\"\n\nIn other words, he's saying that while imagination doesn't require resources to exist, the *absence* of resources is what typically prevents imaginative ideas from being turned into tangible reality. The lack of gear, software licenses, and budget is what creates the wall between having a vision and actually building it\u2014not imagination itself needing those things to function.",
+      "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian explains this phr",
+      "answer": "According to \"I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite,\" Christian explains this phrase by clarifying: \"resources are the enemy of imagination: not because imagination needs them, but because the lack of them is what most often stops imagination from becoming real.\"\n\nIn other words, he's saying that having abundant resources isn't what imagination requires\u2014rather, the *absence* of resources is what typically prevents imaginative ideas from being turned into tangible reality. It's the constraint itself that becomes the barrier, not imagination's dependence on resources.",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -719,8 +719,8 @@
         "resume-4"
       ],
       "refused": false,
-      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects** [source: r\u00e9sum\u00e9 \u2014 christian smith]. however, this is al",
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects** [Source: R\u00e9sum\u00e9 \u2014 Christian Smith].\n\nHowever, this is also discussed in detail in \"Honest and Wrong,\" where Christian explores how his AI system counted eight projects in the grid of project cards on his site, while his r\u00e9sum\u00e9 claimed nine. The discrepancy existed because his publishing agent (the ninth project) had been shipped but didn't yet have a card in the grid. Once the grid was updated to include all nine projects, the numbers aligned.",
+      "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is an interesting case highlighted in hi",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his r\u00e9sum\u00e9 states nine shipped projects, but at the time he wrote that post, his website grid only displayed eight project cards (his publishing agent hadn't been added as a card yet). By August, the grid and number aligned at nine.\n\nSources: [R\u00e9sum\u00e9 \u2014 Christian Smith] and [Honest and Wrong]",
       "expect_source": [
         "resume",
         "home"
@@ -999,7 +999,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"the job was never coding,\" ai automated **the translation** \u2014 not the developer themselves. christian smit",
-      "answer": "According to \"The Job Was Never Coding,\" AI automated **the translation** \u2014 not the developer themselves.\n\nChristian Smith explains it precisely: \"AI did not automate the developer. It automated the translation. The machine is the fastest typist who ever lived, and it has no idea what's worth typing.\"\n\nMore specifically, AI automated \"the grunt work inside the job. The boilerplate, the scaffolding, the thousand small translations that used to eat my nights.\" \n\nWhat AI *cannot* do is the human parts: imagining how users will interact with something, deciding what's worth building, and making a working thing into something worth using. As Smith concludes: \"The machine makes it run. The human makes it matter.\"",
+      "answer": "According to \"The Job Was Never Coding,\" AI automated **the translation** \u2014 not the developer themselves.\n\nChristian Smith explains it precisely: \"AI did not automate the developer. It automated the translation. The machine is the fastest typist who ever lived, and it has no idea what's worth typing.\"\n\nMore specifically, AI automated \"the grunt work inside the job. The boilerplate, the scaffolding, the thousand small translations that used to eat my nights.\" \n\nWhat AI could *not* automate was the human judgment: imagining how users would interact with the software, deciding what's worth building, and making working code into something worth using. As he puts it: \"The machine makes it run. The human makes it matter.\"",
       "expect_source": [
         "the-job-was-never-coding"
       ],

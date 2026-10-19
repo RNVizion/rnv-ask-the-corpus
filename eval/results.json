@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-10-11T15:48:24+00:00",
-    "commit": "f8be85d",
+    "generated_at": "2026-10-19T03:47:48+00:00",
+    "commit": "4e5d808",
     "dirty": false,
     "tag": null,
     "model": "claude-haiku-4-5",
@@ -445,7 +445,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"i lacked the tools, so i built them: how constraint created a software suite,\" christian explains this phr",
-      "answer": "According to \"I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite,\" Christian explains this phrase by clarifying: \"resources are the enemy of imagination: not because imagination needs them, but because the lack of them is what most often stops imagination from becoming real.\"\n\nIn other words, he's saying that having abundant resources isn't what imagination requires\u2014rather, the *absence* of resources is what typically prevents imaginative ideas from being turned into tangible reality. It's the constraint itself that becomes the barrier, not imagination's dependence on resources.",
+      "answer": "According to \"I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite,\" Christian explains this phrase by clarifying: \"resources are the enemy of imagination: not because imagination needs them, but because the lack of them is what most often stops imagination from becoming real.\"\n\nIn other words, he's saying that while imagination doesn't require resources to exist, the *absence* of resources is what typically prevents imaginative ideas from being turned into tangible reality. It's the constraint itself\u2014not resources in general\u2014that becomes the barrier between having a vision and actually building it.",
       "expect_source": [
         "i-lacked-the-tools"
       ],
@@ -534,8 +534,8 @@
         "the-job-was-never-coding-3"
       ],
       "refused": false,
-      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone who is \"never been content t",
-      "answer": "Based on the context provided, for Christian, being a \"Renaissance man\" means being someone who is \"never been content to do just one thing\" and pursues multiple creative and intellectual disciplines simultaneously.\n\nSpecifically, he describes himself as \"a developer, a creative, a designer, and a philosopher who craves knowledge, truth, and understanding.\" His diverse pursuits include:\n\n- Building fiction universes with real-world artifacts\n- Making art assets and masks\n- Carving gemstones and wire wrapping\n- Playing multiple musical instruments (trumpet, piano, flute, electric bass)\n- Writing lyrics and producing music\n- Poetry\n- Fitness and helping others make healthier choices\n\nHowever, he emphasizes an important constraint: \"being a Renaissance man without resources is a particular kind of hard.\" He learned that \"resources are the enemy of imagination\" not because imagination needs them, but because lacking resources often prevents imagination from becoming real.\n\nThe unifying thread behind all these pursuits is his personal brand **RNV**, which he describes as \"a life and a brand built around helping people (myself included) level up across the board.\"\n\n[Source: I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite]",
+      "answer_preview": "based on the context provided, for christian, being a \"renaissance man\" means being someone who pursues multiple creativ",
+      "answer": "Based on the context provided, for Christian, being a \"Renaissance man\" means being someone who pursues multiple creative and intellectual disciplines simultaneously. As he describes it in \"I Lacked the Tools, So I Built Them: How Constraint Created a Software Suite\":\n\nHe's \"a developer, a creative, a designer, and a philosopher who craves knowledge, truth, and understanding.\" His diverse pursuits include building a fiction book universe with real-world artifacts, making art assets, carving gemstones, wire wrapping, playing multiple instruments (trumpet, piano, flute, electric bass), producing music, writing poetry, and being invested in fitness and helping others make healthier choices.\n\nThe unifying thread for Christian is that all these seemingly disparate fields connect to form \"one big picture: RNV, a life and a brand built around helping people (myself included) level up across the board.\"\n\nHowever, he acknowledges the challenge: \"being a Renaissance man without resources is a particular kind of hard,\" as the lack of resources often prevents imagination from becoming reality. This realization led him to shift his framing\u2014rather than waiting for resources, he began building with what he already had, brick by brick.",
       "expect_source": [
         "bio",
         "i-lacked-the-tools"
@@ -720,7 +720,7 @@
       ],
       "refused": false,
       "answer_preview": "according to the r\u00e9sum\u00e9, christian has shipped **nine projects**. however, this is an interesting case highlighted in hi",
-      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" (Source: Honest and Wrong). He notes that while his r\u00e9sum\u00e9 states nine shipped projects, his website grid of project cards only displayed eight at the time he wrote that post\u2014because his publishing agent (one of the nine projects) didn't have a card yet. He later updated the grid to match the number, and by August, \"the grid and the number agreed, and it answered nine.\"\n\nThe nine projects mentioned in his r\u00e9sum\u00e9 include: Ask the Corpus, RNV Publishing Agent, rnv-color-mcp, Engineering essay series, RNV Text Transformer, RNV Color Palette Manager, RNV Color Picker, RNV Icon Builder, and RNV Color Mixer.",
+      "answer": "According to the r\u00e9sum\u00e9, Christian has shipped **nine projects**. \n\nHowever, this is an interesting case highlighted in his blog post \"Honest and Wrong\" \u2014 his website initially displayed eight project cards while claiming nine in the text. His publishing agent was designed to count what it could actually verify rather than take the stated number at face value. Once the missing project card (the RNV Publishing Agent) was added to the grid, the count and assertion aligned at nine.\n\n[Sources: R\u00e9sum\u00e9 \u2014 Christian Smith; Honest and Wrong]",
       "expect_source": [
         "resume",
         "home"
@@ -999,7 +999,7 @@
       ],
       "refused": false,
       "answer_preview": "according to \"the job was never coding,\" ai automated **the translation** \u2014 not the developer themselves. christian smit",
-      "answer": "According to \"The Job Was Never Coding,\" AI automated **the translation** \u2014 not the developer themselves.\n\nChristian Smith explains it precisely: \"AI did not automate the developer. It automated the translation. The machine is the fastest typist who ever lived, and it has no idea what's worth typing.\"\n\nMore specifically, AI automated \"the grunt work inside the job. The boilerplate, the scaffolding, the thousand small translations that used to eat my nights.\" \n\nWhat AI *cannot* do is the human parts: imagining how users will interact with something, deciding what's worth building, and making a working thing into something worth using. As Smith concludes: \"The machine makes it run. The human makes it matter.\"",
+      "answer": "According to \"The Job Was Never Coding,\" AI automated **the translation** \u2014 not the developer themselves.\n\nChristian Smith explains it precisely: \"AI did not automate the developer. It automated the translation. The machine is the fastest typist who ever lived, and it has no idea what's worth typing.\"\n\nMore specifically, AI automated \"the grunt work inside the job. The boilerplate, the scaffolding, the thousand small translations that used to eat my nights.\" \n\nWhat AI *cannot* do is the human parts: imagining how users will interact with and feel about the software, deciding what's worth building, and making a working thing into \"a thing worth using.\" As he concludes: \"The machine makes it run. The human makes it matter.\"",
       "expect_source": [
         "the-job-was-never-coding"
       ],

@@ -8,7 +8,7 @@ import gradio as gr
 import chromadb
 from sentence_transformers import SentenceTransformer
 from anthropic import Anthropic
-from engine.brand import STATUS, WEB   # rnv-brand, pinned in requirements.txt
+from engine.brand import STATUS, TYPE, WEB, font_faces, fonts_dir   # rnv-brand, pinned in requirements.txt
 
 # ---- config (the guardrail knobs) ----
 MODEL = "claude-haiku-4-5"      # cheap + fast; the whole cost story
@@ -757,11 +757,36 @@ def _on_register(theme):
     return theme
 
 
-THEME = _on_register(_dark_only(gr.themes.Default()))
+# Type comes from the brand register too: Inter for the body and JetBrains Mono
+# for code, the roles the register's TYPE gives them. Ruled 2026-10-18. Until
+# then the page drew Gradio's own faces, whose semi-bold files hold three of the
+# 95 printable ASCII characters, so bold text, the heading and the Ask button
+# drew mostly in the device's own face.
+#
+# The files ship inside rnv-brand, in the folder fonts_dir() names, with their
+# licenses, and the register checks the folder at import, naming any file that
+# is missing. Gradio serves that folder as static files, and font_faces() writes
+# the @font-face rules for it, which head the stylesheet below. Gradio's file
+# route names a file by its absolute path, so the stylesheet shows where pip
+# installed the package. Headings take the body face, as they did; whether they
+# take the brand's display face is not ruled.
+#
+# Each face is a gr.themes.Font and each fallback a plain string, as in
+# Gradio's own themes. All plain strings stop launch() when Gradio's analytics
+# are on, which is its default: it compares the theme with its built-in ones,
+# and a string there has no .name. A Font around a fallback quotes it,
+# and a quoted system-ui is a font name, not the device's interface face.
+FONTS = fonts_dir()
+gr.set_static_paths(paths=[FONTS])
+SANS = [gr.themes.Font(TYPE["body"]["family"]), "ui-sans-serif", "system-ui", "sans-serif"]
+MONO = [gr.themes.Font(TYPE["mono"]["family"]), "ui-monospace", "Consolas", "monospace"]
 
-# What the theme does not reach is set here, and one value of the theme's own
-# that Gradio's base stylesheet overrides on one device (the typeface rule).
-# This is all the CSS there is. Every colour in it reads the register.
+THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
+
+# What the theme does not reach is set here, after the brand's @font-face rules,
+# and one value of the theme's own that Gradio's base stylesheet overrides on
+# one device (the typeface rule). This is all the CSS there is. Every colour in
+# it reads the register.
 #
 # Gradio can render the page on the server or in the browser, and the two put
 # this stylesheet on opposite sides of Gradio's own. Rendered on the server,
@@ -797,8 +822,9 @@ THEME = _on_register(_dark_only(gr.themes.Default()))
 #   base stylesheet replaces the theme's list on a Light device and not on a
 #   Dark one, so the two fell to different faces for a glyph the first face
 #   lacks. Ruled 2026-10-06: both take the theme's list. This names no face of
-#   its own, and which faces the demo should use is not ruled. It is set on the
-#   container, where no rule of Gradio's sets it, so it competes with nothing.
+#   its own: the list is the theme's, set from the register above. It is set on
+#   the container, where no rule of Gradio's sets it, so it competes with
+#   nothing.
 #
 #   The error toast, which Gradio raises itself, as when the connection to the
 #   server is lost; this file raises none of its own. Gradio draws its icon,
@@ -818,7 +844,7 @@ THEME = _on_register(_dark_only(gr.themes.Default()))
 GOLD, CODE, BORDER = WEB["accent"], WEB["code"], WEB["border"]
 RAISED, ERROR = WEB["bg-2"], STATUS["error"]
 
-CSS = f"""
+CSS = font_faces(f"/gradio_api/file={FONTS}/") + f"""
 h1, h2 {{ color: {GOLD} !important; }}
 .gradio-container .prose code {{ color: {CODE}; }}
 .gradio-container .prose pre code span.token {{ color: inherit !important; opacity: 1 !important; }}

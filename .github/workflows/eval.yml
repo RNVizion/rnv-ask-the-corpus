@@ -51,6 +51,7 @@ on:
       - "eval/test_eval.py"
       - "tests/**"
       - "eval/check_index_coverage.py"
+      - "eval/check_launch.py"
       - ".github/workflows/eval.yml"
       - "requirements.txt"
   pull_request:
@@ -65,6 +66,7 @@ on:
       - "eval/test_eval.py"
       - "tests/**"
       - "eval/check_index_coverage.py"
+      - "eval/check_launch.py"
       - "requirements.txt"
   workflow_dispatch:
 
@@ -85,9 +87,15 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      # The Space runs the version named here: scripts/deploy_space.py reads
+      # this line and writes it into the Space's README, so the eval judges
+      # app.py on the interpreter visitors are served it on. Keep it the only
+      # python-version line in this file; the deploy fails if it finds two.
+      # 3.12 since 2026-10-19, ruled that day; it was 3.11 here while the Space
+      # ran 3.13.
       - uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           cache: pip
 
       - name: Install deps
@@ -109,6 +117,22 @@ jobs:
       # than after spending one Claude call per case learning the same thing.
       - name: Check index covers the cases
         run: python eval/check_index_coverage.py
+
+      # The eval imports app.py and never launches it, so whatever fails only
+      # in launch() would pass the eval and stop the Space after the deploy: a
+      # theme Gradio's analytics cannot compare (2026-10-18), a launch argument
+      # whose value Gradio rejects. This launches the page as the Space does,
+      # rendered on the server with analytics on, checks it is still running
+      # after launch() has finished, and fetches every font file its
+      # stylesheet names. No Claude call: nothing asks the page a question, and
+      # the key it is given is not a key. Gradio's launch telemetry goes out
+      # from the runner, as it does from the Space.
+      - name: Launch the page
+        env:
+          ANTHROPIC_API_KEY: not-a-key-the-launch-check-asks-nothing
+          GRADIO_ANALYTICS_ENABLED: "True"
+          GRADIO_SSR_MODE: "true"
+        run: python eval/check_launch.py
 
       # The only step that spends Claude calls. It writes eval/report.md and
       # eval/results.json and never fails the build; the gate below does that.

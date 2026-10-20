@@ -23,7 +23,7 @@ RATE = {"per_min": 6, "per_day": 60}
 
 # MAX_PER_SOURCE exists because the window is small and the corpus is not flat.
 #
-# Nearest-neighbour retrieval returns the k closest chunks and nothing stops one
+# Nearest-neighbor retrieval returns the k closest chunks and nothing stops one
 # source holding all of them. On 2026-09-17, "How many tests has Christian
 # written?" served four chunks of a single essay about the eval suite; the figure
 # published on the home page sat sixth, and the bot answered "two". Four wordings
@@ -164,7 +164,7 @@ def _pipeline(question):
     """Retrieval, then the model. Returns (text, error), as answer_with_status does.
 
     Split out so that health() can run the real path behind its own limiter check
-    without going through input handling meant for visitors. Behaviour is unchanged.
+    without going through input handling meant for visitors. Behavior is unchanged.
     """
     try:
         _ids, docs, metas = retrieve(question)
@@ -205,10 +205,10 @@ def _log_failure(err):
 # ---- what the page may draw ----
 #
 # The model's answer is drawn by Gradio's Markdown component, which reads it with
-# a Markdown parser in the browser and lets raw HTML through a sanitiser. That
-# sanitiser removes scripts and event handlers. It keeps a picture on another
+# a Markdown parser in the browser and lets raw HTML through a sanitizer. That
+# sanitizer removes scripts and event handlers. It keeps a picture on another
 # host, which the visitor's browser then requests; an inline style, which can
-# carry a colour of its own or lay an element over the page; and a form.
+# carry a color of its own or lay an element over the page; and a form.
 # Ruled 2026-10-06: an answer draws Markdown and nothing else, and no picture
 # from another host. _drawable below is where that is decided, in text, before
 # the browser sees it.
@@ -301,8 +301,11 @@ def _drawable(text):
       longer run of the same mark, and holds nothing more but backticks,
       tildes and spaces, indented three spaces or fewer from where the block
       sits; or at the end of the answer. The browser's parser ends it there
-      too, and also, in a quote or a list item, where the quote or the item
-      ends, which this function does not judge.
+      too, except in a case found on 2026-10-11: in a list, a fence indented
+      further than the item's own text, holding a line indented three spaces
+      further still. There the parser does not end the block where this
+      function does. The parser also ends a block, in a quote or a list item,
+      where the quote or the item ends, which this function does not judge.
 
       A fence indented four spaces or more, outside any list or quote, is
       read as a fence when a fence further on closes it, before any line that
@@ -334,9 +337,9 @@ def _drawable(text):
       entities like any others, and show.
 
     No language label means the browser loads no syntax grammar. That is ruled as
-    well (2026-10-06): the syntax colours were already off, and one grammar in the
+    well (2026-10-06): the syntax colors were already off, and one grammar in the
     pinned Gradio, cpp, blanked the whole answer when it loaded without the one it
-    is built on. A block labelled mermaid was not drawn as code at all: Gradio
+    is built on. A block labeled mermaid was not drawn as code at all: Gradio
     sets it aside for a diagram, and on the pinned version what reached the page
     was its text, outside any code box, and no diagram.
 
@@ -469,8 +472,8 @@ def _fenced(line, lines, i, outside):
     while j < len(lines) and not closes.match(_unwrapped(lines[j], quotes, near)):
         j += 1
     if outside and margin >= 4 and not before.strip(" "):
-        labelled = (_FENCE.match(_unwrapped(line_, 0, margin)) for line_ in lines[i + 1:j])
-        if j == len(lines) or any(other and other.group(3).strip() for other in labelled):
+        labeled = (_FENCE.match(_unwrapped(line_, 0, margin)) for line_ in lines[i + 1:j])
+        if j == len(lines) or any(other and other.group(3).strip() for other in labeled):
             return None
     return opens, j, quotes, margin
 
@@ -654,11 +657,11 @@ def _dark_only(theme):
     text on it: 1.33:1 for the answers, 1.06:1 for the example questions.
     Measured 2026-09-30, and seen by nobody whose device is dark. Copying the
     dark values over the light ones means the device setting and the address
-    draw the same page, wherever Gradio colours by a theme value. Nothing is
+    draw the same page, wherever Gradio colors by a theme value. Nothing is
     hardcoded here: the values it copies are Gradio's own, and _on_register
     below replaces the ones the page draws.
 
-    It does not reach what Gradio colours by its dark class and not by a theme
+    It does not reach what Gradio colors by its dark class and not by a theme
     value. Three such places are known: the syntax in a fenced code block, which
     the CSS below switches off; the icon of Gradio's error toast, which the CSS
     below sets; and the "Use via API" panel. The footer no longer links to
@@ -670,7 +673,7 @@ def _dark_only(theme):
     return theme
 
 
-# Colour comes from the brand register, never from a literal in this file.
+# Color comes from the brand register, never from a literal in this file.
 #
 # This table says which register key each thing the page draws takes. The demo
 # sits on the website surface, and a third-party widget on a brand surface
@@ -724,7 +727,7 @@ ROLES = {
     ],
 }
 
-# The focus ring is a shadow, not a colour: Gradio draws one pixel of its own grey
+# The focus ring is a shadow, not a color: Gradio draws one pixel of its own gray
 # and a black inset. It is switched off, and the gold focus border carries the
 # state.
 NO_SHADOW = ("input_shadow_focus",)
@@ -734,7 +737,7 @@ def _on_register(theme):
     """The theme with every value the page draws taken from the brand register.
 
     Raises at import if Gradio no longer has one of the names. Setting a name the
-    theme does not know is silent: the page would go back to Gradio's grey with
+    theme does not know is silent: the page would go back to Gradio's gray with
     every gate green, because no gate renders the page. The eval imports this
     file, so a name that a Gradio bump renamed stops there, before any deploy. A
     key the register no longer has stops the same way.
@@ -745,7 +748,7 @@ def _on_register(theme):
     if unknown:
         raise RuntimeError(
             "Gradio's theme has no value named: " + ", ".join(unknown)
-            + ". The demo's colours are set by name; see ROLES in app.py."
+            + ". The demo's colors are set by name; see ROLES in app.py."
         )
     for key, group in ROLES.items():
         for name in group:
@@ -831,7 +834,7 @@ THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
 
 # What the theme does not reach is set here, after the brand's @font-face rules,
 # and one value of the theme's own that Gradio's base stylesheet overrides on
-# one device (the typeface rule). This is all the CSS there is. Every colour in
+# one device (the typeface rule). This is all the CSS there is. Every color in
 # it reads the register.
 #
 # Gradio can render the page on the server or in the browser, and the two put
@@ -842,7 +845,7 @@ THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
 # 2026-10-05). So a rule here that competes with one of Gradio's carries
 # !important, and a render in one mode does not show what the other draws.
 #
-#   The heading colour.
+#   The heading color.
 #
 #   The page heading's face. Ruled 2026-10-19: the page heading takes the
 #   register's display face, and only it; the headings in an answer keep the
@@ -851,20 +854,20 @@ THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
 #   competes with nothing and holds in both modes as it is.
 #
 #   The text of inline code in an answer. The text of a fenced code block takes
-#   the same colour, through the same rule. This one holds in both modes as it
+#   the same color, through the same rule. This one holds in both modes as it
 #   is.
 #
-#   The syntax in a fenced code block. Gradio colours it in a palette of its
+#   The syntax in a fenced code block. Gradio colors it in a palette of its
 #   own, one set on a Light device and another on a Dark one, and no theme
 #   value reaches either. Ruled 2026-10-05: switched off, so a block reads in
-#   the one code colour on every device. The rule also undoes the one case
-#   where Gradio dims a token and does not colour it. An answer now
+#   the one code color on every device. The rule also undoes the one case
+#   where Gradio dims a token and does not color it. An answer now
 #   reaches the page with no language label (_drawable; ruled 2026-10-06), so
 #   Gradio loads no grammar and makes no token. The rule stays, so that the
 #   ruling does not rest on one function.
 #
 #   A horizontal rule and a table's borders in an answer. Gradio draws the rule
-#   in a grey of its own and the table's borders in the text colour. Both take
+#   in a gray of its own and the table's borders in the text color. Both take
 #   the register's border: mapped by the register's owner on 2026-10-05.
 #
 #   The footer's separator dots. Gradio leaves them standing when the links
@@ -892,7 +895,7 @@ THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
 #
 # The button, the ground and the hover used to be set here as well, with
 # !important. The theme sets them now, hover included, so there is one place
-# that says what colour the button is.
+# that says what color the button is.
 GOLD, CODE, BORDER = WEB["accent"], WEB["code"], WEB["border"]
 RAISED, ERROR = WEB["bg-2"], STATUS["error"]
 
@@ -915,7 +918,7 @@ with gr.Blocks(title="Ask the Corpus") as demo:
     gr.Markdown("Ask a question about Christian Smith's work. Answers come only from his published work on rnvizion.dev: his writing and his profile. If it's not there, it says so.")
     inp = gr.Textbox(label="Your question", placeholder="What is squish?", lines=2, max_lines=4)
     btn = gr.Button("Ask", variant="primary")
-    # No maths in an answer. Gradio lifts whatever sits between two "$$" out of
+    # No math in an answer. Gradio lifts whatever sits between two "$$" out of
     # the text before its Markdown parser runs, and puts it back afterwards as it
     # was, tags and all; a "$$" inside a code block can carry the block's closing
     # fence away with it. An empty list switches that pass off. _drawable relies
@@ -952,7 +955,7 @@ def _launchable(arguments):
 #
 # footer_links says which of Gradio's three footer links the page shows. Two of
 # them open panels of Gradio's own, "Use via API" and Settings, which draw
-# colours that are not the register's; the first also follows the visitor's
+# colors that are not the register's; the first also follows the visitor's
 # device. Ruled 2026-10-05: the footer links to neither, and "Built with Gradio"
 # stays. Only the links go: the API still answers, and scripts/deploy_space.py
 # calls it after a deploy that changes the Space.

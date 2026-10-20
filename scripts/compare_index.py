@@ -41,9 +41,12 @@ WHAT IS COMPARED
                number of directories. An orphaned directory is a change.
 
 WHY VECTORS GET A TOLERANCE
-The embedding model is not bit-reproducible across CI runners. Of the four
+Embeddings are not bit-reproducible from one CI run to the next. Of the four
 rebuilds whose text matched their parent's, two carried vectors that differed
-by up to 2.1e-07 per component and two matched exactly. A real change to a
+by up to 2.1e-07 per component and two matched exactly. Why is not
+established: those runs installed requirements.txt, which pins the embedding
+path and lets other transitive packages float, and neither the versions they
+resolved nor their hardware was read. A real change to a
 chunk changes its text, which is compared exactly. A change to the embedding
 stack moves vectors by orders of magnitude more than the tolerance.
 

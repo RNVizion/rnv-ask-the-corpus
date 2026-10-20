@@ -80,7 +80,7 @@ def fail(msg: str) -> None:
     sys.exit(1)
 
 
-def _normalise_argv(argv):
+def _normalize_argv(argv):
     """Repair flags mangled by smart punctuation, as eval/why.py does.
 
     iOS rewrites "--" to an en or em dash as you type. Only leading dashes are
@@ -241,7 +241,7 @@ def main() -> int:
     ap.add_argument("--smoke", action="store_true", help="after a change, prove the app answers")
     ap.add_argument("--check", action="store_true", help="only ask whether the live app answers")
     ap.add_argument("--dry-run", action="store_true", help="print the plan; change nothing")
-    args = ap.parse_args(_normalise_argv(sys.argv[1:]))
+    args = ap.parse_args(_normalize_argv(sys.argv[1:]))
     if args.check and not (args.index or args.app):
         # Nothing is uploaded, so nothing needs a token: the endpoint is public.
         check_health(inconclusive_ok=True)

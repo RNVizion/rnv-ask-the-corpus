@@ -68,7 +68,7 @@ def data():
 
 
 def norm(url):
-    """discover.py's own normalisation, so 'already registered?' means the same
+    """discover.py's own normalization, so 'already registered?' means the same
     thing on both sides of the file."""
     return url.rstrip("/")
 

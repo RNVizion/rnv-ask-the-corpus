@@ -189,7 +189,7 @@ def claim_result(case, answer, refused):
     "require" patterns must all match. "forbid" names a figure that appears
     nowhere in the corpus, so it cannot have been read and can only have been
     fabricated; do not list a wrong-but-grounded figure there, because quoting one
-    correctly is a right answer. Patterns are regexes over the normalised answer.
+    correctly is a right answer. Patterns are regexes over the normalized answer.
 
     A "require" pattern carries the NOUN it counts, not just the figure. res-count
     first required a bare word-boundary match on nine-or-9, which inside that

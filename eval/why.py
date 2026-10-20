@@ -261,7 +261,7 @@ def rank(col, question: str, k: int, source: str | None, marked: set[str], full:
                   f"spanning the rest. One clear match above a noise floor")
 
 
-def _normalise_argv(argv):
+def _normalize_argv(argv):
     """Repair flags mangled by smart punctuation before argparse sees them.
 
     iOS rewrites "--" to an en or em dash as you type, so a correct command comes
@@ -291,7 +291,7 @@ def main() -> int:
     ap.add_argument("--source", help="restrict the ranking to one source id")
     ap.add_argument("--full", action="store_true", help="print whole chunks")
     ap.add_argument("--path", default=CHROMA_PATH, help="path to the chroma dir")
-    args = ap.parse_args(_normalise_argv(sys.argv[1:]))
+    args = ap.parse_args(_normalize_argv(sys.argv[1:]))
 
     if not (args.question or args.contains or args.dump):
         ap.error("give a question, --contains, --dump, or a combination")

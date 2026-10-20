@@ -81,7 +81,7 @@ def main():
 
     model = SentenceTransformer("all-MiniLM-L6-v2")
     # Build into an empty directory, every time. delete_collection() removes the
-    # collection from the catalogue but leaves its vector segment on disk, so each
+    # collection from the catalog but leaves its vector segment on disk, so each
     # rebuild used to add a folder and remove none: ten generations back to June 2026
     # sat in the tree, and the upload shipped them to the Space. Harmless while every
     # source is public. From Phase 2 it would mean re-ingesting cannot remove

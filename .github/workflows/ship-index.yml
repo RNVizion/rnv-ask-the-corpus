@@ -153,8 +153,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run eval.yml --ref main
 
-      # Runs whether or not anything was committed, against main's index either
-      # way. When the Space already holds it, deploy_space.py uploads nothing, says
+      # Runs when the commit step says deploy: after a commit, and when the index
+      # is unchanged, by content or by bytes. It does not run when that step
+      # stands down because sources.json moved on main during the rebuild, when
+      # the step fails, or when the eval dispatch above fails after a commit. It
+      # deploys main's index either way. When the Space
+      # already holds it, deploy_space.py uploads nothing, says
       # "Space already matches", and nothing restarts. When an earlier deploy
       # failed, this is how the Space catches up: rerunning a failed ship used to
       # redeploy only because every rebuild looked changed.

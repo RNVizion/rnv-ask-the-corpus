@@ -3,8 +3,10 @@ import re
 import sys
 import time
 from collections import defaultdict, deque
+from pathlib import Path
 
 import gradio as gr
+from gradio.utils import is_static_file   # Gradio's own test for a file set_static_paths serves; see _served
 import chromadb
 from sentence_transformers import SentenceTransformer
 from anthropic import Anthropic
@@ -757,29 +759,73 @@ def _on_register(theme):
     return theme
 
 
-# Type comes from the brand register too: Inter for the body and JetBrains Mono
-# for code, the roles the register's TYPE gives them. Ruled 2026-10-18. Until
-# then the page drew Gradio's own faces, whose semi-bold files hold three of the
-# 95 printable ASCII characters, so bold text, the heading and the Ask button
-# drew mostly in the device's own face.
+# Type comes from the brand register too: its body face for text and its mono
+# face for code, ruled 2026-10-18, and its display face for the page heading
+# alone, ruled 2026-10-19. Until 2026-10-18 the page drew Gradio's own faces,
+# whose semi-bold files hold three of the 95 printable ASCII characters, so bold
+# text, the heading and the Ask button drew mostly in the device's own face.
 #
 # The files ship inside rnv-brand, in the folder fonts_dir() names, with their
 # licenses, and the register checks the folder at import, naming any file that
-# is missing. Gradio serves that folder as static files, and font_faces() writes
-# the @font-face rules for it, which head the stylesheet below. Gradio's file
-# route names a file by its absolute path, so the stylesheet shows where pip
-# installed the package. Headings take the body face, as they did; whether they
-# take the brand's display face is not ruled.
+# is missing. _brand_fonts() has Gradio serve that folder and returns the
+# @font-face rules font_faces() writes for it, which head the stylesheet below.
+# Serving the folder and naming its files are one function so that one cannot be
+# dropped and the other kept: either alone leaves every glyph in the device's
+# face, and the file still imports, so the eval would pass it. _served() checks
+# the finished stylesheet at import for the same thing. Gradio's file route names
+# a file by its absolute path, so the stylesheet shows where pip installed the
+# package.
 #
 # Each face is a gr.themes.Font and each fallback a plain string, as in
 # Gradio's own themes. All plain strings stop launch() when Gradio's analytics
 # are on, which is its default: it compares the theme with its built-in ones,
-# and a string there has no .name. A Font around a fallback quotes it,
-# and a quoted system-ui is a font name, not the device's interface face.
-FONTS = fonts_dir()
-gr.set_static_paths(paths=[FONTS])
+# and a string there has no .name. Importing this file never reaches that
+# comparison; eval/check_launch.py launches the page with analytics on, in the
+# eval, before any deploy. A Font around a fallback quotes it, and a quoted
+# system-ui is a font name, not the device's interface face.
+FONT_ROUTE = "/gradio_api/file="
+
+
+def _brand_fonts():
+    """Have Gradio serve the brand's font folder; return the @font-face rules for it."""
+    folder = fonts_dir()
+    gr.set_static_paths(paths=[folder])
+    return font_faces(f"{FONT_ROUTE}{folder}/")
+
+
+def _served(css):
+    """The stylesheet, checked at import: it names every brand font file, and Gradio serves each one.
+
+    Raises if a font file in the folder has no rule in the stylesheet, if a rule
+    names a file outside the folder or one that does not exist, or if Gradio's own
+    test says it would not serve a file the stylesheet names. It reads that test;
+    it does not fetch a file, which eval/check_launch.py does on a launched page.
+    """
+    folder = Path(fonts_dir()).resolve()
+    files = sorted(p.resolve() for p in folder.glob("*.woff2"))
+    named = sorted(Path(m).resolve() for m in re.findall(r'url\("' + re.escape(FONT_ROUTE) + r'([^"]+)"\)', css))
+    problems = []
+    unnamed = [p.name for p in files if p not in named]
+    if unnamed:
+        problems.append("no @font-face rule names " + ", ".join(unnamed))
+    stray = [str(p) for p in named if p.parent != folder or not p.is_file()]
+    if stray:
+        problems.append("rules name files outside the font folder or missing: " + ", ".join(stray))
+    unserved = [p.name for p in named if not is_static_file(str(p))]
+    if unserved:
+        problems.append("Gradio would not serve " + ", ".join(unserved))
+    if not files:
+        problems.append(f"no font files in {folder}")
+    if problems:
+        raise RuntimeError("The page's fonts would not load: " + "; ".join(problems)
+                           + ". See _brand_fonts and _served in app.py.")
+    return css
+
+
 SANS = [gr.themes.Font(TYPE["body"]["family"]), "ui-sans-serif", "system-ui", "sans-serif"]
 MONO = [gr.themes.Font(TYPE["mono"]["family"]), "ui-monospace", "Consolas", "monospace"]
+HEADING = ", ".join(str(face) for face in
+                    [gr.themes.Font(TYPE["display"]["family"]), "ui-sans-serif", "system-ui", "sans-serif"])
 
 THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
 
@@ -797,6 +843,12 @@ THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
 # !important, and a render in one mode does not show what the other draws.
 #
 #   The heading colour.
+#
+#   The page heading's face. Ruled 2026-10-19: the page heading takes the
+#   register's display face, and only it; the headings in an answer keep the
+#   body face. The rule names the heading by its elem_id, page-heading. No
+#   rule of Gradio's sets a heading's face, which a heading inherits, so this
+#   competes with nothing and holds in both modes as it is.
 #
 #   The text of inline code in an answer. The text of a fenced code block takes
 #   the same colour, through the same rule. This one holds in both modes as it
@@ -844,8 +896,9 @@ THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
 GOLD, CODE, BORDER = WEB["accent"], WEB["code"], WEB["border"]
 RAISED, ERROR = WEB["bg-2"], STATUS["error"]
 
-CSS = font_faces(f"/gradio_api/file={FONTS}/") + f"""
+CSS = _served(_brand_fonts() + f"""
 h1, h2 {{ color: {GOLD} !important; }}
+#page-heading h1 {{ font-family: {HEADING}; }}
 .gradio-container .prose code {{ color: {CODE}; }}
 .gradio-container .prose pre code span.token {{ color: inherit !important; opacity: 1 !important; }}
 .gradio-container .prose hr {{ border-top-color: {BORDER} !important; }}
@@ -855,10 +908,10 @@ h1, h2 {{ color: {GOLD} !important; }}
 .gradio-container {{ --font-mono: {THEME.font_mono}; }}
 .gradio-container .toast-body.error {{ --toast-color: {ERROR} !important; }}
 .gradio-container .toast-body {{ background: {RAISED} !important; }}
-"""
+""")
 
 with gr.Blocks(title="Ask the Corpus") as demo:
-    gr.Markdown("# Ask the Corpus")
+    gr.Markdown("# Ask the Corpus", elem_id="page-heading")
     gr.Markdown("Ask a question about Christian Smith's work. Answers come only from his published work on rnvizion.dev: his writing and his profile. If it's not there, it says so.")
     inp = gr.Textbox(label="Your question", placeholder="What is squish?", lines=2, max_lines=4)
     btn = gr.Button("Ask", variant="primary")

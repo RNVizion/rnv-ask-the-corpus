@@ -21,7 +21,7 @@ requests==2.34.2
 anthropic==0.120.2
 gradio==6.22.0
 huggingface_hub==1.26.0
-# app.py's colours and typefaces, from the brand register. Pinned to a commit,
+# app.py's colors and typefaces, from the brand register. Pinned to a commit,
 # so this line says which register revision the demo mirrors; move it to take
 # a brand change.
 rnv-brand @ git+https://github.com/RNVizion/rnv-brand@db7dba0596fcb3c986c8ec273a96c9986d25adce

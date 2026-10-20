@@ -43,7 +43,7 @@ That changes what matters here:
 These are the reports most likely to arrive, and each one filed as a security issue costs your time and mine and lands in the wrong process.
 
 - **A wrong answer is a correctness bug, not a disclosure.** A retrieval miss, an answer attributed to the wrong source, an answer drawn from a source it should not have used: all of these surface text already public on the site. They are worth reporting; open a normal issue.
-- **A refusal that should have been an answer, or an answer that should have been a refusal.** Same reason. Refusal behaviour is a measured property with cases in `eval/` tracking it, graded on every push.
+- **A refusal that should have been an answer, or an answer that should have been a refusal.** Same reason. Refusal behavior is a measured property with cases in `eval/` tracking it, graded on every push.
 - **The committed `chroma/` directory.** It is in the repository deliberately. It holds embeddings and text chunks of published pages and nothing that is not already on the site.
 - **No authentication on the endpoint.** That is the design, not an oversight.
 
@@ -51,7 +51,7 @@ These are the reports most likely to arrive, and each one filed as a security is
 
 **Third-party rebuilds, forks, mirrors, and hosted copies.** If the instance you are testing is not the canonical Space named above, report it to whoever operates it; I cannot fix, verify, or answer for a deployment I do not run.
 
-This carries more weight here than on most projects. The application cannot answer anything without an API key. A rebuild either brings its own, in which case its limits, its spend, and its behaviour belong to its operator, or it does not, in which case it does not answer at all.
+This carries more weight here than on most projects. The application cannot answer anything without an API key. A rebuild either brings its own, in which case its limits, its spend, and its behavior belong to its operator, or it does not, in which case it does not answer at all.
 
 ## Credentials
 
@@ -62,7 +62,7 @@ Two distinct credentials, deliberately separate, both read from `ANTHROPIC_API_K
 
 Neither is committed to this repository, and neither appears in `chroma/`, in `eval/results.json`, or in any workflow output.
 
-## One behaviour worth knowing before you report it
+## One behavior worth knowing before you report it
 
 When the pipeline fails, a visitor gets a fixed message in the answer area rather than an error state. That message is a constant; it is not built from the exception, so nothing internal reaches the page. The underlying reason is returned separately and read by the test harness, not by the interface.
 

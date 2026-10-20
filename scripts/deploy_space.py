@@ -18,8 +18,10 @@ This script removes that failure class instead of adding a reminder about it.
            Space's chroma/, and delete the stray index files at the Space root.
   --app    upload app.py; a requirements.txt derived from the repo's with the
            gradio pin removed (the Space installs Gradio from its README's
-           sdk_version); and that README with sdk_version set from the same pin.
-           One source of truth: the repo's requirements.txt.
+           sdk_version); and that README with sdk_version set from the same pin
+           and python_version set from the eval's. One source of truth for
+           each: the repo's requirements.txt, and the python-version line in
+           .github/workflows/eval.yml.
   --smoke  if the upload changed anything, wait for the rebuild, then call the
            app's undocumented `health` endpoint, which runs one real question and
            answers "ok" or names the failing layer. A deploy that cannot be shown
@@ -60,6 +62,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # The Space ID keeps the pre-rename name on purpose. Do not "fix" it.
 SPACE_ID = "RNVizion/ask-the-corpus"
 CHROMA = REPO_ROOT / "chroma"
+EVAL_WORKFLOW = REPO_ROOT / ".github" / "workflows" / "eval.yml"
 
 # Only these may be deleted outside chroma/: leftovers of an early upload that
 # put an index at the Space root, where app.py never reads.
@@ -106,14 +109,28 @@ def space_requirements() -> tuple[bytes, str]:
     return ("\n".join(kept) + "\n").encode("utf-8"), version
 
 
-def space_readme(api, gradio_version: str) -> bytes:
-    """The Space's own README with sdk_version set to the repo's gradio pin."""
+def eval_python() -> str:
+    """The Python version the eval runs on: the one line in eval.yml that names it.
+
+    The Space is set to run the same version. Until 2026-10-19 nothing here named
+    the Space's: its README said python_version '3.13', set before this script
+    derived anything, while the eval judged app.py on 3.11."""
+    text = EVAL_WORKFLOW.read_text(encoding="utf-8")
+    pins = re.findall(r'(?m)^\s*python-version:\s*["\']?([0-9]+\.[0-9]+(?:\.[0-9]+)?)["\']?\s*$', text)
+    if len(pins) != 1:
+        fail(f"expected exactly one python-version line in {EVAL_WORKFLOW.name}, found {len(pins)}")
+    return pins[0]
+
+
+def space_readme(api, gradio_version: str, python_version: str) -> bytes:
+    """The Space's own README with sdk_version and python_version set from the repo."""
     path = api.hf_hub_download(SPACE_ID, "README.md", repo_type="space", force_download=True)
     text = Path(path).read_text(encoding="utf-8")
-    new, n = re.subn(r"(?m)^sdk_version:.*$", f"sdk_version: {gradio_version}", text)
-    if n != 1:
-        fail(f"expected one sdk_version line in the Space README, found {n}")
-    return new.encode("utf-8")
+    for key, value in (("sdk_version", gradio_version), ("python_version", f"'{python_version}'")):
+        text, n = re.subn(rf"(?m)^{key}:.*$", f"{key}: {value}", text)
+        if n != 1:
+            fail(f"expected one {key} line in the Space README, found {n}")
+    return text.encode("utf-8")
 
 
 def check_local_index() -> list[Path]:
@@ -145,7 +162,7 @@ def plan(api, want_index: bool, want_app: bool):
         adds += [
             CommitOperationAdd(path_in_repo="app.py", path_or_fileobj=str(REPO_ROOT / "app.py")),
             CommitOperationAdd(path_in_repo="requirements.txt", path_or_fileobj=reqs),
-            CommitOperationAdd(path_in_repo="README.md", path_or_fileobj=space_readme(api, expect_sdk)),
+            CommitOperationAdd(path_in_repo="README.md", path_or_fileobj=space_readme(api, expect_sdk, eval_python())),
         ]
     return adds, deletes, expect_sdk
 

@@ -25,12 +25,14 @@ This script removes that failure class instead of adding a reminder about it.
   --smoke  if the upload changed anything, wait for the rebuild, then call the
            app's undocumented `health` endpoint, which runs one real question and
            answers "ok" or names the failing layer. A deploy that cannot be shown
-           to answer fails the run.
+           to answer fails the run. It also reads the config the live page
+           serves, and fails if it carries a Space id (see check_health).
   --check  the health call on its own: upload nothing, wait for nothing, just ask
            whether the live demo still answers. Runs on the corpus schedule, so a
            Space that stops answering is found within hours rather than by someone
            opening it. Between 2026-08-21 and 2026-09-17 nothing asked, and the
-           demo failed every question for weeks. Needs no token.
+           demo failed every question for weeks. Reads the live config too, as
+           --smoke does. Needs no token.
 
 Everything goes into one Space commit, so one deploy is one rebuild.
 
@@ -208,13 +210,36 @@ def check_health(inconclusive_ok: bool = False) -> None:
     limiter answered, not the pipeline, and reddening the corpus schedule because
     the demo was busy would teach everyone to ignore it. A deploy still demands
     proof, so the deploy path leaves it False.
+
+    Before asking, it reads the config the live page serves, which the client
+    has just fetched, and fails if it carries a Space id. app.py clears the id
+    so that the page, opened at its own .hf.space address, draws no Hugging Face
+    header and asks Google Fonts for nothing (ruled 2026-10-20). The eval checks
+    that on a local launch; this checks it on the Space, where Hugging Face sets
+    the environment. It is retried with the rest: while a rebuild rolls out,
+    the app that answers can still be the old one.
     """
     from gradio_client import Client
 
     last = "no attempt"
     for attempt in range(1, 7):
         try:
-            result = Client(SPACE_ID, verbose=False).predict(api_name="/health")
+            client = Client(SPACE_ID, verbose=False)
+        except Exception as exc:  # the app can take a moment after RUNNING
+            last = f"{type(exc).__name__}: {exc}"
+            print(f"health attempt {attempt}: {last}; retrying", flush=True)
+            time.sleep(20 * attempt)
+            continue
+        served = client.config.get("space_id")
+        if served is not None:
+            last = (f"the live page's config carries the Space id {served!r}, so opened at its own "
+                    f".hf.space address it draws Hugging Face's header and asks Google Fonts for "
+                    f"its faces. See _without_space_header in app.py")
+            print(f"health attempt {attempt}: {last}; retrying", flush=True)
+            time.sleep(20 * attempt)
+            continue
+        try:
+            result = client.predict(api_name="/health")
         except Exception as exc:  # the app can take a moment after RUNNING
             last = f"{type(exc).__name__}: {exc}"
         else:
@@ -229,7 +254,7 @@ def check_health(inconclusive_ok: bool = False) -> None:
             last = f"health returned {result!r}"
         print(f"health attempt {attempt}: {last}; retrying", flush=True)
         time.sleep(20 * attempt)
-    fail(f"could not verify the Space answers: {last}")
+    fail(f"could not verify the Space: {last}")
 
 
 # ---- main ------------------------------------------------------------------------

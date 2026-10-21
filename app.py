@@ -763,8 +763,9 @@ def _on_register(theme):
 
 
 # Type comes from the brand register too: its body face for text and its mono
-# face for code, ruled 2026-10-18, and its display face for the page heading
-# alone, ruled 2026-10-19. Until 2026-10-18 the page drew Gradio's own faces,
+# face for code, ruled 2026-10-18, and its display face for every heading the
+# page draws, ruled 2026-10-19 for the page heading and 2026-10-20 for the
+# headings in an answer. Until 2026-10-18 the page drew Gradio's own faces,
 # whose semi-bold files hold three of the 95 printable ASCII characters, so bold
 # text, the heading and the Ask button drew mostly in the device's own face.
 #
@@ -847,11 +848,19 @@ THEME = _on_register(_dark_only(gr.themes.Default(font=SANS, font_mono=MONO)))
 #
 #   The heading color.
 #
-#   The page heading's face. Ruled 2026-10-19: the page heading takes the
-#   register's display face, and only it; the headings in an answer keep the
-#   body face. The rule names the heading by its elem_id, page-heading. No
-#   rule of Gradio's sets a heading's face, which a heading inherits, so this
-#   competes with nothing and holds in both modes as it is.
+#   The headings' face, weight and tracking. The page heading and every
+#   heading in an answer, h1 to h6, take the register's display face at weight
+#   500, tracked by their own size on the register's display-heading ladder:
+#   -0.02em for h1 and h2, at 26 and 22px, and -0.01em for h3 to h6, at 16px
+#   and below. Ruled 2026-10-19 for the page heading's face and 2026-10-20 for
+#   the rest. The sizes are Gradio's and stay its own. The rules set tracking
+#   by level, for the size each level has in the pinned Gradio: if a bump moves
+#   a level's size, its tracking stays, and is moved here by hand to the rung of
+#   the new size. No rule of Gradio's sets a heading's face or tracking, so
+#   those two compete with nothing. Gradio sets h1 to h5's weight from a theme
+#   value, in a rule that ties with this one, so the weight carries !important:
+#   without it, rendered on the server, h1 to h5 stayed at 600. h6 has no rule
+#   of Gradio's but its reset, and takes the same weight.
 #
 #   The text of inline code in an answer. The text of a fenced code block takes
 #   the same color, through the same rule. This one holds in both modes as it
@@ -901,7 +910,11 @@ RAISED, ERROR = WEB["bg-2"], STATUS["error"]
 
 CSS = _served(_brand_fonts() + f"""
 h1, h2 {{ color: {GOLD} !important; }}
-#page-heading h1 {{ font-family: {HEADING}; }}
+.gradio-container .prose h1, .gradio-container .prose h2, .gradio-container .prose h3,
+.gradio-container .prose h4, .gradio-container .prose h5, .gradio-container .prose h6 {{ font-family: {HEADING}; font-weight: 500 !important; }}
+.gradio-container .prose h1, .gradio-container .prose h2 {{ letter-spacing: -0.02em; }}
+.gradio-container .prose h3, .gradio-container .prose h4,
+.gradio-container .prose h5, .gradio-container .prose h6 {{ letter-spacing: -0.01em; }}
 .gradio-container .prose code {{ color: {CODE}; }}
 .gradio-container .prose pre code span.token {{ color: inherit !important; opacity: 1 !important; }}
 .gradio-container .prose hr {{ border-top-color: {BORDER} !important; }}
@@ -931,6 +944,47 @@ with gr.Blocks(title="Ask the Corpus") as demo:
     # Called by scripts/deploy_space.py after a deploy that changes the Space, and
     # by the cron's health job on every pass. Hidden from the API page.
     gr.api(health, api_name="health", api_visibility="undocumented")
+
+
+def _without_space_header(blocks):
+    """The page, with no Space id in its config, so Gradio draws no Hugging Face header.
+
+    Raises at import if Blocks no longer has a space_id, or if the config it
+    builds no longer reads it: setting an attribute Gradio has stopped reading
+    is silent, and the header, with its request to Google Fonts, would come back
+    with every gate green. It reads the config at import; what launch() or the
+    page's own code do later is not checked here. eval/check_launch.py reads
+    the config a launched page serves, with a Space's environment, and
+    scripts/deploy_space.py reads the live Space's after every deploy that
+    changes the Space, and on the corpus schedule.
+    """
+    if not hasattr(blocks, "space_id"):
+        raise RuntimeError("Gradio's Blocks has no space_id. See _without_space_header in app.py.")
+    blocks.space_id = "probe/probe"
+    try:
+        served = blocks.get_config_file().get("space_id")
+    finally:
+        blocks.space_id = None
+    if served != "probe/probe":
+        raise RuntimeError("The page's config no longer reads Blocks.space_id. "
+                           "See _without_space_header in app.py.")
+    return blocks
+
+
+# No Hugging Face header. On a Space, Gradio puts the Space's id in the page's
+# config. When the page is opened at its own .hf.space address as the top
+# window, Gradio's code adds Hugging Face's header card: it asks Google Fonts
+# for the card's two faces, and huggingface.co for the Space's details and its
+# author's avatar. rnvizion.dev's embed and the Space's page on huggingface.co
+# are frames, so neither runs it. Ruled 2026-10-20: the header is off, so the
+# config carries no Space id. What goes with it: the card on the raw address,
+# with the Space's name, author, likes and a link to its page; Gradio's
+# telemetry reporting a Space; and the Space id in the code snippets that
+# /gradio_api/info returns and the API panel shows. Gradio's share checks also
+# read it, and this page shares nothing; so does its Settings panel, which
+# nothing on the page opens; so does the config served when a login is
+# required, and this page asks for none.
+demo = _without_space_header(demo)
 
 
 def _launchable(arguments):

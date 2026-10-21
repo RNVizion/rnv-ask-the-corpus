@@ -86,7 +86,7 @@ Run the coverage guard before anything that spends money. It reads the index dir
 1. **Install deps**
 2. **`pytest tests/ -v`** — the source-list contract; no network, no API key, about a second
 3. **`check_index_coverage.py`** — the coverage guard; fails fast, before any Claude spend
-4. **`check_launch.py`** — launches `app.py` as the Space does, rendered on the server with Gradio's analytics on; fails if it does not answer, if it has exited or written a traceback 12 seconds later, or if any font file its stylesheet names is not served. No Claude call: the API key it gets is a placeholder
+4. **`check_launch.py`** — launches `app.py` as the Space does, rendered on the server with Gradio's analytics on and with a Space's environment (`SYSTEM=spaces` and a `SPACE_ID`, after checking that Gradio reads them); fails if it does not answer, if it has exited or written a traceback 12 seconds later (one is allowed: the hot-reload thread a Space's environment starts, which needs Hugging Face's `spaces` package), if any font file its stylesheet names is not served, or if the config the page serves carries a Space id, which would bring back Hugging Face's header and its Google Fonts request. No Claude call: the API key it gets is a placeholder
 5. **`evaluate.py --report-only`** — always writes the report
 6. **`pytest eval/ -v`** — the metric gate, asserting against that report
 7. **Commit `report.md` and `results.json` back to `main`** — on every run including failures; ours-wins, `[skip ci]`

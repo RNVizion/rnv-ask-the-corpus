@@ -1,6 +1,6 @@
 # Ask the Corpus — Eval Report
 
-_2026-10-21T02:28:02+00:00 · commit `336cc99`_
+_2026-10-21T04:18:58+00:00 · commit `e070b12`_
 
 _13 sources · 64 chunks · 60 cases · model `claude-haiku-4-5` · temp 0 · top-k 5_
 
